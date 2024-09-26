@@ -137,12 +137,16 @@ namespace TeamWork.Field
         {
             switch (keyPressed.Key)
             {
-                case ConsoleKey.UpArrow: Player.MoveUp();
+                case ConsoleKey.W:
+                case ConsoleKey.UpArrow: Player.MoveUp();               
                     break;
+                case ConsoleKey.S:
                 case ConsoleKey.DownArrow: Player.MoveDown();
                     break;
+                case ConsoleKey.A:
                 case ConsoleKey.LeftArrow: Player.MoveLeft();
                     break;
+                case ConsoleKey.D:
                 case ConsoleKey.RightArrow: Player.MoveRight();
                     break;
                 // Create a new bullet object
@@ -188,7 +192,7 @@ namespace TeamWork.Field
             
             for (int i = 0; i < _bullets.Count; i++) // Cycle through all bullets
             {
-                if (_bullets[i].Point.Y >= 3) // Check if the bullet is outside the screen before it clears it
+                if (_bullets[i].Point.Y >= 0) // Check if the bullet is outside the screen before it clears it
                 {
                     _bullets[i].ClearObject();
                 }
