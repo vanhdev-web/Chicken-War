@@ -121,7 +121,7 @@ namespace TeamWork.Field
             Player.Level = 1;
             Player.Score = 0;
             Player.Lifes = 3;
-            Player.Point = Player.PlayerPoint;
+            Player.Point = new Point2D(30, 25);
             BossActive = false;
             boss = new Boss(0);
             _bullets.Clear();
