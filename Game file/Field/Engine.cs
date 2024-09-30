@@ -17,7 +17,7 @@ namespace TeamWork.Field
         public Thread MusicThread; // Background music thread
         public Thread EffectsThread; // Effects music thread
 
-        public const int WindowWidth = 80; //Window Width constant to be accesed from everywhere
+        public const int WindowWidth = 115; //Window Width constant to be accesed from everywhere
         public const int WindowHeight = 32; //Window height constant to be accesed from everywhere
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace TeamWork.Field
                 // Create a new bullet object
                 case ConsoleKey.Spacebar:
                     // Add a GameObject to the bullet list with starting position of the players plane nose with type of bullet
-                    _bullets.Add(new GameObject(new Point2D(Player.Point.X + 5, Player.Point.Y-2 ),0));
+                    _bullets.Add(new GameObject(new Point2D(Player.Point.X + 4, Player.Point.Y-2 ),0));
                     _playEffect = true; // Play player shooting sound
                     break;
             }

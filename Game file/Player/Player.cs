@@ -85,19 +85,23 @@ namespace TeamWork
         //Method to print the player at its current position
         public void Print()
         {
-            Printing.DrawAt(Point.X, Point.Y - 1, @"    |+|  ", ConsoleColor.Cyan);
-            Printing.DrawAt(Point.X, Point.Y, @"  _______", ConsoleColor.Cyan);
-            Printing.DrawAt(Point.X, Point.Y + 1, @" (_______)", ConsoleColor.Cyan);
-            
+            Printing.DrawAt(Point.X, Point.Y - 1, @"   █    ", ConsoleColor.Yellow);
+            Printing.DrawAt(Point.X, Point.Y, @"  ███  ", ConsoleColor.Yellow);
+            Printing.DrawAt(Point.X, Point.Y + 1, @" █████ ", ConsoleColor.Yellow);
+            Printing.DrawAt(Point.X, Point.Y + 2, @"█  █  █", ConsoleColor.Yellow);
+
         }
 
         // Method to clear players last positionư
         public void Clear()
         {
             //Had to use strings to get rid of artefacts
-            Printing.DrawAt(Point.X, Point.Y - 1, @"         ");
-            Printing.DrawAt(Point.X, Point.Y, @"         ");
-            Printing.DrawAt(Point.X, Point.Y + 1, @"          ");
+            
+            Printing.DrawAt(Point.X, Point.Y - 1, @"       ");
+            Printing.DrawAt(Point.X, Point.Y , @"       ");
+            Printing.DrawAt(Point.X, Point.Y + 1, @"       ");
+
+            Printing.DrawAt(Point.X, Point.Y + 2, @"       ");
         }
 
         /// <summary>
