@@ -362,7 +362,7 @@ namespace TeamWork.Field
         /// </summary>
         public static void WelcomeScreen()
         {
-            DrawHLineAt(0, 0, 115, '\u2591', 3, false, ConsoleColor.Magenta);
+            DrawHLineAt(0, 0, 115, '\u2591', 3, false, ConsoleColor.Red);
             DrawVLineAt(114, 0, 30, '\u2591', 3, false, ConsoleColor.Magenta);
             DrawHLineAt(114, 29, 115, '\u2591', 3, true, ConsoleColor.Magenta);
             DrawVLineAt(0, 29, 30, '\u2591', 3, true, ConsoleColor.Magenta);
