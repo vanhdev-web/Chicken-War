@@ -1,0 +1,71 @@
+static void RunMeteorSimulation()
+{
+    const int screenWidth = 115; // Width of the console window
+    const int screenHeight = 30;  // Height of the console window
+    char[] meteorChars = { '*', 'o', '#', '@' }; // Characters to represent different meteors
+
+    Random random = new Random();
+    List<Meteor> meteors = new List<Meteor>();
+
+    while (true)
+    {
+        // Spawn a new meteor with a random starting position and type
+        var meteorType = (MeteorType)random.Next(0, Enum.GetValues(typeof(MeteorType)).Length);
+        meteors.Add(new Meteor(random.Next(0, screenWidth), 0, meteorType));
+
+        // Update and draw meteors
+        Console.Clear();
+        foreach (var meteor in meteors)
+        {
+            meteor.UpdatePosition(screenWidth, screenHeight); // Update meteor position
+
+            // Draw the meteor only if it's within bounds
+            if (meteor.Y < screenHeight && meteor.X >= 0 && meteor.X < screenWidth)
+            {
+                Console.SetCursorPosition(meteor.X, meteor.Y);
+                Console.Write(meteorChars[(int)meteor.Type]); // Draw meteor
+            }
+        }
+
+        // Remove meteors that have gone off the screen
+        meteors.RemoveAll(m => m.Y >= screenHeight || m.X < 0 || m.X >= screenWidth);
+
+        // Delay for fall speed
+        Thread.Sleep(100); // Adjust for speed
+    }
+}
+
+public enum MeteorType
+{
+    Small,
+    Medium,
+    Large,
+    Fast
+}
+public class Meteor
+{
+    public int X { get; set; }
+    public int Y { get; set; }
+    public MeteorType Type { get; set; }
+
+    public Meteor(int x, int y, MeteorType type)
+    {
+        X = x;
+        Y = y;
+        Type = type;
+    }
+
+    public void UpdatePosition(int screenWidth, int screenHeight)
+    {
+        int xSpeed = (int)Type == (int)MeteorType.Fast ? 2 : 1; // Fast meteors move faster horizontally
+        int ySpeed = (int)Type + 1; // Different speeds based on type
+
+        // Update positions based on speed
+        X += xSpeed; // Move in the X direction
+        Y += ySpeed; // Move in the Y direction
+
+        // Keep meteors within the screen bounds
+        if (Y >= screenHeight) Y = screenHeight; // Stop moving down once off-screen
+    }
+
+}
