@@ -34,12 +34,12 @@ namespace TeamWork.Field
         public void Start()
         {
             // Starting manu and intro screens
-            Menu.StartMenu();
+           Menu.StartMenu();
             // Starting main's music thread
             MusicThread = new Thread(LoadMusic);
             MusicThread.Start();
             // Starting effects music thread
-            EffectsThread = new Thread(SoundEffects);
+           EffectsThread = new Thread(SoundEffects);
             EffectsThread.Start();
             Menu.EntryStoryLine(); // Draw the short story
             Printing.EnterName(); // Draw enter name asset
@@ -121,7 +121,7 @@ namespace TeamWork.Field
             Player.Level = 1;
             Player.Score = 0;
             Player.Lifes = 3;
-            Player.Point = new Point2D(30, 25);
+            Player.Point = Player.PlayerPoint;
             BossActive = false;
             boss = new Boss(0);
             _bullets.Clear();
@@ -137,22 +137,18 @@ namespace TeamWork.Field
         {
             switch (keyPressed.Key)
             {
-                case ConsoleKey.W:
-                case ConsoleKey.UpArrow: Player.MoveUp();               
+                case ConsoleKey.W: Player.MoveUp();
                     break;
-                case ConsoleKey.S:
-                case ConsoleKey.DownArrow: Player.MoveDown();
+                case ConsoleKey.S: Player.MoveDown();
                     break;
-                case ConsoleKey.A:
-                case ConsoleKey.LeftArrow: Player.MoveLeft();
+                case ConsoleKey.A: Player.MoveLeft();
                     break;
-                case ConsoleKey.D:
-                case ConsoleKey.RightArrow: Player.MoveRight();
+                case ConsoleKey.D: Player.MoveRight();
                     break;
                 // Create a new bullet object
                 case ConsoleKey.Spacebar:
                     // Add a GameObject to the bullet list with starting position of the players plane nose with type of bullet
-                    _bullets.Add(new GameObject(new Point2D(Player.Point.X + 4, Player.Point.Y-2 ),0));
+                    _bullets.Add(new GameObject(new Point2D(Player.Point.X + 20, Player.Point.Y + 1),0));
                     _playEffect = true; // Play player shooting sound
                     break;
             }
@@ -188,22 +184,22 @@ namespace TeamWork.Field
             _objectProjectiles = newProjectiles; // Overwrite old projectiles positions with the new ones
 
 
-            //Printing.DrawAt(Player.Point.X + 20, Player.Point.Y + 1, '=', ConsoleColor.DarkCyan); // Fire effect lol
+            Printing.DrawAt(Player.Point.X + 20, Player.Point.Y + 1, '=', ConsoleColor.DarkCyan); // Fire effect lol
             
             for (int i = 0; i < _bullets.Count; i++) // Cycle through all bullets
             {
-                if (_bullets[i].Point.Y >= 0) // Check if the bullet is outside the screen before it clears it
+                if (_bullets[i].Point.X <= WindowWidth) // Check if the bullet is outside the screen before it clears it
                 {
                     _bullets[i].ClearObject();
                 }
                 // Clear bullet at its current position
-                if (_bullets[i].Point.Y + _bullets[i].Speed + 1 <=3 )
+                if (_bullets[i].Point.X + _bullets[i].Speed + 1 >= WindowWidth)
                 {
                     // If the bullet exceeds sceen size, dont add it to new Bullets list
                 }
                 else
                 {
-                    _bullets[i].Point.Y -= _bullets[i].Speed + 1; // Move the bullet to the right # tiles
+                    _bullets[i].Point.X += _bullets[i].Speed + 1; // Move the bullet to the right # tiles
                     _bullets[i].PrintObject(); // Print the bullets at their new position;
                     newBullets.Add((_bullets[i])); // Add the moved bullet to the new bullet list
                 }
@@ -358,7 +354,7 @@ namespace TeamWork.Field
         /// </summary>
         private static void LoadMusic()
         {
-            var sound = new SoundPlayer {SoundLocation = "Resources/STARS.wav"};
+            var sound = new SoundPlayer {SoundLocation = "Resources/GamePlay.wav" };
             sound.PlayLooping();
         }
 

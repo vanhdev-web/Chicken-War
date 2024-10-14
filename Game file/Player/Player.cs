@@ -10,8 +10,8 @@ namespace TeamWork
         private int score = 0;
         private int level = 1;
 
-        public static Point2D PlayerPoint = new Point2D(30, 25); // Player default starting point 
-
+        public static Point2D PlayerPoint = new Point2D(10, 15); // Player default starting point 
+        
         /// <summary>
         /// Constructor with default values
         /// </summary>
@@ -59,7 +59,7 @@ namespace TeamWork
         public void MoveRight()
         {
             // Limit player movement on X axis
-            if (this.Point.X + 1 >= Engine.WindowWidth) return;
+            if (this.Point.X + 1 >= Engine.WindowWidth - 23) return;
             Clear();
             this.Point.X++;
             Print();
@@ -85,23 +85,19 @@ namespace TeamWork
         //Method to print the player at its current position
         public void Print()
         {
-            Printing.DrawAt(Point.X, Point.Y - 1, @"   █    ", ConsoleColor.Yellow);
-            Printing.DrawAt(Point.X, Point.Y, @"  ███  ", ConsoleColor.Yellow);
-            Printing.DrawAt(Point.X, Point.Y + 1, @" █████ ", ConsoleColor.Yellow);
-            Printing.DrawAt(Point.X, Point.Y + 2, @"█  █  █", ConsoleColor.Yellow);
-
+            Printing.DrawAt(Point.X, Point.Y - 1, @"____", ConsoleColor.Cyan);
+            Printing.DrawAt(Point.X, Point.Y, @" \  \_____________", ConsoleColor.Cyan);
+            Printing.DrawAt(Point.X, Point.Y + 1, @" <[=)_)_)_)_______)_ >", ConsoleColor.Cyan);
+            Printing.DrawAt(Point.X + 20, Point.Y + 1, "=", ConsoleColor.DarkCyan);
         }
 
-        // Method to clear players last positionư
+        // Method to clear players last position
         public void Clear()
         {
             //Had to use strings to get rid of artefacts
-            
-            Printing.DrawAt(Point.X, Point.Y - 1, @"       ");
-            Printing.DrawAt(Point.X, Point.Y , @"       ");
-            Printing.DrawAt(Point.X, Point.Y + 1, @"       ");
-
-            Printing.DrawAt(Point.X, Point.Y + 2, @"       ");
+            Printing.DrawAt(Point.X, Point.Y - 1, @"    ");
+            Printing.DrawAt(Point.X, Point.Y, @"                  ");
+            Printing.DrawAt(Point.X, Point.Y + 1, @"                      ");
         }
 
         /// <summary>

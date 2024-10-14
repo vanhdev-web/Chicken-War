@@ -151,7 +151,7 @@ namespace TeamWork.Objects
             switch (objectType)
             {
                 case ObjectType.Bullet:
-                    Printing.DrawAt(this.Point, '^', ConsoleColor.DarkCyan); // Standart print for bullets
+                    Printing.DrawAt(this.Point, '-', ConsoleColor.DarkCyan); // Standart print for bullets
                     break;
                 case ObjectType.Normal:
                     if (!this.GotHit) // If this object isn't killed by something draw it normally
@@ -256,87 +256,27 @@ namespace TeamWork.Objects
                         // This makes the quadcopter entry smooth, not instant spawn in the center of the screen
                         if (this.Point.X + 2 >= Engine.WindowWidth)
                         {
-                            Printing.DrawAt(this.Point, @"<[");
+                            Printing.DrawAt(this.Point, @"         █ █", ConsoleColor.Red);
                         }
                         else if (this.Point.X + 3 >= Engine.WindowWidth)
                         {
-                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"_");
-                            Printing.DrawAt(this.Point, @"<[_");
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"        █████", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point, @"       ██ █ ██", ConsoleColor.Red);
                         }
                         else if (this.Point.X + 4 >= Engine.WindowWidth)
                         {
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"_\");
-                            Printing.DrawAt(this.Point, @"<[__");
-                        }
-                        else if (this.Point.X + 5 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"__");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"_\_");
-                            Printing.DrawAt(this.Point, @"<[__\");
-                        }
-                        else if (this.Point.X + 6 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"__ ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"_\_\");
-                            Printing.DrawAt(this.Point, @"<[__\_");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"o");
-                        }
-                        else if (this.Point.X + 7 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"__  ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"_\_\_");
-                            Printing.DrawAt(this.Point, @"<[__\_\");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"oo");
-                        }
-                        else if (this.Point.X + 8 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"__   ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"_\_\__");
-                            Printing.DrawAt(this.Point, @"<[__\_\_");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"oo'");
-                        }
-                        else if (this.Point.X + 9 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"__    ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"_\_\___");
-                            Printing.DrawAt(this.Point, @"<[__\_\_-");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"oo'");
-                        }
-                        else if (this.Point.X + 10 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"__     ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"_\_\____");
-                            Printing.DrawAt(this.Point, @"<[__\_\_--");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"oo'");
-                        }
-                        else if (this.Point.X + 11 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"__      ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"_\_\_____");
-                            Printing.DrawAt(this.Point, @"<[__\_\_---");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"oo'");
-                        }
-                        else if (this.Point.X + 12 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"__       ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"_\_\_____/");
-                            Printing.DrawAt(this.Point, @"<[__\_\_----");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"oo'");
-                        }
-                        else if (this.Point.X + 13 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"__       _");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"_\_\_____/_");
-                            Printing.DrawAt(this.Point, @"<[__\_\_-----");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"oo'");
+                            Printing.DrawAt(this.Point.X + 1, Point.Y - 2, @"      █ █████ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"       ██ █ ██", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point, @"         █ █", ConsoleColor.Red);
                         }
                         else
                         {
-                            Printing.DrawAt(this.Point.X, Point.Y - 2, @"   __       __");
-                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"  _\_\_____/_|");
-                            Printing.DrawAt(this.Point, @"<[__\_\_-----<");
-                            Printing.DrawAt(this.Point.X, Point.Y + 1, @"     oo'");
-                        } 
+                            Printing.DrawAt(this.Point.X, Point.Y - 4, @"         █ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 3, @"        █████", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 2, @"       ██ █ ██", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"      █ █████ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, @"         █ █", ConsoleColor.Red);
+                        }
                         #endregion
                     }
                     else
@@ -503,87 +443,27 @@ namespace TeamWork.Objects
                     {
                         if (this.Point.X + 2 >= Engine.WindowWidth)
                         {
-                            Printing.DrawAt(this.Point, @"  ");
+                            Printing.DrawAt(this.Point, @"            ");
                         }
                         else if (this.Point.X + 3 >= Engine.WindowWidth)
                         {
-                            Printing.DrawAt(this.Point.X, Point.Y - 1, @" ");
-                            Printing.DrawAt(this.Point, @"   ");
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"             ");
+                            Printing.DrawAt(this.Point, @"              ");
                         }
                         else if (this.Point.X + 4 >= Engine.WindowWidth)
                         {
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"  ");
-                            Printing.DrawAt(this.Point, @"    ");
-                        }
-                        else if (this.Point.X + 5 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"  ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"   ");
-                            Printing.DrawAt(this.Point, @"     ");
-                        }
-                        else if (this.Point.X + 6 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"   ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"    ");
-                            Printing.DrawAt(this.Point, @"      ");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @" ");
-                        }
-                        else if (this.Point.X + 7 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"    ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"     ");
-                            Printing.DrawAt(this.Point, @"       ");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"  ");
-                        }
-                        else if (this.Point.X + 8 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"     ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"      ");
-                            Printing.DrawAt(this.Point, @"        ");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"   ");
-                        }
-                        else if (this.Point.X + 9 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"      ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"       ");
-                            Printing.DrawAt(this.Point, @"         ");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"   ");
-                        }
-                        else if (this.Point.X + 10 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"       ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"        ");
-                            Printing.DrawAt(this.Point, @"          ");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"   ");
-                        }
-                        else if (this.Point.X + 11 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"        ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"         ");
-                            Printing.DrawAt(this.Point, @"           ");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"   ");
-                        }
-                        else if (this.Point.X + 12 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"         ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"          ");
+                            Printing.DrawAt(this.Point.X + 1, Point.Y - 2, @"               ");
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"              ");
                             Printing.DrawAt(this.Point, @"            ");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"   ");
-                        }
-                        else if (this.Point.X + 13 >= Engine.WindowWidth)
-                        {
-                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, @"          ");
-                            Printing.DrawAt(this.Point.X + 2, Point.Y - 1, @"           ");
-                            Printing.DrawAt(this.Point, @"             ");
-                            Printing.DrawAt(this.Point.X + 5, Point.Y + 1, @"   ");
                         }
                         else
                         {
+                            Printing.DrawAt(this.Point.X, Point.Y - 4, @"            ");
+                            Printing.DrawAt(this.Point.X, Point.Y - 3, @"             ");
                             Printing.DrawAt(this.Point.X, Point.Y - 2, @"              ");
-                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"              ");
-                            Printing.DrawAt(this.Point, @"              ");
-                            Printing.DrawAt(this.Point.X, Point.Y + 1, @"        ");
-                        } 
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"               ");
+                            Printing.DrawAt(this.Point.X, Point.Y, @"            ");
+                        }
                     }
                     else
                     {
@@ -626,9 +506,9 @@ namespace TeamWork.Objects
         /// <param name="clear">Set to true if you want to clear, false if you want to print</param>
         /// <param name="c">Set the characters you want to print with</param>
         /// <param name="clr">Set the color you want to print with</param>
-        private void PrintAndClearExplosion(bool clear, char[] c = null,ConsoleColor clr = ConsoleColor.White)
+        public void PrintAndClearExplosion(bool clear, char[] c = null, ConsoleColor clr = ConsoleColor.White)
         {
-            
+
             if (c == null && !clear) // If theres no passed char[] and printing is ordered create standard one
             {
                 c = new[] { '*', '*', '*', '*' };
@@ -654,15 +534,16 @@ namespace TeamWork.Objects
             {
                 Printing.DrawAt(downRight, c[3], clr);
             }
-            
         }
-        /// <summary>
-        /// Collision check
-        /// </summary>
-        /// <param name="x">X to check with</param>
-        /// <param name="y">Y to check with</param>
-        /// <returns>If there is a collision</returns>
-        public bool Collided(int x, int y)
+
+
+            /// <summary>
+            /// Collision check
+            /// </summary>
+            /// <param name="x">X to check with</param>
+            /// <param name="y">Y to check with</param>
+            /// <returns>If there is a collision</returns>
+            public bool Collided(int x, int y)
         {
             if (GotHit)
             {
