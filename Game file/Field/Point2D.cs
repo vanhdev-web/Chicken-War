@@ -2,6 +2,8 @@
 {
     public class Point2D
     {
+
+        
         public Point2D(int x, int y)
         {
             this.X = x;

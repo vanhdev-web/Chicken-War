@@ -1,4 +1,5 @@
 ﻿using System;
+using TeamWork.Background;
 using TeamWork.Field;
 using TeamWork.Objects;
 
@@ -85,10 +86,11 @@ namespace TeamWork
         //Method to print the player at its current position
         public void Print()
         {
-            Printing.DrawAt(Point.X, Point.Y - 1, @"   █    ", ConsoleColor.Yellow);
-            Printing.DrawAt(Point.X, Point.Y, @"  ███  ", ConsoleColor.Yellow);
-            Printing.DrawAt(Point.X, Point.Y + 1, @" █████ ", ConsoleColor.Yellow);
-            Printing.DrawAt(Point.X, Point.Y + 2, @"█  █  █", ConsoleColor.Yellow);
+            
+            //Printing.DrawAt(this.Point.X, this.Point.Y - 1, @"   █    ", ConsoleColor.Yellow);
+            Printing.DrawAt(this.Point.X, this.Point.Y, @"█", ConsoleColor.Yellow);
+            //Printing.DrawAt(this.Point.X, this.Point.Y + 1, @" █████ ", ConsoleColor.Yellow);
+            //Printing.DrawAt(this.Point.X, this.Point.Y + 2, @"█  █  █", ConsoleColor.Yellow);
 
         }
 
@@ -97,11 +99,11 @@ namespace TeamWork
         {
             //Had to use strings to get rid of artefacts
             
-            Printing.DrawAt(Point.X, Point.Y - 1, @"       ");
-            Printing.DrawAt(Point.X, Point.Y , @"       ");
-            Printing.DrawAt(Point.X, Point.Y + 1, @"       ");
+            Printing.DrawAt(this.Point.X, this.Point.Y - 1, @"       ");
+            Printing.DrawAt(this.Point.X, this.Point.Y , @"       ");
+            Printing.DrawAt(this.Point.X, this.Point.Y + 1, @"       ");
 
-            Printing.DrawAt(Point.X, Point.Y + 2, @"       ");
+            Printing.DrawAt(this.Point.X, this.Point.Y + 2, @"       ");
         }
 
         /// <summary>

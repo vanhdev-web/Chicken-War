@@ -5,6 +5,7 @@ using System.Media;
 using System.Windows.Media;
 using TeamWork.Objects;
 using System.Linq;
+using TeamWork.Background;
 
 namespace TeamWork.Field
 {
@@ -33,20 +34,22 @@ namespace TeamWork.Field
         /// </summary>
         public void Start()
         {
+            
             // Starting manu and intro screens
-            Menu.StartMenu();
+            //Menu.StartMenu();
             // Starting main's music thread
-            MusicThread = new Thread(LoadMusic);
-            MusicThread.Start();
+            //MusicThread = new Thread(LoadMusic);
+            //MusicThread.Start();
             // Starting effects music thread
-            EffectsThread = new Thread(SoundEffects);
-            EffectsThread.Start();
-            Menu.EntryStoryLine(); // Draw the short story
+            //EffectsThread = new Thread(SoundEffects);
+            //EffectsThread.Start();
+           /* Menu.EntryStoryLine(); */// Draw the short story
             Printing.EnterName(); // Draw enter name asset
             TakeName(); // Get the players name
             Thread.Sleep(1000); // Dramatic pause
             while (true) //Main game loop
             {
+                
                 Console.Clear(); 
                 Player.Print(); // Print the player at his starting position
                 Menu.Table(); // Print the UI Table
@@ -54,6 +57,8 @@ namespace TeamWork.Field
 
                 while (Player.Lifes > 0) // Gameplay loop that ends when the player has no lifes
                 {
+                    
+                    
                     //ConsoleKey Listener
                     if (Console.KeyAvailable) // Checks if the console buffer has a key press
                     {
@@ -64,9 +69,12 @@ namespace TeamWork.Field
                         }
                     }
 
+
                     UpdateAndRender(); // Update all objects and draw everything again
+                    //BGs();
                     Thread.Sleep(80); // Constant game speed
                 }
+                
                 Console.Clear();
                 //add new high score
                 Menu.SetHighscore();
@@ -92,8 +100,10 @@ namespace TeamWork.Field
                     boss = new Boss(0);
                 }
             }
+            //Menu.BackGround();
             ProjectileMoveAndPrint(); // Move and print projectiles(meteorits, enemy bullets)
             ProjectileCollisionCheck(); // Check for any collisions
+            BGs();
             if (BossActive) // If the boss is active, call its AI method
             {
                 DrawAndMoveMeteor();
@@ -155,6 +165,35 @@ namespace TeamWork.Field
                     _bullets.Add(new GameObject(new Point2D(Player.Point.X + 4, Player.Point.Y-2 ),0));
                     _playEffect = true; // Play player shooting sound
                     break;
+            }
+        }
+
+        Random random = new Random();
+        List<BackgroundElements> danhSachBongTuyet = new List<BackgroundElements>();
+
+        private void BGs()
+        {
+
+            if (random.Next(10) == 0)
+            {
+                danhSachBongTuyet.Add(new BackgroundElements());
+
+
+            }
+
+
+
+            int count = 0;
+            // Vẽ tất cả các bông tuyết
+            foreach (BackgroundElements bongTuyet in danhSachBongTuyet)
+            {
+                if (count == 20)
+                {
+                    break;
+                }
+                bongTuyet.Ve();
+                bongTuyet.DiChuyen();
+                count++;
             }
         }
 

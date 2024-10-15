@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows.Media;
 using System.Xml.Linq;
+using TeamWork.Background;
 
 namespace TeamWork.Field
 {
@@ -40,7 +42,11 @@ namespace TeamWork.Field
                     validInput = false;
                 }
             }
-        }  
+        }
+
+       
+
+        
         //Menu interface buttons
         //(Pause, Score, Credits,Quit)
         public static bool UserChoice(ConsoleKeyInfo key)

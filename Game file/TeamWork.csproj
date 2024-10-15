@@ -45,6 +45,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Background\Background.cs" />
+    <Compile Include="Background\BackgroundElements.cs" />
     <Compile Include="Field\Engine.cs" />
     <Compile Include="Field\Menu.cs" />
     <Compile Include="Objects\Boss.cs" />
