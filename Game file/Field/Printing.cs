@@ -413,11 +413,11 @@ namespace TeamWork.Field
             DrawAt(1, 6, @"                                 ╚════██║   ██║   ██╔══╝  ██║     ██║     ██╔══██║                     ██████████", ConsoleColor.DarkGray);
             DrawAt(1, 7, @"    ♦          ♦                 ███████║   ██║   ███████╗███████╗███████╗██║  ██║       ♦     ♦    ♦   █████████", ConsoleColor.DarkGray);
             DrawAt(1, 8, @"                             ♦   ╚══════╝   ╚═╝   ╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝                        ██████", ConsoleColor.DarkGray);
-            DrawAt(1, 9, @"           █ █       ♦                                                               ♦                          ", ConsoleColor.Cyan);
-            DrawAt(1, 10, @"          █████                         ♦   ██╗    ██╗ █████╗ ██████╗       ♦               ████      ♦         ", ConsoleColor.DarkGray);
-            DrawAt(1, 11, @"         ██ █ ██                            ██║    ██║██╔══██╗██╔══██╗                    ██    ██           ♦  ", ConsoleColor.DarkGray);
-            DrawAt(1, 12, @"          █████           ♦       ♦         ██║ █╗ ██║███████║██████╔╝                   █        █             ", ConsoleColor.DarkGray);
-            DrawAt(1, 13, @"    ♦      █ █                              ██║███╗██║██╔══██║██╔══██╗          ♦        █        █             ", ConsoleColor.DarkGray);
+            DrawAt(1, 9, @"                     ♦                                                               ♦                          ", ConsoleColor.Cyan);
+            DrawAt(1, 10, @"                                        ♦   ██╗    ██╗ █████╗ ██████╗       ♦               ████      ♦         ", ConsoleColor.DarkGray);
+            DrawAt(1, 11, @"                                            ██║    ██║██╔══██╗██╔══██╗                    ██    ██           ♦  ", ConsoleColor.DarkGray);
+            DrawAt(1, 12, @"                          ♦       ♦         ██║ █╗ ██║███████║██████╔╝                   █        █             ", ConsoleColor.DarkGray);
+            DrawAt(1, 13, @"    ♦                                       ██║███╗██║██╔══██║██╔══██╗          ♦        █        █             ", ConsoleColor.DarkGray);
             DrawAt(1, 14, @"                   ♦        ♦               ╚███╔███╔╝██║  ██║██║  ██║                 ██████████████          ♦", ConsoleColor.DarkGray);
             DrawAt(1, 15, @"                                    ♦        ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝                    ██    ██              ", ConsoleColor.DarkGray);
             DrawAt(1, 16, @"          ♦        ♦                                                        ♦               ████  ♦    ♦        ", ConsoleColor.Cyan);
@@ -435,6 +435,12 @@ namespace TeamWork.Field
             DrawAt(1, 24, @"██████                  ████                         ♦      ♦    ██████████                █████             ████", ConsoleColor.Green);
             DrawAt(1, 25, @"███████          ♦      ████           ♦      ♦         ♦       █          █                ███      ♦      █████", ConsoleColor.Green);
 
+            //Adding decorations 
+            DrawAt(11, 9, "  █ █  ", ConsoleColor.Yellow);
+               DrawAt(11, 10, "███████", ConsoleColor.Red);
+            DrawAt(11, 11, "█ ███ █", ConsoleColor.Red);
+            DrawAt(11, 12, "███████", ConsoleColor.Magenta);
+            DrawAt(11, 13, " █ █ █", ConsoleColor.DarkMagenta);
 
         }
         /// <summary>
