@@ -17,8 +17,8 @@ namespace TeamWork.Field
         public static void StartMenu()
         {       
             //Menu Music Thread
-            mediaPlayer.Open(new Uri("Resources/GameMenu.mp3", UriKind.Relative));
-            mediaPlayer.Play();
+            //mediaPlayer.Open(new Uri("Resources/GameMenu.mp3", UriKind.Relative));
+            //mediaPlayer.Play();
             Printing.WelcomeScreen();
             Thread.Sleep(2000);
             while (menuActive)
@@ -79,7 +79,7 @@ namespace TeamWork.Field
         /// </summary>
         public static void Table()
         {
-            int uiWidth = Math.Min(Console.WindowWidth, 80); // Cap the UI width to 80, or use the window width
+            int uiWidth = Math.Min(Console.WindowWidth, 115); // Cap the UI width to 115, or use the window width
             int nameBoard = 14 + Engine.Player.Name.Length;
 
             // Draw Top Border
@@ -89,7 +89,7 @@ namespace TeamWork.Field
                 bool drawTopBorder = (i <= 3) || (i >= nameBoard && i < 38) || (i > 41);
                 if (drawTopBorder)
                 {
-                    Printing.DrawAt(new Point2D(i, 0), '\u2591', ConsoleColor.DarkRed);
+                    Printing.DrawAt(new Point2D(i, 0), '\u2588', ConsoleColor.DarkRed);
                 }
             }
 
@@ -100,7 +100,7 @@ namespace TeamWork.Field
                 bool drawBottomBorder = (i <= 3) || (i > 13 && i < 29) || (i > 40);
                 if (drawBottomBorder)
                 {
-                    Printing.DrawAt(new Point2D(i, 30), '\u2591', ConsoleColor.DarkRed);
+                    Printing.DrawAt(new Point2D(i, 30), '\u2588', ConsoleColor.DarkRed);
                 }
             }
         }

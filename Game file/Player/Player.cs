@@ -7,7 +7,7 @@ namespace TeamWork
     public class Player : Entity, IPlayer
     {
         private int lives = 3;
-        private int score = 0;
+        private int score = 0; 
         private int level = 1;
 
         public static Point2D PlayerPoint = new Point2D(10, 15); // Player default starting point 

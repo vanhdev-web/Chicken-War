@@ -34,16 +34,17 @@ namespace TeamWork.Field
         public void Start()
         {
             // Starting manu and intro screens
-           Menu.StartMenu();
-            // Starting main's music thread
-            MusicThread = new Thread(LoadMusic);
-            MusicThread.Start();
+            LoadMenuMusic();
+            Menu.StartMenu();
+            // Starting main's music 
             // Starting effects music thread
-           EffectsThread = new Thread(SoundEffects);
+            EffectsThread = new Thread(SoundEffects);
             EffectsThread.Start();
-            Menu.EntryStoryLine(); // Draw the short story
+            //Menu.EntryStoryLine(); // Draw the short story
             Printing.EnterName(); // Draw enter name asset
             TakeName(); // Get the players name
+            MusicThread = new Thread(LoadMusic);
+            MusicThread.Start();
             Thread.Sleep(1000); // Dramatic pause
             while (true) //Main game loop
             {
@@ -67,6 +68,7 @@ namespace TeamWork.Field
                     UpdateAndRender(); // Update all objects and draw everything again
                     Thread.Sleep(80); // Constant game speed
                 }
+                LoadDeathMusic();
                 Console.Clear();
                 //add new high score
                 Menu.SetHighscore();
@@ -231,6 +233,7 @@ namespace TeamWork.Field
             }
         }
 
+
         /// <summary>
         /// Print and move meteorites
         /// </summary>
@@ -352,12 +355,23 @@ namespace TeamWork.Field
         /// <summary>
         /// Load background music
         /// </summary>
+        /// 
+        private static void LoadMenuMusic()
+        {
+            var sound = new SoundPlayer { SoundLocation = "Resources/GameMenu.wav" };
+            sound.PlayLooping();
+        }
         private static void LoadMusic()
         {
             var sound = new SoundPlayer {SoundLocation = "Resources/GamePlay.wav" };
             sound.PlayLooping();
         }
 
+        private static void LoadDeathMusic()
+        {
+            var sound = new SoundPlayer { SoundLocation = "Resources/Die.wav" };
+            sound.Play();
+        }
         /// <summary>
         /// Play effects based on triggers
         /// </summary>
@@ -425,5 +439,6 @@ namespace TeamWork.Field
                 Console.Clear();               
             }
         }
+
     }
 }

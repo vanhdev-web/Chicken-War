@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Text;
 using TeamWork.Field;
+using System.Runtime.InteropServices;
 
 namespace TeamWork
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.Unicode;
@@ -15,6 +17,8 @@ namespace TeamWork
             Console.WindowHeight = Engine.WindowHeight;
             Console.BufferHeight = Engine.WindowHeight;
             Engine eng = new Engine();
+
+
         }
     }
 }
