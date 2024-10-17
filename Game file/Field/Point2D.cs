@@ -9,33 +9,33 @@
         }
 
         /// <summary>
-        /// Equality operator that compares if 2 point2Ds are equal
+        /// Toán tử so sánh bằng để kiểm tra xem 2 điểm 2D có bằng nhau không
         /// </summary>
-        /// <param name="point">First point2D</param>
-        /// <param name="point2">Second Point2D</param>
-        /// <returns>If the points are equal</returns>
+        /// <param name="point">Điểm 2D đầu tiên</param>
+        /// <param name="point2">Điểm 2D thứ hai</param>
+        /// <returns>Nếu các điểm bằng nhau</returns>
         public static bool operator ==(Point2D point, Point2D point2)
         {
             return point.X == point2.X && point.Y == point2.Y;
         }
 
         /// <summary>
-        /// Diference operator that compares if 2 point2Ds are not equal
+        /// Toán tử so sánh khác để kiểm tra xem 2 điểm 2D có không bằng nhau
         /// </summary>
-        /// <param name="point">First point2D</param>
-        /// <param name="point2">Second Point2D</param>
-        /// <returns>If the points are not equal</returns>
+        /// <param name="point">Điểm 2D đầu tiên</param>
+        /// <param name="point2">Điểm 2D thứ hai</param>
+        /// <returns>Nếu các điểm không bằng nhau</returns>
         public static bool operator !=(Point2D point, Point2D point2)
         {
             return point.X != point2.X || point.Y != point2.Y;
         }
 
         /// <summary>
-        /// Substraction operator that decreases both X and Y of the first Point2D by the X and Y of the other Point2D
+        /// Toán tử trừ giảm cả X và Y của điểm 2D đầu tiên theo X và Y của điểm 2D khác
         /// </summary>
-        /// <param name="point">First Point2D</param>
-        /// <param name="point2">Second Point2D</param>
-        /// <returns>Result Point2D</returns>
+        /// <param name="point">Điểm 2D đầu tiên</param>
+        /// <param name="point2">Điểm 2D thứ hai</param>
+        /// <returns>Kết quả Point2D</returns>
         public static Point2D operator -(Point2D point, Point2D point2)
         {
             int x = point.X - point2.X;
@@ -44,11 +44,11 @@
         }
 
         /// <summary>
-        /// Addition operator that increases both X and Y of the first Point2D by the X and Y of the other Point2D
+        /// Toán tử cộng tăng cả X và Y của điểm 2D đầu tiên theo X và Y của điểm 2D khác
         /// </summary>
-        /// <param name="point">First Point2D</param>
-        /// <param name="point2">Second Point2D</param>
-        /// <returns>Result Point2D</returns>
+        /// <param name="point">Điểm 2D đầu tiên</param>
+        /// <param name="point2">Điểm 2D thứ hai</param>
+        /// <returns>Kết quả Point2D</returns>
         public static Point2D operator +(Point2D point, Point2D point2)
         {
             int x = point.X + point2.X;
@@ -57,11 +57,11 @@
         }
 
         /// <summary>
-        /// Multiplication operator that multiplies the X and Y values of the Point2D by given amount
+        /// Toán tử nhân nhân X và Y của Point2D với một số đã cho
         /// </summary>
-        /// <param name="point">Point2D to increase</param>
-        /// <param name="multiplier">Integer multiplier</param>
-        /// <returns>Result point2D</returns>
+        /// <param name="point">Point2D để tăng</param>
+        /// <param name="multiplier">Số nhân nguyên</param>
+        /// <returns>Kết quả point2D</returns>
         public static Point2D operator *(Point2D point, int multiplier)
         {
             int x = point.X * multiplier;
@@ -70,12 +70,12 @@
         }
 
         /// <summary>
-        /// Multiplication operator that multiplies the X and Y values of the Point2D by given amount
+        /// Toán tử nhân nhân X và Y của Point2D với một số đã cho
         /// </summary>
-        /// <param name="multiplier">Integer multiplier</param>
-        /// <param name="point">Point2D to increase</param>
-        /// <returns>Result point2D</returns>
-        public static Point2D operator *(int multiplier,Point2D point)
+        /// <param name="multiplier">Số nhân nguyên</param>
+        /// <param name="point">Point2D để tăng</param>
+        /// <returns>Kết quả point2D</returns>
+        public static Point2D operator *(int multiplier, Point2D point)
         {
             int x = point.X * multiplier;
             int y = point.Y * multiplier;
@@ -83,11 +83,11 @@
         }
 
         /// <summary>
-        /// Check if the objects are equal
+        /// Kiểm tra xem các đối tượng có bằng nhau không
         /// </summary>
-        /// <param name="obj">Object to check with</param>
+        /// <param name="obj">Đối tượng để kiểm tra</param>
         /// <returns></returns>
-        public override bool Equals(object obj) 
+        public override bool Equals(object obj)
         {
             Point2D s = obj as Point2D;
             if (s == null)

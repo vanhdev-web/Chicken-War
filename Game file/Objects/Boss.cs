@@ -12,12 +12,12 @@ namespace TeamWork.Objects
             WierdGuy,
         }
 
-        public bool Movealbe = true; // Tag for making the boss imovable
-        public int BossLife; // Boss lifepoints
-        private BossType bossType; // Type(only one atm)
-        
+        public bool Movealbe = true; // Biến để làm cho boss không di chuyển được
+        public int BossLife; // Máu của boss
+        private BossType bossType; // Loại Boss (chỉ một loại ở 1 lúc)
+
         /// <summary>
-        /// Create a boss object from a given type
+        /// ạo một đối tượng boss từ một loại đã cho
         /// </summary>
         /// <param name="type">Type</param>
         public Boss(int type)
@@ -32,7 +32,7 @@ namespace TeamWork.Objects
             }
         }
         /// <summary>
-        /// Draw boss player
+        /// Vẽ boss
         /// </summary>
         private void BossPrint()
         {
@@ -82,26 +82,26 @@ namespace TeamWork.Objects
             Printing.DrawAt(this.Point.X + 7 , this.Point.Y + 6, @"               ");
         }
 
-        private List<BossObject> bossGameObjects = new List<BossObject>(); // Boss spawned objects
-        private int _counter = 1; // Counter
-        private int chance = 30; // Chance to spawn a object 1 in # times
-        private bool _entryAnimationPlayed = false; // Tag to tell if the starting animation is played
-        
+        private List<BossObject> bossGameObjects = new List<BossObject>(); // Các đối tượng boss đã được sinh ra
+        private int _counter = 1; // Bộ đếm
+        private int chance = 30; // Cơ hội để sinh một đối tượng 1 trong # lần
+        private bool _entryAnimationPlayed = false; // Biến để cho biết liệu hoạt hình bắt đầu đã được phát
+
         /// <summary>
-        /// Boss AI, all movement and boss object spawning is calculated here
+        /// AI của boss, tính toán các chuyển động và xuất các đối tượng boss
         /// </summary>
         public void BossAI()
         {
-            if (!_entryAnimationPlayed) // If the animation is not played yet
+            if (!_entryAnimationPlayed) // Nếu hoạt ảnh chưa được chạy
             {
 
-                BossEntryAnimation(); // Play it
-                _entryAnimationPlayed = true; // And trigger the entryAnimation tag
+                BossEntryAnimation(); // Chạy hoạt ảnh
+                _entryAnimationPlayed = true; 
             }
-            if (this.BossLife <= 0) // If the boss has no life left
+            if (this.BossLife <= 0) // Nếu boss hết máu
             {
-                Engine.BossActive = false; // Trigger the boss active boolean in Engine class
-                //Clear all Boss spawned objects from the screen
+                Engine.BossActive = false; 
+                //Xóa tất cả đối tượng boss từ màn hình
                 foreach (var bossGameObject in bossGameObjects)
                 {
                     bossGameObject.ClearObjectCheckColision();
@@ -109,20 +109,20 @@ namespace TeamWork.Objects
                 MediaPlayer death = new MediaPlayer();
                 death.Open(new Uri("Resources/cat.wav", UriKind.Relative));
                 death.Play();
-                BossDeathAnimation(); // Play the boss death "animation"
-                Engine.Player.IncreasePoints(90); // Increase player points by 90
-                Menu.UIDescription(); // Redraw the UI Description
+                BossDeathAnimation(); // Chạy hoạt ảnh chết của boss
+                Engine.Player.IncreasePoints(90); // +90 điểm cho người chơi
+                Menu.UIDescription(); // Vẽ lại UI
                 return;
             }
             
-            // If its time to spawn a new object
+            // Nếu tới lúc xuất đối tượng Boss
             if (_counter % chance == 0)
             {
-                // Get a random type and pass it to the switch
+                // Chọn 1 loại ngẫu nhiên
                 int type = Engine.Rnd.Next(0, 4);
                 switch (type)
                 {
-                    // Create 10 rockets
+                    // Tạo 10 viên đạn
                     case 0: 
                         for (int i = 0; i < 10; i++)
                         {
@@ -144,7 +144,7 @@ namespace TeamWork.Objects
                 }
             }
             _counter++;
-            // Random number to decide should the boss move
+            // Các số ngẫu nhiên để quyết định boss có nên di chuyển
             int move = Engine.Rnd.Next(0, 100);
             if (move > 20 && move < 30 && Movealbe && this.Point.Y + 1 <= Engine.WindowHeight - 9)
             {
@@ -156,46 +156,46 @@ namespace TeamWork.Objects
                 BossClear();
                 this.Point.Y--;
             }
-            // Print the boss
+            // Vẽ boss
             BossPrint();
             BossObjectsMoveAndDraw();
             
         }
 
         /// <summary>
-        /// Move and draw the boss objects
+        /// Di chuyển và vẽ các đối tượng boss
         /// </summary>
         private void BossObjectsMoveAndDraw()
         {
-            List<BossObject> newObjects = new List<BossObject>(); // List of the moved objects
-            foreach (var bossGameObject in bossGameObjects) // Itterate through all current objects
+            List<BossObject> newObjects = new List<BossObject>(); // Danh sách những đối tượng đã di chuuyeenr
+            foreach (var bossGameObject in bossGameObjects) 
             {
-                bossGameObject.ClearObjectCheckColision(); // Clear from the screen and check for collision with the player
+                bossGameObject.ClearObjectCheckColision(); // Xóa khỏi màn hình và kiểm tra va chạm
                 
-                // if the object life is 0 or less, or its out of the screen
+                //Đối máu đối tượng < 0 hoặc nếu nó thoát ra khỏi ngoài màn hình
                 if (bossGameObject.GetLifeOnScreen() <= 0 ||
                     (bossGameObject.Point.X < 5 || bossGameObject.Point.X > Engine.WindowWidth -5 || bossGameObject.Point.Y < 3 || bossGameObject.Point.Y >= Engine.WindowHeight - 3))
                 {
-                    // Don't add it to the list with the moved objects
+                    // Không thêm vào danh sách những đối tượng đã di chuyển
                 }
                 else
                 {
-                    // Move the object
+                    // Di chuyển đối tượng
                     bossGameObject.MoveObject();
-                    // Print it at its new position
+                    // In nó tại vị trí mới
                     bossGameObject.PrintObject();
-                    // Add it to the list with moved objects
+                    // Thêm vào danh sách các đối tượng đã di chuyển
                     newObjects.Add(bossGameObject);
                 } 
             }
-            bossGameObjects = newObjects; // Overwrite old objects with the moved ones
+            bossGameObjects = newObjects; // Ghi đè các đối tượng cũ bằng các đối tượng đã di chuyển
         }
 
         /// <summary>
-        /// Boss collision check
+        /// Kiểm tra va chạm của boss
         /// </summary>
-        /// <param name="point">Point2D to check with</param>
-        /// <returns>If the boss is hit</returns>
+        /// <param name="point">Kiểm tra với Point2D</param>
+        /// <returns>Nếu boss bị đánh trúng</returns>
         public bool BossHit(Point2D point ) 
         {
             if (((point.X == this.Point.X + 13 || point.X == this.Point.X + 14) && point.Y == this.Point.Y - 12) ||
@@ -218,7 +218,7 @@ namespace TeamWork.Objects
                 ((point.X >= this.Point.X + 7  && point.X <= this.Point.X + 20) && point.Y == this.Point.Y + 5) ||
                 ((point.X >= this.Point.X + 7  && point.X <= this.Point.X + 20) && point.Y == this.Point.Y + 6))
             {
-                this.BossLife--; // Decrease boss life
+                this.BossLife--; // giảm máu của boss
                 Engine.PlayBossHit = true;
                 return true;
             }
@@ -229,7 +229,7 @@ namespace TeamWork.Objects
         }
 
         /// <summary>
-        /// Boss death "Animation"
+        ///Hoạt ảnh chết của Boss
         /// </summary>
         private void BossDeathAnimation()
         {
@@ -255,7 +255,7 @@ namespace TeamWork.Objects
         }
 
         /// <summary>
-        /// Boss Entry "Entry animation"
+        /// Hoạt ảnh xuất hiện của Boss
         /// </summary>
         private void BossEntryAnimation()
         {

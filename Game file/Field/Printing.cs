@@ -267,82 +267,45 @@ namespace TeamWork.Field
         /// </summary>
         public static void HighScore()
         {
-            int x = 10;
-            DrawHLineAt(0, 0, 115, '\u2591', 3, false, ConsoleColor.Yellow);
-            DrawVLineAt(114, 0, 30, '\u2591', 3, false, ConsoleColor.Yellow);
-            DrawHLineAt(114, 29, 115, '\u2591', 3, true, ConsoleColor.Yellow);
-            DrawVLineAt(0, 29, 30, '\u2591', 3, true, ConsoleColor.Yellow);
-            //DrawAt(1, 2, @".                                                               +         ", ConsoleColor.Cyan);
-            //DrawAt(1, 3, @"      .           +                 ,             *                       ", ConsoleColor.Cyan);
-            //DrawAt(1, 4, @"   .                             .     .                         .        ", ConsoleColor.Cyan);
-            //DrawAt(1, 5, @"     ,              *                     .                '        *     ", ConsoleColor.Cyan);
-            //DrawAt(1, 6, @"                                .                                       ' ", ConsoleColor.Cyan);
-            //DrawAt(1, 7, @"                                                +                        ", ConsoleColor.Cyan);
-            //DrawAt(1, 8, @"                                                              .          ", ConsoleColor.Cyan);
-            //DrawAt(1, 9, @"             *                                                           ", ConsoleColor.Cyan);
-            //DrawAt(1, 10, @"                           '                                             ", ConsoleColor.Cyan);
-            //DrawAt(1, 11, @"   .                               +                          .           ", ConsoleColor.Cyan);
-            //DrawAt(1, 12, @"                  *         .                       +                     ", ConsoleColor.Cyan);
-            //DrawAt(1, 13, @"      .                                                                 ", ConsoleColor.Cyan);
-            //DrawAt(1, 14, @"              ,                                                           ", ConsoleColor.Cyan);
-            //DrawAt(1, 15, @"                                                        +               ", ConsoleColor.Cyan);
-            //DrawAt(1, 16, @"                 *                                                      ", ConsoleColor.Cyan);
-            //DrawAt(1, 17, @"     .                                               *                  ", ConsoleColor.Cyan);
-            //DrawAt(1, 18, @"                                                *                      ", ConsoleColor.Cyan);
-            //DrawAt(1, 19, @".                    *                                                    ", ConsoleColor.Cyan);
-            //DrawAt(1, 20, @".                            *                                     +      ", ConsoleColor.Cyan);
-            //DrawAt(1, 21, @"                                                *                         ", ConsoleColor.Cyan);
-            //DrawAt(1, 22, @"                                                        ,                   ", ConsoleColor.Cyan);
-            //DrawAt(1, 23, @"         +                                 *                               ", ConsoleColor.Cyan);
-            //DrawAt(1, 24, @"                                                                           ", ConsoleColor.Cyan);
-            //DrawAt(1, 25, @".                    *                                                    ", ConsoleColor.Cyan);
-            //DrawAt(1, 26, @".                            *                                     +      ", ConsoleColor.Cyan);
-            //DrawAt(1, 27, @"                                                *                         ", ConsoleColor.Cyan);
-            //DrawAt(1, 28, @"                                                        ,                   ", ConsoleColor.Cyan);
+            DrawHLineAt(0, 0, 115, '\u2588', 3, false, ConsoleColor.Yellow);
+            DrawVLineAt(114, 0, 30, '\u2588', 3, false, ConsoleColor.Yellow);
+            DrawHLineAt(114, 29, 115, '\u2588', 3, true, ConsoleColor.Yellow);
+            DrawVLineAt(0, 29, 30, '\u2588', 3, true, ConsoleColor.Yellow);
 
-            DrawStringCharByChar(x*4, 2, "██████╗  █████╗ ███╗   ██╗██╗  ██", 3, false, ConsoleColor.Yellow);
-            DrawStringCharByChar(x*4, 3, "██╔══██╗██╔══██╗████╗  ██║██║ ██╔╝", 3, true, ConsoleColor.Yellow);
-            DrawStringCharByChar(x * 4, 4, "██████╔╝███████║██╔██╗ ██║█████╔╝ ", 3, false, ConsoleColor.Yellow);
-            DrawStringCharByChar(x * 4, 5, "██╔══██╗██╔══██║██║╚██╗██║██╔═██╗ ", 3, true, ConsoleColor.Yellow);
-            DrawStringCharByChar(x * 4, 6, "██║  ██║██║  ██║██║ ╚████║██║  ██╗", 3, false, ConsoleColor.Yellow);
-            DrawStringCharByChar(x * 4, 7, "╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝", 3, true, ConsoleColor.Yellow);
+            DrawAt(1, 2, @".                                                               +         ", ConsoleColor.Cyan);
+            DrawAt(1, 3, @"      .           +                 ,             *                       ", ConsoleColor.Cyan);
+            DrawAt(1, 4, @"   .                             .     .                         .        ", ConsoleColor.Cyan);
+            DrawAt(1, 5, @"     ,              *                     .                '        *     ", ConsoleColor.Cyan);
+            DrawAt(1, 6, @"                                .                                       ' ", ConsoleColor.Cyan);
+            DrawAt(1, 7, @"                                                +                        ", ConsoleColor.Cyan);
+            DrawAt(1, 8, @"                                                              .          ", ConsoleColor.Cyan);
+            DrawAt(1, 9, @"             *                                                           ", ConsoleColor.Cyan);
+            DrawAt(1, 10, @"                           '                                             ", ConsoleColor.Cyan);
+            DrawAt(1, 11, @"   .                               +                          .           ", ConsoleColor.Cyan);
+            DrawAt(1, 12, @"                  *         .                       +                     ", ConsoleColor.Cyan);
+            DrawAt(1, 13, @"      .                                                                 ", ConsoleColor.Cyan);
+            DrawAt(1, 14, @"              ,                                                           ", ConsoleColor.Cyan);
+            DrawAt(1, 15, @"                                                        +               ", ConsoleColor.Cyan);
+            DrawAt(1, 16, @"                 *                                                      ", ConsoleColor.Cyan);
+            DrawAt(1, 17, @"     .                                               *                  ", ConsoleColor.Cyan);
+            DrawAt(1, 18, @"                                                *                      ", ConsoleColor.Cyan);
+            DrawAt(1, 19, @".                    *                                                    ", ConsoleColor.Cyan);
+            DrawAt(1, 20, @".                            *                                     +      ", ConsoleColor.Cyan);
+            DrawAt(1, 21, @"                                                *                         ", ConsoleColor.Cyan);
+            DrawAt(1, 22, @"                                                        ,                   ", ConsoleColor.Cyan);
+            DrawAt(1, 23, @"         +                                 *                               ", ConsoleColor.Cyan);
+            DrawAt(1, 24, @"                                                                           ", ConsoleColor.Cyan);
+            DrawAt(1, 25, @".                    *                                                    ", ConsoleColor.Cyan);
+            DrawAt(1, 26, @".                            *                                     +      ", ConsoleColor.Cyan);
+            DrawAt(1, 27, @"                                                *                         ", ConsoleColor.Cyan);
+            DrawAt(1, 28, @"                                                        ,                   ", ConsoleColor.Cyan);
+                      
+            DrawStringCharByChar(18, 5, @" _  _ _      _      ___", 5, false, ConsoleColor.Magenta);
+            DrawStringCharByChar(18, 6, @"| || (_)__ _| |_   / __| __ ___ _ _ ___", 3, true, ConsoleColor.Magenta);
+            DrawStringCharByChar(18, 7, @"| __ | / _` | ' \  \__ \/ _/ _ \ '_/ -_)", 3, false, ConsoleColor.Magenta);
+            DrawStringCharByChar(18, 8, @"|_||_|_\__, |_||_| |___/\__\___/_| \___|", 3, true, ConsoleColor.Magenta);
+            DrawStringCharByChar(25, 9, @"|___/", 5, false, ConsoleColor.Magenta);
             Thread.Sleep(550);
-            DrawStringCharByChar(x + 20, 8, "█▄░█ ▄▀█ █▀▄▀█ █▀▀", 3, false, ConsoleColor.DarkGray);
-            DrawStringCharByChar(x + 20, 9, "█░▀█ █▀█ █░▀░█ ██▄ ", 3, true, ConsoleColor.DarkGray);
-            //DrawAt(x,10, "| | | |     | | | |   __|", ConsoleColor.DarkGray);
-            //DrawAt(x,11, "|_|___|__|__|_|_|_|_____|", ConsoleColor.DarkGray);
-            Thread.Sleep(500);
-
-            DrawStringCharByChar(x + 50, 8, "█▀ █▀▀ █▀█ █▀█ █▀▀", 3, false, ConsoleColor.DarkGray);
-            DrawStringCharByChar(x + 50, 9, "▄█ █▄▄ █▄█ █▀▄ ██▄", 3, true, ConsoleColor.DarkGray);
-            Thread.Sleep(500);
-            DrawAt(x, 10, "■■    ■■", ConsoleColor.DarkYellow);
-            DrawAt(x, 11, "■■■■■■■■", ConsoleColor.DarkYellow);
-            DrawAt(x, 12, "■■■■■■■■", ConsoleColor.DarkYellow);
-            DrawAt(x, 13, " ■■■■■■  ", ConsoleColor.DarkYellow);
-            DrawAt(x, 14, "   ■■     ", ConsoleColor.DarkYellow);
-
-            //DrawAt(x+1, 16, "■■  ■■", ConsoleColor.Yellow);
-            //DrawAt(x+1, 17, "■■■■■■", ConsoleColor.Yellow);
-            //DrawAt(x+1, 18, "■■■■■■", ConsoleColor.Yellow);
-            //DrawAt(x+1, 19, "  ■■  ", ConsoleColor.Yellow);
-
-            //DrawAt(x + 1, 21, "■   ■", ConsoleColor.Yellow);
-            //DrawAt(x + 1, 22, "■■■■■ ", ConsoleColor.Yellow);
-            //DrawAt(x + 1, 23, "■■■■■ ", ConsoleColor.Yellow);
-            //DrawAt(x + 1, 24, "  ■  ", ConsoleColor.Yellow);
-
-            DrawAt(x, 16, "■■    ■■", ConsoleColor.White);
-            DrawAt(x, 17, "■■■■■■■■", ConsoleColor.White);
-            DrawAt(x, 18, "■■■■■■■■", ConsoleColor.White);
-            DrawAt(x, 19, " ■■■■■■  ", ConsoleColor.White);
-            DrawAt(x, 20, "   ■■     ", ConsoleColor.White);
-
-            DrawAt(x, 22, "■■    ■■", ConsoleColor.DarkGray);
-            DrawAt(x, 23, "■■■■■■■■", ConsoleColor.DarkGray);
-            DrawAt(x, 24, "■■■■■■■■", ConsoleColor.DarkGray);
-            DrawAt(x, 25, " ■■■■■■  ", ConsoleColor.DarkGray);
-            DrawAt(x, 26, "   ■■     ", ConsoleColor.DarkGray);
             DrawAt(28, 28, @"(B)ack to Mine Menu", ConsoleColor.Yellow);
             Menu.PrintHighscore();
             while (true)
@@ -362,10 +325,10 @@ namespace TeamWork.Field
         /// </summary>
         public static void WelcomeScreen()
         {
-            DrawHLineAt(0, 0, 115, '\u2591', 3, false, ConsoleColor.Red);
-            DrawVLineAt(114, 0, 30, '\u2591', 3, false, ConsoleColor.Magenta);
-            DrawHLineAt(114, 29, 115, '\u2591', 3, true, ConsoleColor.Magenta);
-            DrawVLineAt(0, 29, 30, '\u2591', 3, true, ConsoleColor.Magenta);
+            DrawHLineAt(0, 0, 115, '\u2588', 3, false, ConsoleColor.Red);
+            DrawVLineAt(114, 0, 30, '\u2588', 3, false, ConsoleColor.Red);
+            DrawHLineAt(114, 29, 115, '\u2588', 3, true, ConsoleColor.Red);
+            DrawVLineAt(0, 29, 30, '\u2588', 3, true, ConsoleColor.Red);
             DrawAt(1, 2, @".                                                               +         ", ConsoleColor.Cyan);
             DrawAt(1, 3, @"      .           +                 ,             *                       ", ConsoleColor.Cyan);
             DrawAt(1, 4, @"   .                             .     .                         .        ", ConsoleColor.Cyan);
@@ -437,33 +400,47 @@ namespace TeamWork.Field
         /// </summary>
         public static void StartMenu()
         {
-            DrawHLineAt(0, 0, 115, '\u2591', 3, false, ConsoleColor.Yellow);
-            DrawVLineAt(114, 0, 30, '\u2591', 3, false, ConsoleColor.Yellow);
-            DrawHLineAt(114, 29, 115, '\u2591', 3, true, ConsoleColor.Yellow);
-            DrawVLineAt(0, 29, 30, '\u2591', 3, true, ConsoleColor.Yellow);
-            DrawAt(1, 2, @".                                                               +         ", ConsoleColor.Cyan);
-            DrawAt(1, 3, @"      .           +                 ,             *                       ",ConsoleColor.Cyan);
-            DrawAt(1, 4, @"   .                             .     .                         .        ",ConsoleColor.Cyan);
-            DrawAt(1, 5, @"     ,              *                     .                '        *     ",ConsoleColor.Cyan);
-            DrawAt(1, 6, @"                                .                                       ' ",ConsoleColor.Cyan);
-            DrawStringCharByChar(1, 7, @"           ____  ____  ____  ____    ____  ____   __    ___  ____       ", 1, false, ConsoleColor.DarkGray);
-            DrawStringCharByChar(1, 8, @"          (    \(  __)(  __)(  _ \  / ___)(  _ \ / _\  / __)(  __)      ", 1, true, ConsoleColor.DarkGray);
-            DrawStringCharByChar(1, 9, @"           ) D ( ) _)  ) _)  ) __/  \___ \ ) __//    \( (__  ) _)       ", 1, false, ConsoleColor.DarkGray);
-            DrawStringCharByChar(1, 10,@"          (____/(____)(____)(__)    (____/(__)  \_/\_/ \___)(____)      ", 1, true, ConsoleColor.DarkGray);
-            DrawAt(1, 11,@"   .                               +                          .           ", ConsoleColor.Cyan);
-            DrawAt(1, 12,@"                  *         .                       +                     ",ConsoleColor.Cyan);
-            DrawStringCharByChar(1, 13,@"      .                      G A M E   M E N U                          ", 1, true, ConsoleColor.Cyan);
-            DrawAt(1, 14,@"              ,                                                           ",ConsoleColor.Cyan);
-            DrawStringCharByChar(1, 15,@"                                  (P)lay                +               ", 1, false, ConsoleColor.Cyan);
-            DrawStringCharByChar(1, 16,@"                 *                (S)core Board                         ", 1, true, ConsoleColor.Cyan);
-            DrawStringCharByChar(1, 17,@"     .                            (C)redits          *                  ", 1, false, ConsoleColor.Cyan);
-            DrawStringCharByChar(1, 18,@"                                  (Q)uit        *                      ", 1, true, ConsoleColor.Cyan);
-            DrawAt(1, 19,@".                    *                                                    ", ConsoleColor.Cyan);
-            DrawAt(1, 20,@".                            *                                     +      ",ConsoleColor.Cyan);
-            DrawStringCharByChar(1, 21,@" ____^/\___^--___/\_____-^^-^--_______/\ /\---/\___________---/\---_______", 1, false, ConsoleColor.Green);
-            DrawStringCharByChar(1, 22,@"     -    ---     /\^              ^      ^       ^            ^      /\  ", 1, false, ConsoleColor.Green);
-            DrawStringCharByChar(1, 23,@"         --       __ _-                     ^                __       --  ", 1, false, ConsoleColor.Green);
-            DrawStringCharByChar(1, 24,@"   --  __                           ___--  ^  ^                /\^        ", 1, false, ConsoleColor.Green);
+            DrawHLineAt(0, 0, 115, '\u2588', 3, false, ConsoleColor.Yellow);
+            DrawVLineAt(114, 0, 30, '\u2588', 3, false, ConsoleColor.Yellow);
+            DrawHLineAt(114, 29, 115, '\u2588', 3, true, ConsoleColor.Yellow);
+            DrawVLineAt(0, 29, 30, '\u2588', 3, true, ConsoleColor.Yellow);
+            // Drawing the new background
+            DrawAt(1, 1, @"                                         ♦                              ♦         ♦                    ██████████", ConsoleColor.Cyan);
+            DrawAt(1, 2, @"  ♦          ♦        ♦        ♦                        ♦       ♦                                     ███████████", ConsoleColor.Cyan);
+            DrawAt(1, 3, @"                                 ███████╗████████╗███████╗██╗     ██╗      █████╗                ♦   ████████████", ConsoleColor.DarkGray);
+            DrawAt(1, 4, @"                             ♦   ██╔════╝╚══██╔══╝██╔════╝██║     ██║     ██╔══██╗       ♦       ♦   ████████████", ConsoleColor.DarkGray);
+            DrawAt(1, 5, @"        ♦     ♦          ♦       ███████╗   ██║   █████╗  ██║     ██║     ███████║                    ███████████", ConsoleColor.DarkGray);
+            DrawAt(1, 6, @"                                 ╚════██║   ██║   ██╔══╝  ██║     ██║     ██╔══██║                     ██████████", ConsoleColor.DarkGray);
+            DrawAt(1, 7, @"    ♦          ♦                 ███████║   ██║   ███████╗███████╗███████╗██║  ██║       ♦     ♦    ♦   █████████", ConsoleColor.DarkGray);
+            DrawAt(1, 8, @"                             ♦   ╚══════╝   ╚═╝   ╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝                        ██████", ConsoleColor.DarkGray);
+            DrawAt(1, 9, @"                     ♦                                                               ♦                          ", ConsoleColor.Cyan);
+            DrawAt(1, 10, @"                                        ♦   ██╗    ██╗ █████╗ ██████╗       ♦               ████      ♦         ", ConsoleColor.DarkGray);
+            DrawAt(1, 11, @"                                            ██║    ██║██╔══██╗██╔══██╗                    ██    ██           ♦  ", ConsoleColor.DarkGray);
+            DrawAt(1, 12, @"                          ♦       ♦         ██║ █╗ ██║███████║██████╔╝                   █        █             ", ConsoleColor.DarkGray);
+            DrawAt(1, 13, @"    ♦                                       ██║███╗██║██╔══██║██╔══██╗          ♦        █        █             ", ConsoleColor.DarkGray);
+            DrawAt(1, 14, @"                   ♦        ♦               ╚███╔███╔╝██║  ██║██║  ██║                 ██████████████          ♦", ConsoleColor.DarkGray);
+            DrawAt(1, 15, @"                                    ♦        ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝                    ██    ██              ", ConsoleColor.DarkGray);
+            DrawAt(1, 16, @"          ♦        ♦                                                        ♦               ████  ♦    ♦        ", ConsoleColor.Cyan);
+            DrawAt(1, 17, @"                      ♦          ♦                                 ♦               ♦                   ♦      ♦ ", ConsoleColor.Cyan);
+
+            // Adding menu options
+            DrawStringCharByChar(1, 18, @"      ♦                                   ♦         [P]lay              ♦                                        ", 1, false, ConsoleColor.Cyan);
+            DrawStringCharByChar(1, 19, @"            ♦            ██                         [S]core Board            ♦             ♦                   ♦", 1, true, ConsoleColor.Cyan);
+            DrawStringCharByChar(1, 20, @"   ♦                ♦   ████         ♦       ♦      [C]redits       ████                          ♦   ♦         ", 1, false, ConsoleColor.Cyan);
+            DrawStringCharByChar(1, 21, @"                        ████                        [Q]uit         █    █                  ♦               ♦    ", 1, true, ConsoleColor.Cyan);
+            DrawAt(1, 22, @"           ♦    ♦       █  █                                       █ ██ █           ♦        █     ♦   ♦        ", ConsoleColor.Cyan);
+
+            // Finishing up the rest
+            DrawAt(1, 23, @"████                 ♦  █  █    ♦        ♦                         █ ██ █       ♦           ███           ♦    ██", ConsoleColor.Green);
+            DrawAt(1, 24, @"██████                  ████                         ♦      ♦    ██████████                █████             ████", ConsoleColor.Green);
+            DrawAt(1, 25, @"███████          ♦      ████           ♦      ♦         ♦       █          █                ███      ♦      █████", ConsoleColor.Green);
+
+            //Adding decorations 
+            DrawAt(11, 9, "  █ █  ", ConsoleColor.Yellow);
+               DrawAt(11, 10, "███████", ConsoleColor.Red);
+            DrawAt(11, 11, "█ ███ █", ConsoleColor.Red);
+            DrawAt(11, 12, "███████", ConsoleColor.Magenta);
+            DrawAt(11, 13, " █ █ █", ConsoleColor.DarkMagenta);
 
         }
         /// <summary>
@@ -473,10 +450,10 @@ namespace TeamWork.Field
         /// </summary>
         public static void Credits()
         {
-            DrawHLineAt(0, 0, 115, '\u2591', 3, false, ConsoleColor.Yellow);
-            DrawVLineAt(114, 0, 30, '\u2591', 3, false, ConsoleColor.Yellow);
-            DrawHLineAt(114, 29, 115, '\u2591', 3, true, ConsoleColor.Yellow);
-            DrawVLineAt(0, 29, 30, '\u2591', 3, true, ConsoleColor.Yellow);
+            DrawHLineAt(0, 0, 115, '\u2588', 3, false, ConsoleColor.Yellow);
+            DrawVLineAt(114, 0, 30, '\u2588', 3, false, ConsoleColor.Yellow);
+            DrawHLineAt(114, 29, 115, '\u2588', 3, true, ConsoleColor.Yellow);
+            DrawVLineAt(0, 29, 30, '\u2588', 3, true, ConsoleColor.Yellow);
             DrawAt(1, 2, @".                                                               +         ", ConsoleColor.Cyan);
             DrawAt(1, 3, @"      .           +                 ,             *                       ", ConsoleColor.Cyan);
             DrawAt(1, 4, @"   .                             .     .                         .        ", ConsoleColor.Cyan);
@@ -551,10 +528,10 @@ namespace TeamWork.Field
         /// </summary>
         public static void GameOver()
         {
-            DrawHLineAt(0, 0, 115, '\u2591', 3, false, ConsoleColor.Yellow);
-            DrawVLineAt(114, 0, 30, '\u2591', 3, false, ConsoleColor.Yellow);
-            DrawHLineAt(114, 29, 115, '\u2591', 3, true, ConsoleColor.Yellow);
-            DrawVLineAt(0, 29, 30, '\u2591', 3, true, ConsoleColor.Yellow);
+            DrawHLineAt(0, 0, 115, '\u2588', 3, false, ConsoleColor.Yellow);
+            DrawVLineAt(114, 0, 30, '\u2588', 3, false, ConsoleColor.Yellow);
+            DrawHLineAt(114, 29, 115, '\u2588', 3, true, ConsoleColor.Yellow);
+            DrawVLineAt(0, 29, 30, '\u2588', 3, true, ConsoleColor.Yellow);
             DrawAt(1, 2, @".                                                               +         ", ConsoleColor.Cyan);
             DrawAt(1, 3, @"      .           +                 ,             *                       ", ConsoleColor.Cyan);
             DrawAt(1, 4, @"   .                             .     .                         .        ", ConsoleColor.Cyan);
@@ -591,7 +568,6 @@ namespace TeamWork.Field
             Thread.Sleep(600);
             DrawAt(29, 17, @"(P)lay Again", ConsoleColor.Green);
             DrawAt(29, 19, @"(Q)uit The Game", ConsoleColor.Red);
-            //DrawAt(29, 21, HighScore, ConsoleColor.Red);
             while (true)
             {
                 ConsoleKeyInfo key = Console.ReadKey(true);
@@ -662,10 +638,10 @@ namespace TeamWork.Field
         /// </summary>
         public static void LoadContent()
         {
-            DrawHLineAt(0, 0, 115, '\u2591', 3, false, ConsoleColor.Yellow);
-            DrawVLineAt(114, 0, 30, '\u2591', 3, false, ConsoleColor.Yellow);
-            DrawHLineAt(114, 29, 115, '\u2591', 3, true, ConsoleColor.Yellow);
-            DrawVLineAt(0, 29, 30, '\u2591', 3, true, ConsoleColor.Yellow);
+            DrawHLineAt(0, 0, 115, '\u2588', 3, false, ConsoleColor.Yellow);
+            DrawVLineAt(114, 0, 30, '\u2588', 3, false, ConsoleColor.Yellow);
+            DrawHLineAt(114, 29, 115, '\u2588', 3, true, ConsoleColor.Yellow);
+            DrawVLineAt(0, 29, 30, '\u2588', 3, true, ConsoleColor.Yellow);
 
             DrawAt(1, 2, @".                                                               +          ", ConsoleColor.Cyan);
             DrawAt(1, 3, @"                    +                       ~      _________             ", ConsoleColor.Gray);
@@ -692,7 +668,7 @@ namespace TeamWork.Field
             DrawAt(1, 24, @"      ~--___     ___ --~                                                  ", ConsoleColor.Cyan);
             DrawAt(1, 25, @"           ~--__--~                                                        ", ConsoleColor.Cyan);
             DrawAt(20, 27, @"Downloading Content", ConsoleColor.Cyan);
-            DrawHLineAt(40, 27, 28, '\u2591', 100, false, ConsoleColor.White);
+            DrawHLineAt(40, 27, 28, '\u2588', 100, false, ConsoleColor.White);
             DrawAt(35, 22, @"Tip: W,S,D,A - to control the ship,", ConsoleColor.Green);
             DrawAt(45, 23, @"Space - to fire", ConsoleColor.Green);
         }
@@ -701,10 +677,10 @@ namespace TeamWork.Field
         /// </summary>
         public static void LoadStory()
         {
-            DrawHLineAt(0, 0, 115, '\u2591', 3, false, ConsoleColor.Yellow);
-            DrawVLineAt(114, 0, 30, '\u2591', 3, false, ConsoleColor.Yellow);
-            DrawHLineAt(114, 29, 115, '\u2591', 3, true, ConsoleColor.Yellow);
-            DrawVLineAt(0, 29, 30, '\u2591', 3, true, ConsoleColor.Yellow);
+            DrawHLineAt(0, 0, 115, '\u2588', 3, false, ConsoleColor.Yellow);
+            DrawVLineAt(114, 0, 30, '\u2588', 3, false, ConsoleColor.Yellow);
+            DrawHLineAt(114, 29, 115, '\u2588', 3, true, ConsoleColor.Yellow);
+            DrawVLineAt(0, 29, 30, '\u2588', 3, true, ConsoleColor.Yellow);
 
             DrawAt(1, 2, @".                                                               +         ", ConsoleColor.Cyan);
             DrawAt(1, 3, @"      .           +                 ,             *                       ", ConsoleColor.Cyan);
