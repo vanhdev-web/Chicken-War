@@ -15,8 +15,8 @@ namespace TeamWork.Field
         /// Màn hình load menu chính
         /// </summary>
         public static void StartMenu()
-        {
-            // Luồng nhạc menu
+        {       
+            //Menu Music Thread
             //mediaPlayer.Open(new Uri("Resources/GameMenu.mp3", UriKind.Relative));
             //mediaPlayer.Play();
             Printing.WelcomeScreen();
@@ -84,13 +84,13 @@ namespace TeamWork.Field
         /// </summary>
         public static void Table()
         {
-            int uiWidth = Math.Min(Console.WindowWidth, 115); // Giới hạn chiều rộng UI ở 115 hoặc sử dụng chiều rộng cửa sổ
+            int uiWidth = Math.Min(Console.WindowWidth, 115); // Cap the UI width to 115, or use the window width
             int nameBoard = 14 + Engine.Player.Name.Length;
 
-            // Vẽ viền trên
+            // Draw Top Border
             for (int i = 0; i < uiWidth; i++)
             {
-                // Định nghĩa vị trí mà viền trên KHÔNG nên được vẽ
+                // Define the positions where the top border should NOT be drawn
                 bool drawTopBorder = (i <= 3) || (i >= nameBoard && i < 38) || (i > 41);
                 if (drawTopBorder)
                 {
@@ -98,10 +98,10 @@ namespace TeamWork.Field
                 }
             }
 
-            // Vẽ viền dưới
+            // Draw Bottom Border
             for (int i = 0; i < uiWidth; i++)
             {
-                // Định nghĩa các khoảng trống cho liveBoard và scoreBoard
+                // Define gaps for liveBoard and scoreBoard
                 bool drawBottomBorder = (i <= 3) || (i > 13 && i < 29) || (i > 40);
                 if (drawBottomBorder)
                 {
@@ -149,8 +149,7 @@ namespace TeamWork.Field
             currentScores += "#" + highscore + @"
 ";
             File.WriteAllText("Scores.txt", currentScores);
-        }
-
+        }      
         /// <summary>
         /// In điểm cao trong màn hình điểm số menu chính
         /// </summary>
