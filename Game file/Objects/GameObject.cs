@@ -152,6 +152,7 @@ namespace TeamWork.Objects
             {
                 case ObjectType.Bullet:
                     Printing.DrawAt(this.Point, '-', ConsoleColor.DarkCyan); // In tiêu chuẩn cho viên đạn
+                    Printing.DrawAt(this.Point, '-', ConsoleColor.DarkCyan); // Standart print for bullets
                     break;
                 case ObjectType.Normal:
                     if (!this.GotHit) // Nếu đối tượng này không bị giết bởi điều gì đó thì vẽ nó bình thường
@@ -504,9 +505,14 @@ namespace TeamWork.Objects
         /// <param name="clear">Đặt thành true nếu bạn muốn xóa, false nếu bạn muốn in</param>
         /// <param name="c">Đặt các ký tự bạn muốn in cùng</param>
         /// <param name="clr">Đặt màu bạn muốn in cùng</param>
+        /// <param name="clear">Set to true if you want to clear, false if you want to print</param>
+        /// <param name="c">Set the characters you want to print with</param>
+        /// <param name="clr">Set the color you want to print with</param>
         public void PrintAndClearExplosion(bool clear, char[] c = null, ConsoleColor clr = ConsoleColor.White)
         {
             if (c == null && !clear) // Nếu không có char[] nào được truyền và yêu cầu in, tạo một cái tiêu chuẩn
+
+            if (c == null && !clear) // If theres no passed char[] and printing is ordered create standard one
             {
                 c = new[] { '*', '*', '*', '*' };
             }
@@ -542,6 +548,13 @@ namespace TeamWork.Objects
         /// <param name="y">Kiểm tra với Y</param>
         /// <returns>Với có va chạm</returns>
         public bool Collided(int x, int y)
+            /// <summary>
+            /// Collision check
+            /// </summary>
+            /// <param name="x">X to check with</param>
+            /// <param name="y">Y to check with</param>
+            /// <returns>If there is a collision</returns>
+            public bool Collided(int x, int y)
         {
             if (GotHit)
             {
