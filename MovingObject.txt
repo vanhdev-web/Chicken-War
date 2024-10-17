@@ -1,35 +1,99 @@
-class MovingObject
+public class enemymovement
+
 {
-    private int positionX;
-    private int speed;
-    private int direction; // 1 for moving right, -1 for moving left
-   
-    public MovingObject(int initialPosition, int speed)
+    public Point Point { get; set; }
+    private List<Bullet> bullets = new List<Bullet>();
+    private const int BulletSpeed = 2; // Bullet moves down by 1 unit
+    private const int FireDelay = 1000; // 1 second delay
+    private const int MoveSpeed = 2; // Speed of the object's movement
+    private DateTime lastFireTime;
+
+    private int direction = 1; // 1 for right, -1 for left
+    public GameObject()
     {
-        positionX = initialPosition;
-        this.speed = speed;
-        direction = 1;
-        
+        lastFireTime = DateTime.Now; // Initialize the last fire time
     }
-    
+    public void PrintObject()
+    {
+        //sài của sinh enemy
+    }
+
+    public void ClearObject()
+    {
+        //sài của sinh enemy
+    }
+
+
+    public void Shoot()
+    {
+        Bullet newBullet = new Bullet { Position = new Point { X = this.Point.X+3 , Y = this.Point.Y+2 } };
+        bullets.Add(newBullet);
+    }
+
+    public void UpdateBullets()
+    {
+        for (int i = bullets.Count - 1; i >= 0; i--)
+        {
+            Bullet bullet = bullets[i];
+            bullet.Position.Y += BulletSpeed; // Move bullet to the right
+
+            // Check if the bullet is out of bounds
+            if (bullet.Position.Y >= Engine.WindowHeight)
+            {
+                bullets.RemoveAt(i); // Remove bullet if out of bounds
+            }
+            else
+            {
+                // Render the bullet
+                Printing.DrawAt(bullet.Position.X, bullet.Position.Y, "-", ConsoleColor.White);
+            }
+        }
+    }
+
+    public void ClearBullets()
+    {
+        foreach (var bullet in bullets)
+        {
+            Printing.DrawAt(bullet.Position.X, bullet.Position.Y, " ", ConsoleColor.White);
+        }
+    }
+    public void AutoFire()
+    {
+        if ((DateTime.Now - lastFireTime).TotalMilliseconds >= FireDelay)
+        {
+            Shoot();
+            lastFireTime = DateTime.Now; // Update last fire time
+        }
+    }
+
+
 
     public void Move()
     {
-        positionX += speed * direction;
-        
-        // Adjust position to stay within the screen boundaries (assuming a width of 80)
-        if (positionX < 0)
+        // Move left and right automatically
+        Point.X += direction * MoveSpeed;
+
+        // Change direction if hitting the edges
+        if (Point.X >= Engine.WindowWidth - 1) // Adjust for the object size
         {
-            positionX = 0;
-            direction = 1; // Change direction to move right
-            directionChanges++;
+            direction = -2; // Move left
         }
-        else if (positionX > 78)
+        else if (Point.X <= 0)
         {
-            positionX = 78;
-            direction = -1; // Change direction to move left
-            directionChanges++;
+            direction = 2; // Move right
         }
-        
-        
     }
+
+    
+}
+
+public class Bullet
+{
+    public Point Position { get; set; }
+}
+
+public class Point
+{
+    public int X { get; set; }
+    public int Y { get; set; }
+}
