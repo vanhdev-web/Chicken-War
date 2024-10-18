@@ -21,33 +21,26 @@ namespace TeamWork.Background
 
         public void Ve()
         {
-            if (x == Player.PlayerPoint.X && (y == Player.PlayerPoint.Y || y == Player.PlayerPoint.Y - 1 || y == Player.PlayerPoint.Y + 1 || y == Player.PlayerPoint.Y + 2))
-            {
-                Console.SetCursorPosition(5, 3);
-                Console.WriteLine("hello");
+            
 
+
+            if (y < Engine.WindowHeight - 2)
+            {
+                Console.SetCursorPosition(x, y);
+                Console.Write('*');
             }
             else
             {
 
-
-                if (y < Engine.WindowHeight - 2)
-                {
-                    Console.SetCursorPosition(x, y);
-                    Console.Write('*');
-                }
-                else
-                {
-
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    DiChuyen();
-                    x = random.Next(Engine.WindowWidth);
-                    y = 2;
-                    Console.SetCursorPosition(x, y);
-                    Console.Write('*');
-                    return;
-                }
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                DiChuyen();
+                x = random.Next(Engine.WindowWidth);
+                y = 2;
+                Console.SetCursorPosition(x, y);
+                Console.Write('*');
+                return;
             }
+            
 
 
         }
