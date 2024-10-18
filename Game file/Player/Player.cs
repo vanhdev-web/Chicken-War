@@ -1,4 +1,5 @@
 ﻿using System;
+using TeamWork.Background;
 using TeamWork.Field;
 using TeamWork.Objects;
 
@@ -7,13 +8,13 @@ namespace TeamWork
     public class Player : Entity, IPlayer
     {
         private int lives = 3;
-        private int score = 0; 
+        private int score = 0;
         private int level = 1;
 
-        public static Point2D PlayerPoint = new Point2D(10, 15); // Vị trí bắt đầu của người chơi 
-        
+        public static Point2D PlayerPoint = new Point2D(30, 25); // Player default starting point 
+
         /// <summary>
-        /// Xây dựng các giá trị mặc định của người chơi
+        /// Constructor with default values
         /// </summary>
         public Player()
         {
@@ -30,11 +31,11 @@ namespace TeamWork
 
 
         /// <summary>
-        /// Di chuyển người chơi đi lên bằng cách xóa và vẽ lại
+        /// Player move up and redraw
         /// </summary>
         public void MoveUp()
         {
-            // Giới hạn sự di chuyển của người chơi trên trục Y
+            // Limit player movement on Y axis
             if (this.Point.Y - 1 < 3) return;
             Clear();
             this.Point.Y--;
@@ -42,11 +43,11 @@ namespace TeamWork
         }
 
         /// <summary>
-        /// Di chuyển người chơi đi xuống bằng cách xóa và vẽ lại
+        /// Player move down and redraw
         /// </summary>
         public void MoveDown()
         {
-            // Giới hạn sự di chuyển của người chơi trên trục Y
+            // Limit player movement on Y axis
             if (this.Point.Y + 1 >= Engine.WindowHeight - 4) return;
             Clear();
             this.Point.Y++;
@@ -54,23 +55,23 @@ namespace TeamWork
         }
 
         /// <summary>
-        /// Di chuyển người chơi sang phải bằng cách xóa và vẽ lại
+        /// Player move right and redraw
         /// </summary>
         public void MoveRight()
         {
-            // Giới hạn sự di chuyển của người chơi trên trục X
-            if (this.Point.X + 1 >= Engine.WindowWidth - 23) return;
+            // Limit player movement on X axis
+            if (this.Point.X + 1 >= Engine.WindowWidth) return;
             Clear();
             this.Point.X++;
             Print();
         }
 
         /// <summary>
-        /// Di chuyển người chơi sang phải bằng cách xóa và vẽ lại
+        /// Player move left and redraw
         /// </summary>
         public void MoveLeft()
         {
-            // Giới hạn sự di chuyển của người chơi trên trục X
+            // Limit player movement on X axis
             if (this.Point.X - 1 < 1) return;
             Clear();
             this.Point.X--;
@@ -82,49 +83,54 @@ namespace TeamWork
             this.Name = newName;
         }
 
-        // Hàm in ra người chơi ở vị trí hiện tại
+        //Method to print the player at its current position
         public void Print()
         {
-            Printing.DrawAt(Point.X, Point.Y - 1, @"____", ConsoleColor.Cyan);
-            Printing.DrawAt(Point.X, Point.Y, @" \  \_____________", ConsoleColor.Cyan);
-            Printing.DrawAt(Point.X, Point.Y + 1, @" <[=)_)_)_)_______)_ >", ConsoleColor.Cyan);
-            Printing.DrawAt(Point.X + 20, Point.Y + 1, "=", ConsoleColor.DarkCyan);
+
+            Printing.DrawAt(this.Point.X, this.Point.Y - 1, @"   █    ", ConsoleColor.Yellow);
+            Printing.DrawAt(this.Point.X, this.Point.Y, @"  ███  ", ConsoleColor.Yellow);
+            Printing.DrawAt(this.Point.X, this.Point.Y + 1, @" █████ ", ConsoleColor.Yellow);
+            Printing.DrawAt(this.Point.X, this.Point.Y + 2, @"█  █  █", ConsoleColor.Yellow);
+
         }
 
-        // Hàm xóa người chơi ở vị trí cuối cùng
+        // Method to clear players last positionư
         public void Clear()
         {
-            //Dùng khoảng trống để in đè 
-            Printing.DrawAt(Point.X, Point.Y - 1, @"    ");
-            Printing.DrawAt(Point.X, Point.Y, @"                  ");
-            Printing.DrawAt(Point.X, Point.Y + 1, @"                      ");
+            //Had to use strings to get rid of artefacts
+
+            Printing.DrawAt(this.Point.X, this.Point.Y - 1, @"       ");
+            Printing.DrawAt(this.Point.X, this.Point.Y, @"       ");
+            Printing.DrawAt(this.Point.X, this.Point.Y + 1, @"       ");
+
+            Printing.DrawAt(this.Point.X, this.Point.Y + 2, @"       ");
         }
 
         /// <summary>
-        /// Nâng điểm + 1 và tính level 
+        /// Increase points by one and calculate level
         /// </summary>
         public void IncreasePoints()
         {
             this.Score++;
-            Engine.Player.Level = Engine.Player.Score/ 50 + 1;
+            Engine.Player.Level = Engine.Player.Score / 50 + 1;
             if (Engine.Player.Level > 1)
             {
-                // Đặt độ khó của game
+                // Set players difficulty
                 Engine.Chance = Engine.StartingDifficulty - Engine.Player.Level * 2;
             }
         }
 
         /// <summary>
-        /// Tăng 1 số điểm nhất định và tính level
+        /// Increase points by given amount and calculate level
         /// </summary>
-        /// <param name="points">Số điểm được cho</param>
+        /// <param name="points">Points to give</param>
         public void IncreasePoints(int points)
         {
             this.Score += points;
             Engine.Player.Level = Engine.Player.Score / 50 + 1;
         }
         /// <summary>
-        /// Giảm máu của người chơi
+        /// Decrease lifes
         /// </summary>
         public void DecreaseLifes()
         {
@@ -132,19 +138,19 @@ namespace TeamWork
         }
 
         /// <summary>
-        /// Kiểm tra va chạm với X và Y
+        /// Ship collision check with X and Y
         /// </summary>
-        /// <param name="x">Số cột</param>
-        /// <param name="y">Số dòng</param>
-        /// <returns>Nếu có sự va chạm</returns>
+        /// <param name="x">Column number</param>
+        /// <param name="y">Row number</param>
+        /// <returns>If there's a collision</returns>
         public bool ShipCollided(int x, int y)
         {
-            // Kiểm tra vị trí của người chơi
+            // Checks a bunch of point of the player model
             if ((x <= Point.X + 21 && x >= Point.X + 3 && y == Point.Y) ||
-                (x <= Point.X + 3 && x >= Point.X && y == Point.Y-1) ||
-                (x <= Point.X + 21 && x >= Point.X + 3 && y == Point.Y + 1))  
+                (x <= Point.X + 3 && x >= Point.X && y == Point.Y - 1) ||
+                (x <= Point.X + 21 && x >= Point.X + 3 && y == Point.Y + 1))
             {
-                // Nếu có va chạm, giảm máu người chơi và vẽ lại UI
+                // If theres a overlapping point x and y decrease lifes and redraw UI
                 Engine.Player.DecreaseLifes();
 
                 Menu.Table();
@@ -156,7 +162,7 @@ namespace TeamWork
         }
 
         /// <summary>
-        /// Kiểm tra va chạm với Point2D
+        /// Ship collision check with Point2D
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>

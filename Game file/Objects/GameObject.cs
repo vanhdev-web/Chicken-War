@@ -547,7 +547,7 @@ namespace TeamWork.Objects
         /// <param name="x">Kiểm tra với X</param>
         /// <param name="y">Kiểm tra với Y</param>
         /// <returns>Với có va chạm</returns>
-        public bool Collided(int x, int y)
+       
             /// <summary>
             /// Collision check
             /// </summary>
