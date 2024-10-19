@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.IO;
 using System.Threading;
 using System.Windows.Media;
@@ -14,13 +15,15 @@ namespace TeamWork.Field
         /// <summary>
         /// Main menu load screen
         /// </summary>
+
+        public static void StartLogo()
+        {
+            Printing.WelcomeScreen();
+            Thread.Sleep(2000);
+        }
         public static void StartMenu()
         {       
             //Menu Music Thread
-            //mediaPlayer.Open(new Uri("Resources/GameMenu.mp3", UriKind.Relative));
-            //mediaPlayer.Play();
-            Printing.WelcomeScreen();
-            Thread.Sleep(2000);
             while (menuActive)
             {
                 if (validInput)

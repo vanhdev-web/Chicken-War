@@ -9,9 +9,15 @@ namespace TeamWork
         private int lives = 3;
         private int score = 0; 
         private int level = 1;
+<<<<<<< Updated upstream
 
         public static Point2D PlayerPoint = new Point2D(10, 15); // Player default starting point 
         
+=======
+        private int speed = 2;
+        public static Point2D PlayerPoint = new Point2D(30, 25); // Player default starting point 
+
+>>>>>>> Stashed changes
         /// <summary>
         /// Constructor with default values
         /// </summary>
@@ -35,9 +41,9 @@ namespace TeamWork
         public void MoveUp()
         {
             // Limit player movement on Y axis
-            if (this.Point.Y - 1 < 3) return;
+            if (this.Point.Y - speed < 3) return;
             Clear();
-            this.Point.Y--;
+            this.Point.Y -= speed;
             Print();
         }
 
@@ -47,9 +53,9 @@ namespace TeamWork
         public void MoveDown()
         {
             // Limit player movement on Y axis
-            if (this.Point.Y + 1 >= Engine.WindowHeight - 4) return;
+            if (this.Point.Y + speed >= Engine.WindowHeight - 4) return;
             Clear();
-            this.Point.Y++;
+            this.Point.Y += speed;
             Print();
         }
 
@@ -59,9 +65,13 @@ namespace TeamWork
         public void MoveRight()
         {
             // Limit player movement on X axis
+<<<<<<< Updated upstream
             if (this.Point.X + 1 >= Engine.WindowWidth - 23) return;
+=======
+            if (this.Point.X + speed>= Engine.WindowWidth) return;
+>>>>>>> Stashed changes
             Clear();
-            this.Point.X++;
+            this.Point.X += speed;
             Print();
         }
 
@@ -71,9 +81,9 @@ namespace TeamWork
         public void MoveLeft()
         {
             // Limit player movement on X axis
-            if (this.Point.X - 1 < 1) return;
+            if (this.Point.X - speed < 1) return;
             Clear();
-            this.Point.X--;
+            this.Point.X -= speed;
             Print();
         }
 
@@ -138,7 +148,7 @@ namespace TeamWork
         /// <param name="y">Row number</param>
         /// <returns>If there's a collision</returns>
         public bool ShipCollided(int x, int y)
-        {
+        {   
             // Checks a bunch of point of the player model
             if ((x <= Point.X + 21 && x >= Point.X + 3 && y == Point.Y) ||
                 (x <= Point.X + 3 && x >= Point.X && y == Point.Y-1) ||

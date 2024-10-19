@@ -34,10 +34,19 @@ namespace TeamWork.Field
         public void Start()
         {
             // Starting manu and intro screens
+<<<<<<< Updated upstream
             LoadMenuMusic();
             Menu.StartMenu();
             // Starting main's music 
             // Starting effects music thread
+=======
+            LoadGameLogoMusic();
+            Menu.StartLogo();
+            LoadMenuMusic();
+            Menu.StartMenu();
+            /// Starting main's music 
+            //// Starting effects music thread
+>>>>>>> Stashed changes
             EffectsThread = new Thread(SoundEffects);
             EffectsThread.Start();
             //Menu.EntryStoryLine(); // Draw the short story
@@ -356,6 +365,11 @@ namespace TeamWork.Field
         /// Load background music
         /// </summary>
         /// 
+        private static void LoadGameLogoMusic()
+        {
+            var sound = new SoundPlayer { SoundLocation = "Resources/Logo.wav" };
+            sound.Play();
+        }
         private static void LoadMenuMusic()
         {
             var sound = new SoundPlayer { SoundLocation = "Resources/GameMenu.wav" };
