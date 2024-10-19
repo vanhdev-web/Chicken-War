@@ -31,24 +31,24 @@ public class enemymovement
     }
 
     public void UpdateBullets()
+{
+    for (int i = bullets.Count - 1; i >= 0; i--)
     {
-        for (int i = bullets.Count - 1; i >= 0; i--)
-        {
-            Bullet bullet = bullets[i];
-            bullet.Position.Y += BulletSpeed; // Move bullet to the right
+        Bullet bullet = bullets[i];
+        bullet.Position.Y += BulletSpeed; // Move bullet to the right
 
-            // Check if the bullet is out of bounds
-            if (bullet.Position.Y >= Engine.WindowHeight)
-            {
-                bullets.RemoveAt(i); // Remove bullet if out of bounds
-            }
-            else
-            {
-                // Render the bullet
-                Printing.DrawAt(bullet.Position.X, bullet.Position.Y, "-", ConsoleColor.White);
-            }
+        // Check if the bullet is out of bounds
+        if (bullet.Position.Y >= Engine.WindowHeight)
+        {
+            bullets.RemoveAt(i); // Remove bullet if out of bounds
+        }
+        else
+        {
+            // Render the bullet
+            Printing.DrawAt(bullet.Position.X, bullet.Position.Y, "█", ConsoleColor.White);
         }
     }
+}
 
     public void ClearBullets()
     {
