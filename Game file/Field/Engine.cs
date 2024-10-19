@@ -34,19 +34,16 @@ namespace TeamWork.Field
         public void Start()
         {
             // Starting manu and intro screens
-<<<<<<< Updated upstream
             LoadMenuMusic();
             Menu.StartMenu();
             // Starting main's music 
             // Starting effects music thread
-=======
             LoadGameLogoMusic();
             Menu.StartLogo();
             LoadMenuMusic();
             Menu.StartMenu();
             /// Starting main's music 
             //// Starting effects music thread
->>>>>>> Stashed changes
             EffectsThread = new Thread(SoundEffects);
             EffectsThread.Start();
             //Menu.EntryStoryLine(); // Draw the short story
