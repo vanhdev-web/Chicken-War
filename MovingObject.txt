@@ -1,0 +1,35 @@
+class MovingObject
+{
+    private int positionX;
+    private int speed;
+    private int direction; // 1 for moving right, -1 for moving left
+   
+    public MovingObject(int initialPosition, int speed)
+    {
+        positionX = initialPosition;
+        this.speed = speed;
+        direction = 1;
+        
+    }
+    
+
+    public void Move()
+    {
+        positionX += speed * direction;
+        
+        // Adjust position to stay within the screen boundaries (assuming a width of 80)
+        if (positionX < 0)
+        {
+            positionX = 0;
+            direction = 1; // Change direction to move right
+            directionChanges++;
+        }
+        else if (positionX > 78)
+        {
+            positionX = 78;
+            direction = -1; // Change direction to move left
+            directionChanges++;
+        }
+        
+        
+    }
