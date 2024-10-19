@@ -5,7 +5,6 @@ using System.Media;
 using System.Windows.Media;
 using TeamWork.Objects;
 using System.Linq;
-using TeamWork.Background;
 
 namespace TeamWork.Field
 {
@@ -34,13 +33,14 @@ namespace TeamWork.Field
         /// </summary>
         public void Start()
         {
-            // Starting manu and intro screens
-            //LoadMenuMusic();
-            //Menu.StartMenu();
-            //// Starting main's music 
+            LoadGameLogoMusic();
+            Menu.StartLogo();
+            LoadMenuMusic();
+            Menu.StartMenu();
+            /// Starting main's music 
             //// Starting effects music thread
-            //EffectsThread = new Thread(SoundEffects);
-            //EffectsThread.Start();
+            EffectsThread = new Thread(SoundEffects);
+            EffectsThread.Start();
             //Menu.EntryStoryLine(); // Draw the short story
             Printing.EnterName(); // Draw enter name asset
             TakeName(); // Get the players name
@@ -49,7 +49,7 @@ namespace TeamWork.Field
             Thread.Sleep(1000); // Dramatic pause
             while (true) //Main game loop
             {
-                Console.Clear(); 
+                Console.Clear();
                 Player.Print(); // Print the player at his starting position
                 Menu.Table(); // Print the UI Table
                 Menu.UIDescription(); // Print the UI Description
@@ -80,7 +80,7 @@ namespace TeamWork.Field
 
         public static bool BossActive = false;
         public static Boss boss = new Boss(0); // Static boss object, that can be renewed if needed
-        
+
         /// <summary>
         /// Main method that calls all other calculations and drawing calls
         /// </summary>
@@ -89,7 +89,7 @@ namespace TeamWork.Field
             if (Player.Level % 3 == 2 && BossActive == false) // When to spawn a boss
             {
                 BossActive = true;
-                
+
                 if (boss.BossLife <= 0)
                 {
                     boss = new Boss(0);
@@ -97,7 +97,6 @@ namespace TeamWork.Field
             }
             ProjectileMoveAndPrint(); // Move and print projectiles(meteorits, enemy bullets)
             ProjectileCollisionCheck(); // Check for any collisions
-            BGs();
             if (BossActive) // If the boss is active, call its AI method
             {
                 DrawAndMoveMeteor();
@@ -113,36 +112,8 @@ namespace TeamWork.Field
             }
             else
             {
-                DrawAndMoveMeteor(); 
+                DrawAndMoveMeteor();
                 GenerateMeteorit(); // Spawn meteorits
-            }
-        }
-
-        Random random = new Random();
-        List<BackgroundElements> danhSachBongTuyet = new List<BackgroundElements>();
-        private void BGs()
-        {
-
-            if (random.Next(10) == 0)
-            {
-                danhSachBongTuyet.Add(new BackgroundElements());
-
-
-            }
-
-
-
-            int count = 0;
-            // Vẽ tất cả các bông tuyết
-            foreach (BackgroundElements bongTuyet in danhSachBongTuyet)
-            {
-                if (count == 20)
-                {
-                    break;
-                }
-                bongTuyet.Ve();
-                bongTuyet.DiChuyen();
-                count++;
             }
         }
         /// <summary>
@@ -170,25 +141,21 @@ namespace TeamWork.Field
             switch (keyPressed.Key)
             {
                 case ConsoleKey.W:
-                case ConsoleKey.UpArrow:
                     Player.MoveUp();
                     break;
                 case ConsoleKey.S:
-                case ConsoleKey.DownArrow:
                     Player.MoveDown();
                     break;
                 case ConsoleKey.A:
-                case ConsoleKey.LeftArrow:
                     Player.MoveLeft();
                     break;
                 case ConsoleKey.D:
-                case ConsoleKey.RightArrow:
                     Player.MoveRight();
                     break;
                 // Create a new bullet object
                 case ConsoleKey.Spacebar:
                     // Add a GameObject to the bullet list with starting position of the players plane nose with type of bullet
-                    _bullets.Add(new GameObject(new Point2D(Player.Point.X + 3, Player.Point.Y - 2), 0));
+                    _bullets.Add(new GameObject(new Point2D(Player.Point.X + 20, Player.Point.Y + 1), 0));
                     _playEffect = true; // Play player shooting sound
                     break;
             }
@@ -205,7 +172,7 @@ namespace TeamWork.Field
             for (int i = 0; i < _objectProjectiles.Count; i++) // Cycle through all projectiles
             {
                 // Check if the projectile is out of the screen before it clears it
-                if (_objectProjectiles[i].Point.X >= 0) 
+                if (_objectProjectiles[i].Point.X >= 0)
                 {
                     _objectProjectiles[i].ClearObject();
                 }
@@ -224,22 +191,22 @@ namespace TeamWork.Field
             _objectProjectiles = newProjectiles; // Overwrite old projectiles positions with the new ones
 
 
-             // Fire effect lol
+            Printing.DrawAt(Player.Point.X + 20, Player.Point.Y + 1, '=', ConsoleColor.DarkCyan); // Fire effect lol
 
             for (int i = 0; i < _bullets.Count; i++) // Cycle through all bullets
             {
-                if (_bullets[i].Point.Y >= 0) // Check if the bullet is outside the screen before it clears it
+                if (_bullets[i].Point.X <= WindowWidth) // Check if the bullet is outside the screen before it clears it
                 {
                     _bullets[i].ClearObject();
                 }
                 // Clear bullet at its current position
-                if (_bullets[i].Point.Y + _bullets[i].Speed + 1 <= 3)
+                if (_bullets[i].Point.X + _bullets[i].Speed + 1 >= WindowWidth)
                 {
                     // If the bullet exceeds sceen size, dont add it to new Bullets list
                 }
                 else
                 {
-                    _bullets[i].Point.Y -= _bullets[i].Speed + 1; // Move the bullet to the right # tiles
+                    _bullets[i].Point.X += _bullets[i].Speed + 1; // Move the bullet to the right # tiles
                     _bullets[i].PrintObject(); // Print the bullets at their new position;
                     newBullets.Add((_bullets[i])); // Add the moved bullet to the new bullet list
                 }
@@ -334,7 +301,7 @@ namespace TeamWork.Field
                 {
                     Printing.ClearAtPosition(_bullets[i].Point);
                     _bullets.RemoveAt(i);
-                    
+
                     return true;
                 }
             }
@@ -379,7 +346,7 @@ namespace TeamWork.Field
                 hit.Value.ClearObject(); // Clear the object
                 _objectProjectiles.RemoveAt(hit.Index); // Remove the object from the main list based on the index
                 Player.Lifes--; // Decrease players lifes(this method is abit slow and the player gets hit twice by single projectile, but thats cool :D
-                Menu.Table(); 
+                Menu.Table();
                 Menu.UIDescription();
 
             }
@@ -394,6 +361,11 @@ namespace TeamWork.Field
         /// Load background music
         /// </summary>
         /// 
+        private static void LoadGameLogoMusic()
+        {
+            var sound = new SoundPlayer { SoundLocation = "Resources/Logo.wav" };
+            sound.Play();
+        }
         private static void LoadMenuMusic()
         {
             var sound = new SoundPlayer { SoundLocation = "Resources/GameMenu.wav" };
@@ -401,7 +373,7 @@ namespace TeamWork.Field
         }
         private static void LoadMusic()
         {
-            var sound = new SoundPlayer {SoundLocation = "Resources/GamePlay.wav" };
+            var sound = new SoundPlayer { SoundLocation = "Resources/GamePlay.wav" };
             sound.PlayLooping();
         }
 
@@ -460,7 +432,7 @@ namespace TeamWork.Field
             Console.WriteLine();
             Console.Write("\n\t\t\t\t Name:");
             string name = Console.ReadLine();
-            if (String.IsNullOrEmpty(name)|| name.Length >= 10)
+            if (String.IsNullOrEmpty(name) || name.Length >= 10)
             {
                 //Print notice and
                 //reset the console if the name is empty space
@@ -474,7 +446,7 @@ namespace TeamWork.Field
             else
             {
                 Player.setName(name);
-                Console.Clear();               
+                Console.Clear();
             }
         }
 

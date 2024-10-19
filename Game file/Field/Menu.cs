@@ -14,13 +14,13 @@ namespace TeamWork.Field
         /// <summary>
         /// Màn hình load menu chính
         /// </summary>
-        public static void StartMenu()
-        {       
-            //Menu Music Thread
-            //mediaPlayer.Open(new Uri("Resources/GameMenu.mp3", UriKind.Relative));
-            //mediaPlayer.Play();
+        public static void StartLogo()
+        {
             Printing.WelcomeScreen();
             Thread.Sleep(2000);
+        }
+        public static void StartMenu()
+        {       
             while (menuActive)
             {
                 if (validInput)

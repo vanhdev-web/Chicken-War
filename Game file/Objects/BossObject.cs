@@ -331,19 +331,19 @@ namespace TeamWork.Objects
                         if (mineHit4) downRight.X += 1000;
 
                         // If the particle is in the screen boundries , print it
-                        if ((upLeft.X > 1 && upLeft.X < 79) && (upLeft.Y > 1 && upLeft.Y < 30))
+                        if ((upLeft.X > 1 && upLeft.X < 114) && (upLeft.Y > 1 && upLeft.Y < 30))
                         {
                             Printing.DrawAt(upLeft, '*');
                         }
-                        if ((upRight.X > 1 && upRight.X < 79) && (upRight.Y > 1 && upRight.Y < 30))
+                        if ((upRight.X > 1 && upRight.X < 114) && (upRight.Y > 1 && upRight.Y < 30))
                         {
                             Printing.DrawAt(upRight, '*');
                         }
-                        if ((downLeft.X > 1 && downLeft.X < 79) && (downLeft.Y > 1 && downLeft.Y < 30))
+                        if ((downLeft.X > 1 && downLeft.X < 114) && (downLeft.Y > 1 && downLeft.Y < 30))
                         {
                             Printing.DrawAt(downLeft, '*');
                         }
-                        if ((downRight.X > 1 && downRight.X < 79) && (downRight.Y > 1 && downRight.Y < 30))
+                        if ((downRight.X > 1 && downRight.X < 114) && (downRight.Y > 1 && downRight.Y < 30))
                         {
                             Printing.DrawAt(downRight, '*');
                         }
@@ -462,19 +462,19 @@ namespace TeamWork.Objects
                         if (mineHit4) downRight.X += 1000;
                         if (Engine.Player.ShipCollided(downRight)) mineHit4 = true;
 
-                        if ((upLeft.X > 1 && upLeft.X < 79) && (upLeft.Y > 1 && upLeft.Y < 30))
+                        if ((upLeft.X > 1 && upLeft.X < 114) && (upLeft.Y > 1 && upLeft.Y < 30))
                         {
                             Printing.DrawAt(upLeft, ' ');
                         }
-                        if ((upRight.X > 1 && upRight.X < 79) && (upRight.Y > 1 && upRight.Y < 30))
+                        if ((upRight.X > 1 && upRight.X < 114) && (upRight.Y > 1 && upRight.Y < 30))
                         {
                             Printing.DrawAt(upRight, ' ');
                         }
-                        if ((downLeft.X > 1 && downLeft.X < 79) && (downLeft.Y > 1 && downLeft.Y < 30))
+                        if ((downLeft.X > 1 && downLeft.X < 114) && (downLeft.Y > 1 && downLeft.Y < 30))
                         {
                             Printing.DrawAt(downLeft, ' ');
                         }
-                        if ((downRight.X > 1 && downRight.X < 79) && (downRight.Y > 1 && downRight.Y < 30))
+                        if ((downRight.X > 1 && downRight.X < 114) && (downRight.Y > 1 && downRight.Y < 30))
                         {
                             Printing.DrawAt(downRight, ' ');
                         }

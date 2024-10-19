@@ -6,41 +6,41 @@ namespace TeamWork.Objects
     public class GameObject : Entity
     {
         /// <summary>
-        /// Các quái vật trong Game
+        /// GameObject Type - each with different looks, life, collision detection, points, effects.
         /// </summary>
         public enum ObjectType
         {
             Bullet,
-            /* Dùng cho viên đạn             
+            /* Used for bullets only             
                     -
              */
             Normal,
-            /* Thiên thạch chuẩn với 2 mạng sống, cho 2 điểm, không có chức năng bổ sung
+            /* Standard Meteorid with 2 life, gives 2 points, no additional functions
                     /\
                     \/
              */
             Small,
-            /* Thiên thạch nhỏ với 1 mạng sống, cho 1 điểm, không có chức năng bổ sung
+            /* Small Meteorid with 1 life, gives 1 points, no additional functions
                     <>
              */
             Silver,
-            /* Thiên thạch bạc với 4 mạng sống, cho 5 điểm, không có chức năng bổ sung
+            /* Silver Meteorid with 4 life, gives 5 points, no additional functions
                     \ /
                      x
                     / \
              */
             Gold,
-            /* Thiên thạch vàng với 3 mạng sống, cho 4 điểm, không có chức năng bổ sung
+            /* Gold Meteorid with 3 life, gives 4 points, no additional functions
                      ^
                     <x>
                      v
              */
             Lenghty,
-            /* Thiên thạch dài với 3 mạng sống, cho 3 điểm, không có chức năng bổ sung
+            /* Lenghty Meteorid with 3 life, gives 3 points, no additional functions
                     {==>
              */
             Quadcopter
-            /* Chỉ loại kẻ thù hung hãn, bắn trả, có 7 mạng sống, cho 10 điểm
+            /* Only agressive enemy type, shoots back, has 7 life, gives 10 points
                    __       __
                   _\_\_____/_|
                 <[__\_\_-----<"
@@ -52,7 +52,7 @@ namespace TeamWork.Objects
         public int life;
 
         /// <summary>
-        /// Hàm khởi tạo cơ bản
+        /// Base constructor
         /// </summary>
         public GameObject()
         {
@@ -61,9 +61,9 @@ namespace TeamWork.Objects
 
 
         /// <summary>
-        /// Hàm khởi tạo với Point2D được chỉ định (loại viên đạn)
+        /// Constructor with assigned Point2D (type bullet)
         /// </summary>
-        /// <param name="point">Điểm để tạo đối tượng</param>
+        /// <param name="point">Point to create the object with</param>
         public GameObject(Point2D point)
             : base(point)
         {
@@ -74,10 +74,10 @@ namespace TeamWork.Objects
 
 
         /// <summary>
-        /// Hàm khởi tạo với Point2D được chỉ định và loại nhất định
+        /// Constructor with assigned Point2D with given type
         /// </summary>
-        /// <param name="point">Điểm để tạo đối tượng</param>
-        /// <param name="type">Loại đối tượng</param>
+        /// <param name="point">Point to create the object with</param>
+        /// <param name="type">Object type</param>
         public GameObject(Point2D point, int type)
             : base(point)
         {
@@ -87,9 +87,9 @@ namespace TeamWork.Objects
         }
 
         /// <summary>
-        /// Hàm khởi tạo với loại đối tượng, mọi thứ khác sử dụng mặc định cho loại đã cho
+        /// Constructor with object type, everithing else is using the defaults for the given type
         /// </summary>
-        /// <param name="type">Loại đối tượng</param>
+        /// <param name="type">Object type</param>
         public GameObject(int type)
         {
             base.Speed = 1;
@@ -105,16 +105,16 @@ namespace TeamWork.Objects
                     base.Point = new Point2D(Engine.WindowWidth - 1, Engine.Rnd.Next(4, Engine.WindowHeight - 2));
                     break;
                 case ObjectType.Silver:
-                    life = 4;
-                    base.Point = new Point2D(Engine.WindowWidth - 3, Engine.Rnd.Next(3, Engine.WindowHeight - 4));
+                    life = 7;
+                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight - 4));
                     break;
                 case ObjectType.Gold:
-                    life = 3;
-                    base.Point = new Point2D(Engine.WindowWidth - 3, Engine.Rnd.Next(3, Engine.WindowHeight - 4));
+                    life = 7;
+                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight - 4));
                     break;
                 case ObjectType.Lenghty:
-                    life = 3;
-                    base.Point = new Point2D(Engine.WindowWidth - 3, Engine.Rnd.Next(4, Engine.WindowHeight - 3));
+                    life = 7;
+                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight - 4));
                     break;
                 case ObjectType.Quadcopter:
                     life = 7;
@@ -123,51 +123,51 @@ namespace TeamWork.Objects
             }
         }
 
-        public bool toBeDeleted; // Kích hoạt để cho biết đối tượng này phải bị xóa
-        private bool Moveable = true; // Trạng thái có thể di chuyển
+        public bool toBeDeleted; // Trigger to tell this object must be deleted
+        private bool Moveable = true; // Toggable move state
         public override string ToString()
         {
-            return string.Format("Loại đối tượng:{0}, X:{1}, Y:{2}, Có thể di chuyển:{3}", objectType, Point.X, Point.Y, Moveable);
+            return string.Format("Object type:{0}, X:{1}, Y:{2},Moveable:{3}", objectType, Point.X, Point.Y, Moveable);
         }
 
 
-        private int Frames = 1; // Bộ đếm khung cho các hiệu ứng nổ và một số tính toán
-        private Point2D diagonalInc = new Point2D(1, 1); // Điểm trợ giúp tính toán đường chéo
-        private Point2D diagonalDec = new Point2D(-1, 1); // Điểm trợ giúp tính toán đường chéo
-        private Point2D upRight; // Lưu trữ điểm đường chéo trên bên phải cho hiệu ứng nổ
-        private Point2D upLeft; // Lưu trữ điểm đường chéo trên bên trái cho hiệu ứng nổ
-        private Point2D downLeft; // Lưu trữ điểm đường chéo dưới bên trái cho hiệu ứng nổ
-        private Point2D downRight; // Lưu trữ điểm đường chéo dưới bên phải cho hiệu ứng nổ
+        private int Frames = 1; // Frame counter for explosions and some calculations
+        private Point2D diagonalInc = new Point2D(1, 1); // Diagonal calculation helper Point2D
+        private Point2D diagonalDec = new Point2D(-1, 1); // Diagonal calculation helper Point2D
+        private Point2D upRight; // up Right Diagonal point storage for explosion effect
+        private Point2D upLeft; // up Left Diagonal point storage for explosion effect
+        private Point2D downLeft; // down Left Diagonal point storage for explosion effect
+        private Point2D downRight; // down Right Diagonal point storage for explosion effect
 
-        private int projectileCounter = 1; // Bộ đếm để kiểm tra xem Quadcopter có nên bắn
-        private int projectileChance = Engine.Rnd.Next(20, 50); // Cơ hội ngẫu nhiên rằng quadcopters sẽ bắn một viên đạn
+        private int projectileCounter = 1; // Counter to check with if the Quadcopter should fire 
+        private int projectileChance = Engine.Rnd.Next(20, 50); // Random chance that quadcopters will fire a bullet
 
-        public bool GotHit = false; // Biến chuyển giúp với hoạt ảnh nổ
+        public bool GotHit = false; //Toggle that helps with the explosion animation
         /// <summary>
-        /// In GameObject dựa trên loại của nó
+        /// Print GameObject based on its type
         /// </summary>
         public void PrintObject()
         {
             switch (objectType)
             {
                 case ObjectType.Bullet:
-                    Printing.DrawAt(this.Point, '-', ConsoleColor.DarkCyan); // In tiêu chuẩn cho viên đạn
                     Printing.DrawAt(this.Point, '-', ConsoleColor.DarkCyan); // Standart print for bullets
                     break;
                 case ObjectType.Normal:
-                    if (!this.GotHit) // Nếu đối tượng này không bị giết bởi điều gì đó thì vẽ nó bình thường
+                    if (!this.GotHit) // If this object isn't killed by something draw it normally
                     {
                         Printing.DrawAt(this.Point, "/\\", ConsoleColor.Red);
                         Printing.DrawAt(this.Point.X, Point.Y + 1, "\\/", ConsoleColor.Red);
+
                     }
-                    else // Nếu bị giết thì tạo hiệu ứng nổ
+                    else // If it is create the explosion effect
                     {
-                        upLeft = this.Point - diagonalInc * Frames; // Tính toán vị trí hạt của hiệu ứng nổ
-                        upRight = this.Point - diagonalDec * Frames; // Sử dụng các trợ giúp đường chéo
-                        downRight = this.Point + diagonalInc * Frames; // Nhân với các khung trên màn hình
+                        upLeft = this.Point - diagonalInc * Frames; // Calculate the explosion effect particles position
+                        upRight = this.Point - diagonalDec * Frames; // using the diagonal helpers
+                        downRight = this.Point + diagonalInc * Frames; // multiplying by the frames on screen
                         downLeft = this.Point + diagonalDec * Frames;
-                        char[] c = { '/', '\\', '\\', '/' }; // Đặt các ký tự của vụ nổ
-                        PrintAndClearExplosion(false, c, ConsoleColor.Red); // In nó
+                        char[] c = { '/', '\\', '\\', '/' }; // Set the charracters of the explosion
+                        PrintAndClearExplosion(false, c, ConsoleColor.Red); // Print it
                     }
 
                     break;
@@ -189,9 +189,40 @@ namespace TeamWork.Objects
                 case ObjectType.Silver:
                     if (!this.GotHit)
                     {
-                        Printing.DrawAt(this.Point.X, this.Point.Y - 1, "\\ /", ConsoleColor.Gray);
-                        Printing.DrawAt(this.Point, " X ", ConsoleColor.Gray);
-                        Printing.DrawAt(this.Point.X, this.Point.Y + 1, "/ \\", ConsoleColor.Gray);
+                        if (projectileCounter % projectileChance == 0) // Check if Quadcopter has to shoot
+                        {
+                            // If true, create a projectile in the main list of projectiles
+                            Engine._objectProjectiles.Add(new GameObject(new Point2D(this.Point.X - 1, this.Point.Y), 0));
+                            projectileCounter++; // Increase the counter
+                        }
+                        else
+                        {
+                            // If false, just increase the counter
+                            projectileCounter++;
+                        }
+                        if (this.Point.X + 2 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, @"  █  █", ConsoleColor.Magenta);
+                        }
+                        else if (this.Point.X + 3 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, @" ███████", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y, @"  █ █ █", ConsoleColor.Magenta);
+                        }
+                        else if (this.Point.X + 4 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 1, Point.Y - 2, @"  █████", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"  █ █ █", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y, @"   █ █", ConsoleColor.Magenta);
+                        }
+                        else
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y - 4, @" █     █", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X, Point.Y - 3, @" ███████", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y - 2, @"  █ █ █", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"  █████", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y, @"   █ █", ConsoleColor.Magenta);
+                        }
                     }
                     else
                     {
@@ -199,17 +230,63 @@ namespace TeamWork.Objects
                         upRight = this.Point - diagonalDec * Frames;
                         downRight = this.Point + diagonalInc * Frames;
                         downLeft = this.Point + diagonalDec * Frames;
-                        Printing.DrawAt(this.Point, 'x', ConsoleColor.Gray);
-                        char[] c = { '\\', '/', '/', '\\' };
-                        PrintAndClearExplosion(false, c, ConsoleColor.Gray);
+                        PrintAndClearExplosion(false);
                     }
                     break;
                 case ObjectType.Gold:
                     if (!this.GotHit)
                     {
-                        Printing.DrawAt(this.Point.X, this.Point.Y - 1, " \u25B2", ConsoleColor.Yellow);
-                        Printing.DrawAt(this.Point, "\u25C4\u25A0\u25BA", ConsoleColor.Yellow);
-                        Printing.DrawAt(this.Point.X, this.Point.Y + 1, " \u25BC", ConsoleColor.Yellow);
+                        if (projectileCounter % projectileChance == 0) // Check if Quadcopter has to shoot
+                        {
+                            // If true, create a projectile in the main list of projectiles
+                            Engine._objectProjectiles.Add(new GameObject(new Point2D(this.Point.X - 1, this.Point.Y), 0));
+                            projectileCounter++; // Increase the counter
+                        }
+                        else
+                        {
+                            // If false, just increase the counter
+                            projectileCounter++;
+                        }
+                        if (this.Point.X + 2 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, " █", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "██", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 3 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, " ██", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "███", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 4 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, " ██ ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "████", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "█", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 5 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, " ██ █", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█████", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "█ ", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 6 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, " ██ ██", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "██████", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "█  ", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 7 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, " ██ ██ ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "███████", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "█   ", ConsoleColor.Yellow);
+                        }
+                        else
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, " ██ ██ ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "███████", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "█   ", ConsoleColor.Yellow);
+                        }
                     }
                     else
                     {
@@ -217,14 +294,87 @@ namespace TeamWork.Objects
                         upRight = this.Point - diagonalDec * Frames;
                         downRight = this.Point + diagonalInc * Frames;
                         downLeft = this.Point + diagonalDec * Frames;
-                        char[] c = { '\u25B2', '\u25BA', '\u25C4', '\u25BC' };
-                        PrintAndClearExplosion(false, c, ConsoleColor.Yellow);
+                        PrintAndClearExplosion(false);
                     }
                     break;
                 case ObjectType.Lenghty:
                     if (!this.GotHit)
                     {
-                        Printing.DrawAt(this.Point, "{\u25A0\u25A0\u25BA");
+                        if (projectileCounter % projectileChance == 0) // Check if Quadcopter has to shoot
+                        {
+                            // If true, create a projectile in the main list of projectiles
+                            Engine._objectProjectiles.Add(new GameObject(new Point2D(this.Point.X - 1, this.Point.Y), 0));
+                            projectileCounter++; // Increase the counter
+                        }
+                        else
+                        {
+                            // If false, just increase the counter
+                            projectileCounter++;
+                        }
+
+                        #region Quadcopter Entry animation
+                        /* Only agressive enemy type, shoots back, has 7 life, gives 10 points
+                   __       __
+                  _\_\_____/_|
+                <[__\_\_-----<"
+                     oo' 
+             */
+
+                        // This makes the quadcopter entry smooth, not instant spawn in the center of the screen
+                        if (this.Point.X + 2 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " █", ConsoleColor.Magenta);
+                        }
+                        if (this.Point.X + 3 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██ ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " ██", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "█", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 4 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "█", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ██", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " ███", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "█", ConsoleColor.Red);
+                        }
+                        if (this.Point.X + 5 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "█ █", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ███", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██ █ ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " ████", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "█ ", ConsoleColor.Red);
+                        }
+                        if (this.Point.X + 6 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "█ █ ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ███ ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██ █ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " █████", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "█  ", ConsoleColor.Red);
+                        }
+                        if (this.Point.X + 7 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "█ █  ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ███ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██ █ ██", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " █████ ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "█   ", ConsoleColor.Red);
+                        }
+                        else
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "█ █  ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ███ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██ █ ██", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " █████ ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "█   ", ConsoleColor.Red);
+                        }
+                        #endregion
                     }
                     else
                     {
@@ -232,51 +382,87 @@ namespace TeamWork.Objects
                         upRight = this.Point - diagonalDec * Frames;
                         downRight = this.Point + diagonalInc * Frames;
                         downLeft = this.Point + diagonalDec * Frames;
-                        char[] c = { '{', '\u25BA', '\u25A0', '\u25A0' };
-                        PrintAndClearExplosion(false, c);
+                        PrintAndClearExplosion(false);
                     }
                     break;
                 case ObjectType.Quadcopter:
 
+
                     if (!this.GotHit)
                     {
-                        if (projectileCounter % projectileChance == 0) // Kiểm tra xem Quadcopter có phải bắn không
+                        if (projectileCounter % projectileChance == 0) // Check if Quadcopter has to shoot
                         {
-                            // Nếu đúng, tạo một viên đạn trong danh sách viên đạn chính
+                            // If true, create a projectile in the main list of projectiles
                             Engine._objectProjectiles.Add(new GameObject(new Point2D(this.Point.X - 1, this.Point.Y), 0));
-                            projectileCounter++; // Tăng bộ đếm
+                            projectileCounter++; // Increase the counter
                         }
                         else
                         {
-                            // Nếu sai, chỉ tăng bộ đếm
+                            // If false, just increase the counter
                             projectileCounter++;
                         }
 
-                        #region Hoạt ảnh vào của Quadcopter
+                        #region Quadcopter Entry animation
+                        /* Only agressive enemy type, shoots back, has 7 life, gives 10 points
+                   __       __
+                  _\_\_____/_|
+                <[__\_\_-----<"
+                     oo' 
+             */
 
-                        // Điều này làm cho việc vào của quadcopter mượt mà, không xuất hiện ngay lập tức ở giữa màn hình
+                        // This makes the quadcopter entry smooth, not instant spawn in the center of the screen
                         if (this.Point.X + 2 >= Engine.WindowWidth)
                         {
-                            Printing.DrawAt(this.Point, @"         █ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " █", ConsoleColor.Magenta);
                         }
-                        else if (this.Point.X + 3 >= Engine.WindowWidth)
+                        if (this.Point.X + 3 >= Engine.WindowWidth)
                         {
-                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"        █████", ConsoleColor.Red);
-                            Printing.DrawAt(this.Point, @"       ██ █ ██", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██ ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " ██", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "█", ConsoleColor.Yellow);
                         }
-                        else if (this.Point.X + 4 >= Engine.WindowWidth)
+                        if (this.Point.X + 4 >= Engine.WindowWidth)
                         {
-                            Printing.DrawAt(this.Point.X + 1, Point.Y - 2, @"      █ █████ █", ConsoleColor.Red);
-                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"       ██ █ ██", ConsoleColor.Red);
-                            Printing.DrawAt(this.Point, @"         █ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "█", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ██", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " ███", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "█", ConsoleColor.Red);
+                        }
+                        if (this.Point.X + 5 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "█ █", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ███", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██ █ ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " ████", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "█ ", ConsoleColor.Red);
+                        }
+                        if (this.Point.X + 6 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "█ █ ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ███ ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██ █ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " █████", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "█  ", ConsoleColor.Red);
+                        }
+                        if (this.Point.X + 7 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "█ █  ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ███ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██ █ ██", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " █████ ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "█   ", ConsoleColor.Red);
                         }
                         else
                         {
-                            Printing.DrawAt(this.Point.X, Point.Y - 4, @"         █ █", ConsoleColor.Red);
-                            Printing.DrawAt(this.Point.X, Point.Y - 3, @"        █████", ConsoleColor.Red);
-                            Printing.DrawAt(this.Point.X, Point.Y - 2, @"       ██ █ ██", ConsoleColor.Red);
-                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"      █ █████ █", ConsoleColor.Red);
-                            Printing.DrawAt(this.Point.X, Point.Y, @"         █ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "█ █  ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ███ █", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "██ █ ██", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, " █████ ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "█   ", ConsoleColor.Red);
                         }
                         #endregion
                     }
@@ -294,44 +480,44 @@ namespace TeamWork.Objects
 
 
         /// <summary>
-        /// Xóa GameObject dựa trên loại của nó
+        /// Clear GameObject based on its type
         /// </summary>
         public void ClearObject()
         {
             switch (objectType)
             {
                 case ObjectType.Bullet:
-                    Printing.DrawAt(this.Point.X, this.Point.Y, ' '); // Xóa viên đạn
+                    Printing.DrawAt(this.Point.X, this.Point.Y, ' ');
                     break;
                 case ObjectType.Normal:
-                    #region Xóa đối tượng chuẩn và hiệu ứng vỡ
-                    if (!this.GotHit) // Nếu không bị giết/hit thì xóa tiêu chuẩn
+                    #region Normal object clearing and breaking effect
+                    if (!this.GotHit) // If not killed/hit use standard clear
                     {
                         Printing.DrawAt(this.Point, "  ");
                         Printing.DrawAt(this.Point.X, Point.Y + 1, "  ");
                     }
-                    else // Nếu bị hit, xóa sau hiệu ứng nổ
+                    else // If hit, clear after the explosion effect
                     {
                         upRight = this.Point - diagonalDec * Frames;
                         upLeft = this.Point + diagonalDec * Frames;
                         downLeft = this.Point - diagonalInc * Frames;
                         downRight = this.Point + diagonalInc * Frames;
-                        Moveable = false; // Đặt thiên thạch/asteroid thành tĩnh
-                        PrintAndClearExplosion(true); // Xóa sau hiệu ứng
-                        if (Frames == 5) // Kiểm tra nếu đã qua 4 khung thì...
+                        Moveable = false; // Set the meteorid/asteroid to be static
+                        PrintAndClearExplosion(true); // Clear after the effect
+                        if (Frames == 5) // Check if 4 frames were passed then...
                         {
-                            this.toBeDeleted = true; // Đánh dấu đối tượng để xóa
-                            Engine.Player.IncreasePoints(2); // Tăng điểm cho người chơi
+                            this.toBeDeleted = true; // Sets the object to be deleted
+                            Engine.Player.IncreasePoints(2); // Increase the players score
 
-                            Menu.Table(); // Vẽ lại bảng UI
-                            Menu.UIDescription(); // Vẽ lại mô tả UI
+                            Menu.Table(); // Redraw the UI Table
+                            Menu.UIDescription(); // Redraw the UI Description
                         }
-                        Frames++; // Tăng số khung
+                        Frames++; // Increase frame count
                     }
                     #endregion
                     break;
                 case ObjectType.Small:
-                    #region Xóa đối tượng nhỏ và hiệu ứng vỡ
+                    #region Small object clearing and breaking effect
                     if (!this.GotHit)
                     {
                         Printing.DrawAt(this.Point, "   ");
@@ -357,113 +543,31 @@ namespace TeamWork.Objects
                     #endregion
                     break;
                 case ObjectType.Silver:
-                    #region Xóa đối tượng bạc và hiệu ứng vỡ
+                    #region Silver object clearing and breaking effect
                     if (!this.GotHit)
-                    {
-                        Printing.DrawAt(this.Point.X, this.Point.Y - 1, "   ");
-                        Printing.DrawAt(this.Point, "   ");
-                        Printing.DrawAt(this.Point.X, this.Point.Y + 1, "   ");
-                    }
-                    else
-                    {
-                        upRight = this.Point - diagonalDec * Frames;
-                        upLeft = this.Point + diagonalDec * Frames;
-                        downRight = this.Point - diagonalInc * Frames;
-                        downLeft = this.Point + diagonalInc * Frames;
-                        Printing.ClearAtPosition(this.Point);
-                        Moveable = false;
-                        PrintAndClearExplosion(true);
-                        if (Frames == 5)
-                        {
-                            this.toBeDeleted = true;
-                            Engine.Player.IncreasePoints(5);
-
-                            Menu.Table();
-                            Menu.UIDescription();
-                        }
-                        Frames++;
-                    }
-                    #endregion
-                    break;
-                case ObjectType.Gold:
-                    #region Xóa đối tượng vàng và hiệu ứng vỡ
-                    if (!this.GotHit)
-                    {
-                        Printing.DrawAt(this.Point.X, this.Point.Y - 1, "  ");
-                        Printing.DrawAt(this.Point, "   ");
-                        Printing.DrawAt(this.Point.X, this.Point.Y + 1, "  ");
-                    }
-                    else
-                    {
-                        upRight = this.Point - diagonalDec * Frames;
-                        upLeft = this.Point + diagonalDec * Frames;
-                        downRight = this.Point - diagonalInc * Frames;
-                        downLeft = this.Point + diagonalInc * Frames;
-                        PrintAndClearExplosion(true);
-                        if (Frames == 5)
-                        {
-                            this.toBeDeleted = true;
-                            Engine.Player.IncreasePoints(4);
-
-                            Menu.Table();
-                            Menu.UIDescription();
-                        }
-                        Frames++;
-                    }
-                    #endregion
-                    break;
-                case ObjectType.Lenghty:
-                    #region Xóa đối tượng dài và hiệu ứng vỡ
-                    if (!this.GotHit)
-                    {
-                        Printing.DrawAt(this.Point, "    ");
-                    }
-                    else
-                    {
-                        upRight = this.Point - diagonalDec * Frames;
-                        upLeft = this.Point + diagonalDec * Frames;
-                        downLeft = this.Point - diagonalInc * Frames;
-                        downRight = this.Point + diagonalInc * Frames;
-                        Moveable = false;
-                        PrintAndClearExplosion(true);
-                        if (Frames == 5)
-                        {
-                            this.toBeDeleted = true;
-                            Engine.Player.IncreasePoints(3);
-
-                            Menu.Table();
-                            Menu.UIDescription();
-                        }
-                        Frames++;
-                    }
-                    #endregion
-                    break;
-                case ObjectType.Quadcopter:
-                    #region Xóa đối tượng quadcopter và hiệu ứng vỡ
-                    if (!GotHit)
                     {
                         if (this.Point.X + 2 >= Engine.WindowWidth)
                         {
-                            Printing.DrawAt(this.Point, @"            ");
+                            Printing.DrawAt(this.Point.X, Point.Y, @"      ");
                         }
                         else if (this.Point.X + 3 >= Engine.WindowWidth)
                         {
-                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"             ");
-                            Printing.DrawAt(this.Point, @"              ");
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"        ");
+                            Printing.DrawAt(this.Point.X, Point.Y, @"       ");
                         }
                         else if (this.Point.X + 4 >= Engine.WindowWidth)
                         {
-                            Printing.DrawAt(this.Point.X + 1, Point.Y - 2, @"               ");
-                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"              ");
-                            Printing.DrawAt(this.Point, @"            ");
+                            Printing.DrawAt(this.Point.X + 1, Point.Y - 2, @"       ");
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"       ");
+                            Printing.DrawAt(this.Point.X, Point.Y, @"      ");
                         }
                         else
                         {
-                            Printing.DrawAt(this.Point.X, Point.Y - 4, @"            ");
-                            Printing.DrawAt(this.Point.X, Point.Y - 3, @"             ");
-                            Printing.DrawAt(this.Point.X, Point.Y - 2, @"              ");
-                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"               ");
-                            Printing.DrawAt(this.Point.X, Point.Y, @"            ");
+                            Printing.DrawAt(this.Point.X, Point.Y - 4, @"        ");
+                            Printing.DrawAt(this.Point.X, Point.Y - 3, @"        ");
+                            Printing.DrawAt(this.Point.X, Point.Y - 2, @"       ");
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, @"       ");
+                            Printing.DrawAt(this.Point.X, Point.Y, @"      ");
                         }
                     }
                     else
@@ -485,12 +589,240 @@ namespace TeamWork.Objects
                     }
                     #endregion
                     break;
+                case ObjectType.Gold:
+                    #region Gold object clearing and breaking effect math
+                    if (!this.GotHit)
+                    {
+                        if (this.Point.X + 2 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, "  ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "  ", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 3 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, "   ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "   ", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 4 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, "    ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "    ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 1, " ", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 5 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, "     ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "     ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "  ", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 6 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, "      ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "      ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "   ", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 7 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, "       ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "       ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "    ", ConsoleColor.Yellow);
+                        }
+                        else
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y, "       ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "       ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "    ", ConsoleColor.Yellow);
+                        }
+                    }
+                    else
+                    {
+                        upLeft = this.Point - diagonalInc * Frames;
+                        upRight = this.Point - diagonalDec * Frames;
+                        downRight = this.Point + diagonalInc * Frames;
+                        downLeft = this.Point + diagonalDec * Frames;
+                        PrintAndClearExplosion(true);
+                        if (Frames == 5)
+                        {
+                            this.toBeDeleted = true;
+                            Engine.Player.IncreasePoints(10);
+
+                            Menu.Table();
+                            Menu.UIDescription();
+                        }
+                        Frames++;
+                    }
+                    #endregion
+                    break;
+                case ObjectType.Lenghty:
+                    #region Lenghty object clear and breaking effect math
+                    if (!GotHit)
+                    {
+
+                        if (this.Point.X + 2 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "  ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "  ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "  ", ConsoleColor.Magenta);
+                        }
+                        if (this.Point.X + 3 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "   ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "   ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "   ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, " ", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 4 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, " ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "    ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "    ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "    ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, " ", ConsoleColor.Red);
+                        }
+                        if (this.Point.X + 5 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "   ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "     ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "     ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "     ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "  ", ConsoleColor.Red);
+                        }
+                        if (this.Point.X + 6 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "    ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "      ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "      ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "      ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "   ", ConsoleColor.Red);
+                        }
+                        if (this.Point.X + 7 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "     ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "       ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "       ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "       ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "    ", ConsoleColor.Red);
+                        }
+                        else
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "     ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "       ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "       ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "       ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "    ", ConsoleColor.Red);
+                        }
+                    }
+                    else
+                    {
+                        upLeft = this.Point - diagonalInc * Frames;
+                        upRight = this.Point - diagonalDec * Frames;
+                        downRight = this.Point + diagonalInc * Frames;
+                        downLeft = this.Point + diagonalDec * Frames;
+                        PrintAndClearExplosion(true);
+                        if (Frames == 5)
+                        {
+                            this.toBeDeleted = true;
+                            Engine.Player.IncreasePoints(10);
+
+                            Menu.Table();
+                            Menu.UIDescription();
+                        }
+                        Frames++;
+                    }
+                    #endregion
+                    break;
+                case ObjectType.Quadcopter:
+                    #region Quadcopter object clear and breaking effect
+                    if (!GotHit)
+                    {
+
+                        if (this.Point.X + 2 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "  ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "  ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "  ", ConsoleColor.Magenta);
+                        }
+                        if (this.Point.X + 3 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "   ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "   ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "   ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, " ", ConsoleColor.Yellow);
+                        }
+                        if (this.Point.X + 4 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, " ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "    ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "    ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "    ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, " ", ConsoleColor.Red);
+                        }
+                        if (this.Point.X + 5 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "   ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "     ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "     ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "     ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "  ", ConsoleColor.Red);
+                        }
+                        if (this.Point.X + 6 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "    ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "      ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "      ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "      ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "   ", ConsoleColor.Red);
+                        }
+                        if (this.Point.X + 7 >= Engine.WindowWidth)
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "     ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "       ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "       ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "       ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "    ", ConsoleColor.Red);
+                        }
+                        else
+                        {
+                            Printing.DrawAt(this.Point.X + 2, Point.Y + 2, "     ", ConsoleColor.Yellow);
+                            Printing.DrawAt(this.Point.X, Point.Y + 1, "       ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y, "       ", ConsoleColor.Red);
+                            Printing.DrawAt(this.Point.X, Point.Y - 1, "       ", ConsoleColor.Magenta);
+                            Printing.DrawAt(this.Point.X + 3, Point.Y - 2, "    ", ConsoleColor.Red);
+                        }
+                    }
+                    else
+                    {
+                        upLeft = this.Point - diagonalInc * Frames;
+                        upRight = this.Point - diagonalDec * Frames;
+                        downRight = this.Point + diagonalInc * Frames;
+                        downLeft = this.Point + diagonalDec * Frames;
+                        PrintAndClearExplosion(true);
+                        if (Frames == 5)
+                        {
+                            this.toBeDeleted = true;
+                            Engine.Player.IncreasePoints(10);
+
+                            Menu.Table();
+                            Menu.UIDescription();
+                        }
+                        Frames++;
+                    }
+                    #endregion
+                    break;
+
             }
         }
 
         /// <summary>
-        /// Di chuyển đối tượng sang trái 1 ô
+        /// Move the object to the left 1 tile
         /// </summary>
+        public void Shooting()
+        {
+            while (true)
+            {
+
+            }
+        }
         public void MoveObject()
         {
             if (Moveable)
@@ -499,62 +831,50 @@ namespace TeamWork.Objects
             }
         }
 
+
         /// <summary>
-        /// Xóa và in hiệu ứng nổ
+        /// Clear and Print explosion effect
         /// </summary>
-        /// <param name="clear">Đặt thành true nếu bạn muốn xóa, false nếu bạn muốn in</param>
-        /// <param name="c">Đặt các ký tự bạn muốn in cùng</param>
-        /// <param name="clr">Đặt màu bạn muốn in cùng</param>
         /// <param name="clear">Set to true if you want to clear, false if you want to print</param>
         /// <param name="c">Set the characters you want to print with</param>
         /// <param name="clr">Set the color you want to print with</param>
-        public void PrintAndClearExplosion(bool clear, char[] c = null, ConsoleColor clr = ConsoleColor.White)
+        private void PrintAndClearExplosion(bool clear, char[] c = null, ConsoleColor clr = ConsoleColor.White)
         {
-            if (c == null && !clear) // Nếu không có char[] nào được truyền và yêu cầu in, tạo một cái tiêu chuẩn
 
             if (c == null && !clear) // If theres no passed char[] and printing is ordered create standard one
             {
                 c = new[] { '*', '*', '*', '*' };
             }
-            else if (clear) // Nếu xóa, tạo char[] với các khoảng trắng
+            else if (clear) // If clearing, create char[] with white spaces
             {
                 c = new[] { ' ', ' ', ' ', ' ' };
             }
-            // Sau đó in/xóa các đường chéo
-            if ((upLeft.X > 1 && upLeft.X < 79) && (upLeft.Y > 1 && upLeft.Y < 30))
+            // Then print/Clear the diagonals
+            if ((upLeft.X > 1 && upLeft.X < 114) && (upLeft.Y > 1 && upLeft.Y < 30))
             {
                 Printing.DrawAt(upLeft, c[0], clr);
             }
-            if ((upRight.X > 1 && upRight.X < 79) && (upRight.Y > 1 && upRight.Y < 30))
+            if ((upRight.X > 1 && upRight.X < 114) && (upRight.Y > 1 && upRight.Y < 30))
             {
                 Printing.DrawAt(upRight, c[1], clr);
             }
-            if ((downLeft.X > 1 && downLeft.X < 79) && (downLeft.Y > 1 && downLeft.Y < 30))
+            if ((downLeft.X > 1 && downLeft.X < 114) && (downLeft.Y > 1 && downLeft.Y < 30))
             {
                 Printing.DrawAt(downLeft, c[2], clr);
             }
-            if ((downRight.X > 1 && downRight.X < 79) && (downRight.Y > 1 && downRight.Y < 30))
+            if ((downRight.X > 1 && downRight.X < 114) && (downRight.Y > 1 && downRight.Y < 30))
             {
                 Printing.DrawAt(downRight, c[3], clr);
             }
+
         }
-
-
-
         /// <summary>
-        /// kiểm tra va chạm
+        /// Collision check
         /// </summary>
-        /// <param name="x">Kiểm tra với X</param>
-        /// <param name="y">Kiểm tra với Y</param>
-        /// <returns>Với có va chạm</returns>
-       
-            /// <summary>
-            /// Collision check
-            /// </summary>
-            /// <param name="x">X to check with</param>
-            /// <param name="y">Y to check with</param>
-            /// <returns>If there is a collision</returns>
-            public bool Collided(int x, int y)
+        /// <param name="x">X to check with</param>
+        /// <param name="y">Y to check with</param>
+        /// <returns>If there is a collision</returns>
+        public bool Collided(int x, int y)
         {
             if (GotHit)
             {
@@ -589,13 +909,17 @@ namespace TeamWork.Objects
                      * ADG
                      * BEH
                      */
-                    if ((x == this.Point.X && y == this.Point.Y) || //A
-                        (x == this.Point.X &&
-                        (y == this.Point.Y + 1 || y == this.Point.Y - 1)) || // B / C
-                        (x == this.Point.X + 1 &&
-                        (y == this.Point.Y || y == this.Point.Y + 1 || y == this.Point.Y - 1)) || // D / E / F
-                        (x == this.Point.X + 2 &&
-                        (y == this.Point.Y || y == this.Point.Y + 1 || y == this.Point.Y - 1))) // G / H / I
+                    if (
+                        (x == this.Point.X && y == this.Point.Y)
+                        ||
+                        (y == this.Point.Y && (x == this.Point.X || x == this.Point.X + 1 || x == this.Point.X + 2 || x == this.Point.X + 3))
+                        ||
+                        (y == this.Point.Y + 1 && (x == this.Point.X || x == this.Point.X + 1 || x == this.Point.X + 2 || x == this.Point.X + 3))
+                        ||
+                        (y == this.Point.Y - 1 && (x == this.Point.X || x == this.Point.X + 1 || x == this.Point.X + 2 || x == this.Point.X + 3))
+                        ||
+                        (y == this.Point.Y - 2 && (x == this.Point.X + 3 || x == this.Point.X + 4 || x == this.Point.X + 5))
+                       )
                         return true;
                     return false;
                 case ObjectType.Gold:
@@ -604,33 +928,8 @@ namespace TeamWork.Objects
                      * ADG
                      * BE(.)
                      */
-                    if ((x == this.Point.X &&
-                         (y == this.Point.Y || y == this.Point.Y + 1 || y == this.Point.Y - 1)) || // A / B / C
-                        (x == this.Point.X + 1 &&
-                         (y == this.Point.Y || y == this.Point.Y + 1 || y == this.Point.Y - 1)) || // D / E / F
-                        (x == this.Point.X + 2 &&
-                         (y == this.Point.Y || y == this.Point.Y + 1 || y == this.Point.Y - 1))) // G / . / .
-                    {
-                        return true;
-                    }
-                    else 
-                    { 
-                        return false;
-                    }
-                    ;
-                case ObjectType.Lenghty:
-                    /*
-                     * ABCD
-                     */
-                    if ((x == this.Point.X && y == this.Point.Y) || // A
-                        (y == this.Point.Y &&
-                        (x == this.Point.X || x == this.Point.X + 1 || // B / C / D
-                        x == this.Point.X + 2 || x == this.Point.X + 3)))
-                        return true;
-                    return false;
-                case ObjectType.Quadcopter:
-                   if (
-                        (x == this.Point.X && y == this.Point.Y) 
+                    if (
+                        (x == this.Point.X && y == this.Point.Y)
                         ||
                         (y == this.Point.Y && (x == this.Point.X || x == this.Point.X + 1 || x == this.Point.X + 2 || x == this.Point.X + 3))
                         ||
@@ -638,8 +937,39 @@ namespace TeamWork.Objects
                         ||
                         (y == this.Point.Y - 1 && (x == this.Point.X || x == this.Point.X + 1 || x == this.Point.X + 2 || x == this.Point.X + 3))
                         ||
-                        (y == this.Point.Y - 2 && (x == this.Point.X+3 || x == this.Point.X + 4 || x == this.Point.X + 5))
+                        (y == this.Point.Y - 2 && (x == this.Point.X + 3 || x == this.Point.X + 4 || x == this.Point.X + 5))
                        )
+                        return true;
+                    return false;
+                case ObjectType.Lenghty:
+                    /*
+                     * ABCD
+                     */
+                    if (
+                        (x == this.Point.X && y == this.Point.Y)
+                        ||
+                        (y == this.Point.Y && (x == this.Point.X || x == this.Point.X + 1 || x == this.Point.X + 2 || x == this.Point.X + 3))
+                        ||
+                        (y == this.Point.Y + 1 && (x == this.Point.X || x == this.Point.X + 1 || x == this.Point.X + 2 || x == this.Point.X + 3))
+                        ||
+                        (y == this.Point.Y - 1 && (x == this.Point.X || x == this.Point.X + 1 || x == this.Point.X + 2 || x == this.Point.X + 3))
+                        ||
+                        (y == this.Point.Y - 2 && (x == this.Point.X + 3 || x == this.Point.X + 4 || x == this.Point.X + 5))
+                       )
+                        return true;
+                    return false;
+                case ObjectType.Quadcopter:
+                    if (
+                         (x == this.Point.X && y == this.Point.Y)
+                         ||
+                         (y == this.Point.Y && (x == this.Point.X || x == this.Point.X + 1 || x == this.Point.X + 2 || x == this.Point.X + 3))
+                         ||
+                         (y == this.Point.Y + 1 && (x == this.Point.X || x == this.Point.X + 1 || x == this.Point.X + 2 || x == this.Point.X + 3))
+                         ||
+                         (y == this.Point.Y - 1 && (x == this.Point.X || x == this.Point.X + 1 || x == this.Point.X + 2 || x == this.Point.X + 3))
+                         ||
+                         (y == this.Point.Y - 2 && (x == this.Point.X + 3 || x == this.Point.X + 4 || x == this.Point.X + 5))
+                        )
                         return true;
                     return false;
                 default:
@@ -647,10 +977,10 @@ namespace TeamWork.Objects
             }
         }
         /// <summary>
-        /// Kiểm tra va chạm với Point2D
+        /// Collision check with Point2D
         /// </summary>
-        /// <param name="point">Sử dụng Point2D để kiểm tra</param>
-        /// <returns>Nếu có va chạm</returns>
+        /// <param name="point">Point2D To check with</param>
+        /// <returns>If there is a collision</returns>
         public bool Collided(Point2D point)
         {
             return Collided(point.X, point.Y);
