@@ -155,7 +155,7 @@ namespace TeamWork.Field
                 // Create a new bullet object
                 case ConsoleKey.Spacebar:
                     // Add a GameObject to the bullet list with starting position of the players plane nose with type of bullet
-                    _bullets.Add(new GameObject(new Point2D(Player.Point.X + 20, Player.Point.Y + 1), 0));
+                    _bullets.Add(new GameObject(new Point2D(Player.Point.X + 3, Player.Point.Y + 2), 0));
                     _playEffect = true; // Play player shooting sound
                     break;
             }
