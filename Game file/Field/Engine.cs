@@ -35,8 +35,8 @@ namespace TeamWork.Field
         public void Start()
         {
             // Starting manu and intro screens
-            //LoadMenuMusic();
-            //Menu.StartMenu();
+            LoadMenuMusic();
+            Menu.StartMenu();
             //// Starting main's music 
             //// Starting effects music thread
             //EffectsThread = new Thread(SoundEffects);
