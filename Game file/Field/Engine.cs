@@ -191,8 +191,6 @@ namespace TeamWork.Field
             _objectProjectiles = newProjectiles; // Overwrite old projectiles positions with the new ones
 
 
-            Printing.DrawAt(Player.Point.X + 20, Player.Point.Y + 1, '=', ConsoleColor.DarkCyan); // Fire effect lol
-
             for (int i = 0; i < _bullets.Count; i++) // Cycle through all bullets
             {
                 if (_bullets[i].Point.X <= WindowWidth) // Check if the bullet is outside the screen before it clears it

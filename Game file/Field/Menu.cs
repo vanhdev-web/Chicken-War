@@ -20,7 +20,7 @@ namespace TeamWork.Field
             Thread.Sleep(2000);
         }
         public static void StartMenu()
-        {       
+        {      
             while (menuActive)
             {
                 if (validInput)
