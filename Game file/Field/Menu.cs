@@ -96,7 +96,7 @@ namespace TeamWork.Field
                                 {
                                     Printing.DrawAt(new Point2D(i, 0), '\u2588', ConsoleColor.Red);
                                 }*/
-                Printing.DrawAt(new Point2D(i, 0), '\u2588', ConsoleColor.Red); 
+                Printing.DrawAt(new Point2D(i, 0), '\u2588', ConsoleColor.DarkCyan); 
 
             }
 
@@ -109,7 +109,7 @@ namespace TeamWork.Field
                 {
                     Printing.DrawAt(new Point2D(i, 30), '\u2588', ConsoleColor.Red);
                 }*/
-                Printing.DrawAt(new Point2D(i, 30), '\u2588', ConsoleColor.Red);
+                Printing.DrawAt(new Point2D(i, 30), '\u2588', ConsoleColor.DarkCyan);
             }
         }
 
@@ -125,7 +125,7 @@ namespace TeamWork.Field
             Printing.DrawAt(new Point2D(5, 0), playerName, ConsoleColor.Cyan);
             Printing.DrawAt(new Point2D(100, 0), level, ConsoleColor.Cyan);
             Printing.DrawAt(new Point2D(5, 30), " Lifes: ", ConsoleColor.Cyan);
-            Printing.DrawHLineAt(12, 30, Engine.Player.Lifes, '\u2665', ConsoleColor.Red);
+            Printing.DrawHLineAt(12, 30, Engine.Player.Lifes, '\u2665', ConsoleColor.DarkRed);
             Printing.ClearAtPosition(12 + Engine.Player.Lifes, 30);
             Printing.DrawAt(new Point2D(41, 0), score, ConsoleColor.Cyan);
         }

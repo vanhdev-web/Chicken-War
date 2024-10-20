@@ -90,6 +90,7 @@ namespace TeamWork
 
             Printing.DrawAt(this.Point.X, this.Point.Y - 1, @"   █    ", ConsoleColor.Yellow);
             Printing.DrawAt(this.Point.X, this.Point.Y, @"  ███  ", ConsoleColor.Yellow);
+            Printing.DrawAt(this.Point.X+3, this.Point.Y, @"█", ConsoleColor.White);
             Printing.DrawAt(this.Point.X, this.Point.Y + 1, @" █████ ", ConsoleColor.Yellow);
             Printing.DrawAt(this.Point.X, this.Point.Y + 2, @"█  █  █", ConsoleColor.Yellow);
 

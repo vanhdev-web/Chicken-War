@@ -33,10 +33,10 @@ namespace TeamWork.Field
         /// </summary>
         public void Start()
         {
-            /* LoadGameLogoMusic();
-             Menu.StartLogo();
-             LoadMenuMusic();
-             Menu.StartMenu();*/
+            LoadGameLogoMusic();
+            Menu.StartLogo();
+            LoadMenuMusic();
+            Menu.StartMenu();
             /// Starting main's music 
             //// Starting effects music thread
             EffectsThread = new Thread(SoundEffects);

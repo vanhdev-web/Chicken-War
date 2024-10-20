@@ -337,8 +337,8 @@ namespace TeamWork.Field
         /// </summary>
         public static void WelcomeScreen()
         {
-            DrawHLineAt(10, 0, 100, '\u2588', 1, false, ConsoleColor.Red);
-            DrawHLineAt(109, 29, 100, '\u2588', 1, true, ConsoleColor.Red);
+            DrawHLineAt(45, 4, 60, '\u2588', 1, false, ConsoleColor.DarkRed);
+            DrawHLineAt(70, 25, 60, '\u2588', 1, true, ConsoleColor.DarkRed);
 
             DrawAt(35, 12, "██╗  ██╗███████╗██╗  ██╗███████╗███████╗██████╗", ConsoleColor.DarkRed);
             DrawAt(35, 12, "██╗  ██╗███████╗██╗  ██╗███████╗███████╗██████╗", ConsoleColor.DarkRed);
