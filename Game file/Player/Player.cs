@@ -10,7 +10,7 @@ namespace TeamWork
         private int lives = 3;
         private int score = 0;
         private int level = 1;
-        private int speed = 2;
+
         public static Point2D PlayerPoint = new Point2D(30, 25); // Player default starting point 
 
         /// <summary>
@@ -36,9 +36,9 @@ namespace TeamWork
         public void MoveUp()
         {
             // Limit player movement on Y axis
-            if (this.Point.Y - speed < 3) return;
+            if (this.Point.Y - 1 < 3) return;
             Clear();
-            this.Point.Y -= speed;
+            this.Point.Y--;
             Print();
         }
 
@@ -48,9 +48,9 @@ namespace TeamWork
         public void MoveDown()
         {
             // Limit player movement on Y axis
-            if (this.Point.Y + speed >= Engine.WindowHeight - 4) return;
+            if (this.Point.Y + 1 >= Engine.WindowHeight - 4) return;
             Clear();
-            this.Point.Y += speed;
+            this.Point.Y++;
             Print();
         }
 
@@ -60,9 +60,9 @@ namespace TeamWork
         public void MoveRight()
         {
             // Limit player movement on X axis
-            if (this.Point.X + speed >= Engine.WindowWidth) return;
+            if (this.Point.X + 1 >= Engine.WindowWidth) return;
             Clear();
-            this.Point.X += speed;
+            this.Point.X++;
             Print();
         }
 
@@ -72,9 +72,9 @@ namespace TeamWork
         public void MoveLeft()
         {
             // Limit player movement on X axis
-            if (this.Point.X - speed < 1) return;
+            if (this.Point.X - 1 < 1) return;
             Clear();
-            this.Point.X -= speed;
+            this.Point.X--;
             Print();
         }
 
