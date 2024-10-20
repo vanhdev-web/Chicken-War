@@ -33,10 +33,10 @@ namespace TeamWork.Field
         /// </summary>
         public void Start()
         {
-            LoadGameLogoMusic();
-            Menu.StartLogo();
-            LoadMenuMusic();
-            Menu.StartMenu();
+            /* LoadGameLogoMusic();
+             Menu.StartLogo();
+             LoadMenuMusic();
+             Menu.StartMenu();*/
             /// Starting main's music 
             //// Starting effects music thread
             EffectsThread = new Thread(SoundEffects);
@@ -155,7 +155,7 @@ namespace TeamWork.Field
                 // Create a new bullet object
                 case ConsoleKey.Spacebar:
                     // Add a GameObject to the bullet list with starting position of the players plane nose with type of bullet
-                    _bullets.Add(new GameObject(new Point2D(Player.Point.X + 3, Player.Point.Y + 2), 0));
+                    _bullets.Add(new GameObject(new Point2D(Player.Point.X + 3, Player.Point.Y - 2), 0));
                     _playEffect = true; // Play player shooting sound
                     break;
             }
@@ -193,18 +193,22 @@ namespace TeamWork.Field
 
             for (int i = 0; i < _bullets.Count; i++) // Cycle through all bullets
             {
-                if (_bullets[i].Point.X <= WindowWidth) // Check if the bullet is outside the screen before it clears it
+                if (_bullets[i].Point.Y >= WindowWidth) // Check if the bullet is outside the screen before it clears it
+                {
+                    _bullets[i].ClearObject();
+                }
+                if (_bullets[i].Point.X >= 1) // Check if the bullet is outside the screen before it clears it
                 {
                     _bullets[i].ClearObject();
                 }
                 // Clear bullet at its current position
-                if (_bullets[i].Point.X + _bullets[i].Speed + 1 >= WindowWidth)
+                if (_bullets[i].Point.Y + _bullets[i].Speed + 1 <= 3)
                 {
                     // If the bullet exceeds sceen size, dont add it to new Bullets list
                 }
                 else
                 {
-                    _bullets[i].Point.X += _bullets[i].Speed + 1; // Move the bullet to the right # tiles
+                    _bullets[i].Point.Y -= _bullets[i].Speed + 1; // Move the bullet to the right # tiles
                     _bullets[i].PrintObject(); // Print the bullets at their new position;
                     newBullets.Add((_bullets[i])); // Add the moved bullet to the new bullet list
                 }
