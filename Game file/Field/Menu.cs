@@ -91,22 +91,25 @@ namespace TeamWork.Field
             for (int i = 0; i < uiWidth; i++)
             {
                 // Define the positions where the top border should NOT be drawn
-                bool drawTopBorder = (i <= 3) || (i >= nameBoard && i < 38) || (i > 41);
-                if (drawTopBorder)
-                {
-                    Printing.DrawAt(new Point2D(i, 0), '\u2588', ConsoleColor.DarkRed);
-                }
+                /*                bool drawTopBorder = (i <= 3) || (i >= nameBoard && i < 38) || (i > 41);
+                                if (drawTopBorder)
+                                {
+                                    Printing.DrawAt(new Point2D(i, 0), '\u2588', ConsoleColor.Red);
+                                }*/
+                Printing.DrawAt(new Point2D(i, 0), '\u2588', ConsoleColor.Red); 
+
             }
 
             // Draw Bottom Border
             for (int i = 0; i < uiWidth; i++)
             {
                 // Define gaps for liveBoard and scoreBoard
-                bool drawBottomBorder = (i <= 3) || (i > 13 && i < 29) || (i > 40);
+               /* bool drawBottomBorder = (i <= 3) || (i > 13 && i < 29) || (i > 40);
                 if (drawBottomBorder)
                 {
-                    Printing.DrawAt(new Point2D(i, 30), '\u2588', ConsoleColor.DarkRed);
-                }
+                    Printing.DrawAt(new Point2D(i, 30), '\u2588', ConsoleColor.Red);
+                }*/
+                Printing.DrawAt(new Point2D(i, 30), '\u2588', ConsoleColor.Red);
             }
         }
 
@@ -115,16 +118,16 @@ namespace TeamWork.Field
         /// </summary>
         public static void UIDescription()
         {
-            string level = string.Format("{0}", Engine.Player.Level).PadLeft(2, '0');
-            string score = string.Format("Score: {0} ", Engine.Player.Score).PadLeft(3, '0');
-            string playerName = string.Format("Player: {0}", Engine.Player.Name);
+            string level = string.Format(" Level: {0} ", Engine.Player.Level).PadLeft(2, '0');
+            string score = string.Format("               Score: {0}               ", Engine.Player.Score).PadLeft(3, '0');
+            string playerName = string.Format(" Player: {0} ", Engine.Player.Name);
 
-            Printing.DrawAt(new Point2D(5, 0), playerName, ConsoleColor.DarkYellow);
-            Printing.DrawAt(new Point2D(39, 0), level, ConsoleColor.DarkYellow);
-            Printing.DrawAt(new Point2D(5, 30), "Lifes: ", ConsoleColor.DarkYellow);
-            Printing.DrawHLineAt(11, 30, Engine.Player.Lifes, '\u2665', ConsoleColor.Red);
-            Printing.ClearAtPosition(11 + Engine.Player.Lifes, 30);
-            Printing.DrawAt(new Point2D(30, 30), score, ConsoleColor.DarkYellow);
+            Printing.DrawAt(new Point2D(5, 0), playerName, ConsoleColor.Cyan);
+            Printing.DrawAt(new Point2D(100, 0), level, ConsoleColor.Cyan);
+            Printing.DrawAt(new Point2D(5, 30), " Lifes: ", ConsoleColor.Cyan);
+            Printing.DrawHLineAt(12, 30, Engine.Player.Lifes, '\u2665', ConsoleColor.Red);
+            Printing.ClearAtPosition(12 + Engine.Player.Lifes, 30);
+            Printing.DrawAt(new Point2D(41, 0), score, ConsoleColor.Cyan);
         }
 
         #region Phương thức điểm cao và điểm số

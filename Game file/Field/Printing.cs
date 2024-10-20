@@ -97,11 +97,15 @@ namespace TeamWork.Field
         /// <param name="clr">Color to print with</param>
         public static void DrawVLineAt(int x, int y, int lenght, object obj, ConsoleColor clr = ConsoleColor.White)
         {
-            for (int i = 0; i < lenght; i++)
+            try
             {
-                DrawAt(x, y, obj, clr);
-                y++;
+                for (int i = 0; i < lenght; i++)
+                {
+                    DrawAt(x, y, obj, clr);
+                    y++;
+                }
             }
+            catch { return; };
 
         }
 
@@ -117,20 +121,23 @@ namespace TeamWork.Field
         /// <param name="clr">Color to print with</param>
         public static void DrawVLineAt(int x, int y, int lenght, object obj, int sleep, bool reverse, ConsoleColor clr = ConsoleColor.White)
         {
-
-            for (int i = 0; i < lenght; i++)
+            try
             {
-                DrawAt(x, y, obj, clr);
-                if (reverse)
+                for (int i = 0; i < lenght; i++)
                 {
-                    y--;
+                    DrawAt(x, y, obj, clr);
+                    if (reverse)
+                    {
+                        y--;
+                    }
+                    else
+                    {
+                        y++;
+                    }
+                    Thread.Sleep(sleep);
                 }
-                else
-                {
-                    y++;
-                }
-                Thread.Sleep(sleep);
             }
+           catch { return;  };
 
         }
 
@@ -143,7 +150,11 @@ namespace TeamWork.Field
         /// <param name="clr">Color to print with</param>
         public static void DrawVLineAt(Point2D point, int lenght, object obj, ConsoleColor clr = ConsoleColor.White)
         {
-            DrawVLineAt(point.X, point.Y, lenght, obj, clr);
+            try
+            {
+                DrawVLineAt(point.X, point.Y, lenght, obj, clr);
+            }
+            catch { return; }
         }
 
 
@@ -157,11 +168,16 @@ namespace TeamWork.Field
         /// <param name="clr">Color to print with</param>
         public static void DrawHLineAt(int x, int y, int lenght, object obj, ConsoleColor clr = ConsoleColor.White)
         {
-            for (int i = 0; i < lenght; i++)
+            try
             {
-                DrawAt(x, y, obj, clr);
-                x++;
+                for (int i = 0; i < lenght; i++)
+                {
+                    DrawAt(x, y, obj, clr);
+                    x++;
+                }
             }
+            catch { return;  };
+           
         }
 
         /// <summary>
@@ -176,19 +192,23 @@ namespace TeamWork.Field
         /// <param name="clr">Color to print with</param>
         public static void DrawHLineAt(int x, int y, int lenght, object obj, int sleep, bool reverse, ConsoleColor clr = ConsoleColor.White)
         {
-            for (int i = 0; i < lenght; i++)
+            try
             {
-                DrawAt(x, y, obj, clr);
-                if (reverse)
+                for (int i = 0; i < lenght; i++)
                 {
-                    x--;
+                    DrawAt(x, y, obj, clr);
+                    if (reverse)
+                    {
+                        x--;
+                    }
+                    else
+                    {
+                        x++;
+                    }
+                    Thread.Sleep(sleep);
                 }
-                else
-                {
-                    x++;
-                }
-                Thread.Sleep(sleep);
             }
+            catch { return; }
         }
 
         /// <summary>
@@ -200,52 +220,16 @@ namespace TeamWork.Field
         /// <param name="clr">Color to print with</param>
         public static void DrawHLineAt(Point2D point, int lenght, object obj, ConsoleColor clr = ConsoleColor.White)
         {
-            DrawHLineAt(point.X, point.Y, lenght, obj, clr);
+            try
+            {
+                DrawHLineAt(point.X, point.Y, lenght, obj, clr);
+            }
+            catch { return; }
         }
+          
 
-        /// <summary>
-        /// Draw a Rectangle starting at given X Y position with set size
-        /// </summary>
-        /// <param name="x">Column number</param>
-        /// <param name="y">Row number</param>
-        /// <param name="size">Size of the rectangle</param>
-        /// <param name="obj">Object to print</param>
-        /// <param name="clr">Color to print with</param>
-        public static void DrawRectangleAt(int x, int y, int size, object obj, ConsoleColor clr = ConsoleColor.White)
-        {
 
-            for (int i = 0, side1 = 0; i < size; i++)
-            {
-                DrawAt(x + side1++, y, obj, clr);
-            }
 
-            for (int i = 0, side2 = 0; i < size; i++)
-            {
-                DrawAt(x + size - 1, y + side2++, obj, clr);
-            }
-
-            for (int i = 0, side3 = 0; i < size; i++)
-            {
-                DrawAt(x + side3++, y + size, obj, clr);
-            }
-
-            for (int i = 0, side4 = 0; i < size; i++)
-            {
-                DrawAt(x, y + side4++, obj, clr);
-            }
-        }
-
-        /// <summary>
-        /// Draw a Rectangle starting at position Point2D with given size
-        /// </summary>
-        /// <param name="point">Point2D to start at</param>
-        /// <param name="size">Size of the rectangle</param>
-        /// <param name="obj">Object to print</param>
-        /// <param name="clr">Color to print with</param>
-        public static void DrawRectangleAt(Point2D point, int size, object obj, ConsoleColor clr = ConsoleColor.White)
-        {
-            DrawRectangleAt(point.X, point.Y, size, obj, clr);
-        }
 
 
         /// <summary>
@@ -260,25 +244,30 @@ namespace TeamWork.Field
         public static void DrawStringCharByChar(int x, int y, string str, int sleep, bool reverse,
             ConsoleColor clr = ConsoleColor.White)
         {
-            if (reverse)
+            try
             {
-                x = x + str.Length - 1;
-                for (int i = str.Length - 1; i >= 0; i--)
+                if (reverse)
                 {
-                    DrawAt(x, y, str[i], clr);
-                    x--;
-                    Thread.Sleep(sleep);
+                    x = x + str.Length - 1;
+                    for (int i = str.Length - 1; i >= 0; i--)
+                    {
+                        DrawAt(x, y, str[i], clr);
+                        x--;
+                        Thread.Sleep(sleep);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < str.Length; i++)
+                    {
+                        DrawAt(x, y, str[i], clr);
+                        x++;
+                        Thread.Sleep(sleep);
+                    }
                 }
             }
-            else
-            {
-                for (int i = 0; i < str.Length; i++)
-                {
-                    DrawAt(x, y, str[i], clr);
-                    x++;
-                    Thread.Sleep(sleep);
-                }
-            }
+            catch { return; }
+         
         }
 
         #endregion
@@ -699,8 +688,13 @@ namespace TeamWork.Field
         /// <param name="y" >Row number</param>
         public static void ClearAtPosition(int x, int y)
         {
-            Console.SetCursorPosition(x, y);
-            Console.Write(' ');
+            try
+            {
+                Console.SetCursorPosition(x, y);
+                Console.Write(' ');
+            }
+            catch { return; }
+
         }
 
         /// <summary>
@@ -709,8 +703,12 @@ namespace TeamWork.Field
         /// <param name="point">Point2D to clear at</param>
         public static void ClearAtPosition(Point2D point)
         {
-            Console.SetCursorPosition(point.X, point.Y);
-            Console.Write(' ');
+            try
+            {
+                Console.SetCursorPosition(point.X, point.Y);
+                Console.Write(' ');
+            }
+            catch { return; }
         }
 
         /// <summary>
@@ -722,12 +720,16 @@ namespace TeamWork.Field
         /// <param name="toY">Ending Row number</param>
         public static void ClearFromTo(int fromX, int fromY, int toX, int toY)
         {
-            Console.SetCursorPosition(fromX, fromY);
-            string x = new string(' ', toX - fromX);
-            for (int i = fromY; i < toY; i++)
+            try
             {
-                Console.WriteLine(x);
+                Console.SetCursorPosition(fromX, fromY);
+                string x = new string(' ', toX - fromX);
+                for (int i = fromY; i < toY; i++)
+                {
+                    Console.WriteLine(x);
+                }
             }
+            catch { return; }
         }
 
         /// <summary>
@@ -737,7 +739,11 @@ namespace TeamWork.Field
         /// <param name="endingPoint">Ending Point2D</param>
         public static void ClearFromTo(Point2D startingPoint, Point2D endingPoint)
         {
-            ClearFromTo(startingPoint.X, startingPoint.Y, endingPoint.X, endingPoint.Y);
+            try
+            {
+                ClearFromTo(startingPoint.X, startingPoint.Y, endingPoint.X, endingPoint.Y);
+            }
+           catch { return; }
         }
 
         /// <summary>
@@ -746,11 +752,15 @@ namespace TeamWork.Field
         /// <param name="y">Row number</param>
         public static void ClearY(int y)
         {
-            int gameWidth = 115; // should be assigned from a constant somewhere
-            for (int i = 0; i < gameWidth; i++)
+            try
             {
-                DrawAt(i, y, ' ');
+                int gameWidth = 115; // should be assigned from a constant somewhere
+                for (int i = 0; i < gameWidth; i++)
+                {
+                    DrawAt(i, y, ' ');
+                }
             }
+          catch { return; }
         }
 
         /// <summary>
@@ -759,11 +769,16 @@ namespace TeamWork.Field
         /// <param name="x">Column number</param>
         public static void ClearX(int x)
         {
-            int gameHeight = 30; // should be assigned from a constant somewhere
-            for (int i = 0; i < gameHeight; i++)
+            try
             {
-                DrawAt(x, i, ' ');
+                int gameHeight = 30; // should be assigned from a constant somewhere
+                for (int i = 0; i < gameHeight; i++)
+                {
+                    DrawAt(x, i, ' ');
+                }
             }
+            catch { return; }
+           
         }
         #endregion      
     }

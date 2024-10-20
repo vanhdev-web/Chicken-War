@@ -151,7 +151,7 @@ namespace TeamWork.Objects
             switch (objectType)
             {
                 case ObjectType.Bullet:
-                    Printing.DrawAt(this.Point, '-', ConsoleColor.DarkCyan); // Standart print for bullets
+                    Printing.DrawAt(this.Point, '█', ConsoleColor.Yellow); // Standart print for bullets
                     break;
                 case ObjectType.Normal:
                     if (!this.GotHit) // If this object isn't killed by something draw it normally
