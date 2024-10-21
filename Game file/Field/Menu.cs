@@ -90,14 +90,14 @@ namespace TeamWork.Field
             // Draw Top Border
             for (int i = 0; i < uiWidth; i++)
             {
-                Printing.DrawAt(new Point2D(i, 0), '\u2588', ConsoleColor.DarkCyan); 
+                Printing.DrawAt(new Point2D(i, 0), '\u2588', ConsoleColor.DarkRed); 
 
             }
 
             // Draw Bottom Border
             for (int i = 0; i < uiWidth; i++)
             {
-                Printing.DrawAt(new Point2D(i, 30), '\u2588', ConsoleColor.DarkCyan);
+                Printing.DrawAt(new Point2D(i, 30), '\u2588', ConsoleColor.DarkRed);
             }
         }
 
