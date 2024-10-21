@@ -90,12 +90,6 @@ namespace TeamWork.Field
             // Draw Top Border
             for (int i = 0; i < uiWidth; i++)
             {
-                // Define the positions where the top border should NOT be drawn
-                /*                bool drawTopBorder = (i <= 3) || (i >= nameBoard && i < 38) || (i > 41);
-                                if (drawTopBorder)
-                                {
-                                    Printing.DrawAt(new Point2D(i, 0), '\u2588', ConsoleColor.Red);
-                                }*/
                 Printing.DrawAt(new Point2D(i, 0), '\u2588', ConsoleColor.DarkCyan); 
 
             }
@@ -103,12 +97,6 @@ namespace TeamWork.Field
             // Draw Bottom Border
             for (int i = 0; i < uiWidth; i++)
             {
-                // Define gaps for liveBoard and scoreBoard
-               /* bool drawBottomBorder = (i <= 3) || (i > 13 && i < 29) || (i > 40);
-                if (drawBottomBorder)
-                {
-                    Printing.DrawAt(new Point2D(i, 30), '\u2588', ConsoleColor.Red);
-                }*/
                 Printing.DrawAt(new Point2D(i, 30), '\u2588', ConsoleColor.DarkCyan);
             }
         }
@@ -122,12 +110,12 @@ namespace TeamWork.Field
             string score = string.Format("               Score: {0}               ", Engine.Player.Score).PadLeft(3, '0');
             string playerName = string.Format(" Player: {0} ", Engine.Player.Name);
 
-            Printing.DrawAt(new Point2D(5, 0), playerName, ConsoleColor.Cyan);
+            Printing.DrawAt(new Point2D(5, 0), playerName, ConsoleColor.Cyan) ;
             Printing.DrawAt(new Point2D(100, 0), level, ConsoleColor.Cyan);
-            Printing.DrawAt(new Point2D(5, 30), " Lifes: ", ConsoleColor.Cyan);
+            Printing.DrawAt(new Point2D(5, 30), " Lifes: ", ConsoleColor.Cyan); ;
             Printing.DrawHLineAt(12, 30, Engine.Player.Lifes, '\u2665', ConsoleColor.DarkRed);
             Printing.ClearAtPosition(12 + Engine.Player.Lifes, 30);
-            Printing.DrawAt(new Point2D(41, 0), score, ConsoleColor.Cyan);
+            Printing.DrawAt(new Point2D(41, 0), score, ConsoleColor.Cyan); ;
         }
 
         #region Phương thức điểm cao và điểm số

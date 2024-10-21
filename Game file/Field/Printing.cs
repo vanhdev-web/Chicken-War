@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.ConstrainedExecution;
 using System.Threading;
 
 namespace TeamWork.Field
@@ -82,6 +83,18 @@ namespace TeamWork.Field
             {
                 Console.BackgroundColor = bclr;
                 DrawAt(x, y, obj);
+                Console.ResetColor();
+            }
+            catch { return; }
+        }
+        public static void DrawAtBGPlus(Point2D point, object obj, ConsoleColor clr, ConsoleColor bclr) //Chữ  và hình có màu khác nhau 
+        {
+            try
+            {
+                Console.ForegroundColor = clr;
+                DrawAt(point, obj);
+                Console.BackgroundColor = bclr;
+                DrawAt(point, obj);
                 Console.ResetColor();
             }
             catch { return; }
