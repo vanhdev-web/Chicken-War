@@ -98,27 +98,27 @@ namespace TeamWork.Objects
             {
                 case ObjectType.Normal:
                     life = 2;
-                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight - 3));
+                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight / 2 - 3));
                     break;
                 case ObjectType.Small:
                     life = 1;
-                    base.Point = new Point2D(Engine.WindowWidth - 1, Engine.Rnd.Next(4, Engine.WindowHeight - 2));
+                    base.Point = new Point2D(Engine.WindowWidth - 1, Engine.Rnd.Next(4, Engine.WindowHeight / 2 - 2));
                     break;
                 case ObjectType.Silver:
                     life = 7;
-                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight - 4));
+                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight / 2 - 4));
                     break;
                 case ObjectType.Gold:
                     life = 7;
-                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight - 4));
+                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight / 2 - 4));
                     break;
                 case ObjectType.Lenghty:
                     life = 7;
-                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight - 4));
+                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight / 2 - 4));
                     break;
                 case ObjectType.Quadcopter:
                     life = 7;
-                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight - 4));
+                    base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight / 2 - 4));
                     break;
             }
         }
@@ -151,7 +151,7 @@ namespace TeamWork.Objects
             switch (objectType)
             {
                 case ObjectType.Bullet:
-                    Printing.DrawAt(this.Point, '-', ConsoleColor.DarkCyan); // Standart print for bullets
+                    Printing.DrawAt(this.Point, '█', ConsoleColor.Yellow); // Standart print for bullets
                     break;
                 case ObjectType.Normal:
                     if (!this.GotHit) // If this object isn't killed by something draw it normally
