@@ -1,0 +1,199 @@
+
+    public class GameObject 
+    {
+        public Point Point { get; set; }
+        private List<Bullet> bullets = new List<Bullet>();
+        private const int BulletSpeed = 2; // Bullet moves down by 1 unit
+        private const int FireDelay = 1000; // 1 second delay
+        private const int MoveSpeed = 2; // Speed of the object's movement
+        private DateTime lastFireTime;
+        private Random random = new Random();
+        private int direction = 1; // 1 for right, -1 for left
+        private bool isFiring = false; // Whether the character is in firing state
+        private int bulletsToFire = 0; // Number of bullets to fire in this firing session
+        public GameObject()
+        {
+            lastFireTime = DateTime.Now; // Initialize the last fire time
+        }
+        public void PrintObject()
+        {
+            // Your existing PrintObject implementation
+            // ...
+            if (this.Point.X + 2 >= Engine.WindowWidth)
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, " █", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "██", ConsoleColor.Yellow);
+            }
+            if (this.Point.X + 3 >= Engine.WindowWidth)
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, " ██", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "███", ConsoleColor.Yellow);
+            }
+            if (this.Point.X + 4 >= Engine.WindowWidth)
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, " ██ ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "████", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "█", ConsoleColor.Yellow);
+            }
+            if (this.Point.X + 5 >= Engine.WindowWidth)
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, " ██ █", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "█████", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "█ ", ConsoleColor.Yellow);
+            }
+            if (this.Point.X + 6 >= Engine.WindowWidth)
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, " ██ ██", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "██████", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "█  ", ConsoleColor.Yellow);
+            }
+            if (this.Point.X + 7 >= Engine.WindowWidth)
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, " ██ ██ ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "███████", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "█   ", ConsoleColor.Yellow);
+            }
+            else
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, " ██ ██ ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "███████", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "█   ", ConsoleColor.Yellow);
+            }
+        }
+
+        public void ClearObject()
+        {
+            // Your existing ClearObject implementation
+            // ...
+            if (this.Point.X + 2 >= Engine.WindowWidth)
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, "  ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "  ", ConsoleColor.Yellow);
+            }
+            if (this.Point.X + 3 >= Engine.WindowWidth)
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, "   ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "   ", ConsoleColor.Yellow);
+            }
+            if (this.Point.X + 4 >= Engine.WindowWidth)
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, "    ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "    ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X + 3, Point.Y - 1, " ", ConsoleColor.Yellow);
+            }
+            if (this.Point.X + 5 >= Engine.WindowWidth)
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, "     ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "     ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "  ", ConsoleColor.Yellow);
+            }
+            if (this.Point.X + 6 >= Engine.WindowWidth)
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, "      ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "      ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "   ", ConsoleColor.Yellow);
+            }
+            if (this.Point.X + 7 >= Engine.WindowWidth)
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, "       ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "       ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "    ", ConsoleColor.Yellow);
+            }
+            else
+            {
+                Printing.DrawAt(this.Point.X, Point.Y, "       ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X, Point.Y + 1, "       ", ConsoleColor.Yellow);
+                Printing.DrawAt(this.Point.X + 3, Point.Y - 1, "    ", ConsoleColor.Yellow);
+            }
+        }
+
+
+        public void Shoot()
+        {
+            for (int offset = -1; offset <= 1; offset++) // Create bullets at -1, 0, +1 offsets
+            {
+                Bullet newBullet = new Bullet
+                {
+                    Position = new Point { X = this.Point.X + 3 + offset, Y = this.Point.Y + 2 },
+                    Direction = offset // Assign direction for spread
+                };
+                bullets.Add(newBullet);
+            }
+        }
+
+        public void UpdateBullets()
+        {
+            for (int i = bullets.Count - 1; i >= 0; i--)
+            {
+                Bullet bullet = bullets[i];
+
+                // Move the bullet down and apply direction for spread
+                bullet.Position.Y += BulletSpeed;
+                bullet.Position.X += bullet.Direction; // Update the X position based on direction
+
+                // Check if the bullet is out of bounds
+                if (bullet.Position.Y >= Engine.WindowHeight || bullet.Position.X < 0 || bullet.Position.X >= Engine.WindowWidth)
+                {
+                    bullets.RemoveAt(i); // Remove bullet if out of bounds
+                }
+                else
+                {
+                    // Render the bullet
+                    Printing.DrawAt(bullet.Position.X, bullet.Position.Y, "█", ConsoleColor.White);
+                }
+            }
+        }
+
+        public void ClearBullets()
+        {
+            foreach (var bullet in bullets)
+            {
+                Printing.DrawAt(bullet.Position.X, bullet.Position.Y, " ", ConsoleColor.White);
+            }
+        }
+        public void AutoFire()
+        {
+            if (isFiring)
+            {
+                // Fire multiple bullets if the firing session is active
+                if (bulletsToFire > 0 && (DateTime.Now - lastFireTime).TotalMilliseconds >= FireDelay)
+                {
+                    Shoot();
+                    lastFireTime = DateTime.Now; // Update last fire time
+                    bulletsToFire--;
+                }
+                else if (bulletsToFire <= 0) // Stop firing after all bullets are fired
+                {
+                    isFiring = false; // Exit firing state
+                }
+            }
+            else
+            {
+                // Randomly decide to start firing
+                if (random.Next(0, 100) < 5) // 5% chance to start firing
+                {
+                    isFiring = true; // Start firing
+                    bulletsToFire = random.Next(2, 4); // Fire 4 or 5 bullets
+                    lastFireTime = DateTime.Now; // Reset the fire timer
+                }
+            }
+        }
+
+
+
+        
+
+    }
+
+    public class Bullet
+    {
+        public Point Position { get; set; }
+        public int Direction { get; set; } 
+    }
+
+    public class Point
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+    }
+    
