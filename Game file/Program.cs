@@ -14,7 +14,6 @@ namespace TeamWork
             Console.BufferWidth = Engine.WindowWidth;
             Console.WindowHeight = Engine.WindowHeight;
             Console.BufferHeight = Engine.WindowHeight;
-        
             Engine eng = new Engine();
         }
     }

@@ -1,8 +1,5 @@
-C:\Users\baole\Documents\GitHub\Chicken-War\Game file\bin\Debug\Resources\cat.wav
 C:\Users\baole\Documents\GitHub\Chicken-War\Game file\bin\Debug\Resources\GameMenu.wav
 C:\Users\baole\Documents\GitHub\Chicken-War\Game file\bin\Debug\Resources\GamePlay.wav
-C:\Users\baole\Documents\GitHub\Chicken-War\Game file\bin\Debug\Resources\Boss.mp3
-C:\Users\baole\Documents\GitHub\Chicken-War\Game file\bin\Debug\Resources\INTRO_SOUND.wav
 C:\Users\baole\Documents\GitHub\Chicken-War\Game file\bin\Debug\Resources\Highscore.txt
 C:\Users\baole\Documents\GitHub\Chicken-War\Game file\bin\Debug\Resources\Intro.wav
 C:\Users\baole\Documents\GitHub\Chicken-War\Game file\bin\Debug\Resources\laser.wav

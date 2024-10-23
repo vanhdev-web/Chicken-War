@@ -7,12 +7,12 @@ namespace TeamWork
 {
     public class Player : Entity, IPlayer
     {
-        private int lives = 3;
+        private int lives = 10;
         private int score = 0;
         private int level = 1;
         private int speed = 2;
 
-        public static Point2D PlayerPoint = new Point2D(30, 53); // Player default starting point 
+        public static Point2D PlayerPoint = new Point2D(55, 25); // Player default starting point 
 
         /// <summary>
         /// Constructor with default values
@@ -148,9 +148,12 @@ namespace TeamWork
         public bool ShipCollided(int x, int y)
         {
             // Checks a bunch of point of the player model
-            if ((x <= Point.X + 21 && x >= Point.X + 3 && y == Point.Y) ||
-                (x <= Point.X + 3 && x >= Point.X && y == Point.Y - 1) ||
-                (x <= Point.X + 21 && x >= Point.X + 3 && y == Point.Y + 1))
+            if ((x == this.Point.X + 3 && y == this.Point.Y - 1) ||  // Top dot
+                    (x >= this.Point.X + 2 && x <= this.Point.X + 4 && y == this.Point.Y) ||  // Middle row (Point.Y)
+                    (x >= this.Point.X + 1 && x <= this.Point.X + 5 && y == this.Point.Y + 1) ||  // Wider row (Point.Y + 1)
+                    (x == this.Point.X && y == this.Point.Y + 2) ||  // Left dot (Point.Y + 2)
+                    (x == this.Point.X + 2 && y == this.Point.Y + 2) ||  // Center left dot (Point.Y + 2)
+                    (x == this.Point.X + 6 && y == this.Point.Y + 2))  // Right dot (Point.Y + 2))
             {
                 // If theres a overlapping point x and y decrease lifes and redraw UI
                 Engine.Player.DecreaseLifes();

@@ -19,6 +19,7 @@ namespace TeamWork.Field
 
         public const int WindowWidth = 115; //Window Width constant to be accesed from everywhere
         public const int WindowHeight = 32; //Window height constant to be accesed from everywhere
+     
 
         /// <summary>
         /// Constructor that instantly starts the engine
@@ -33,7 +34,8 @@ namespace TeamWork.Field
         /// </summary>
         public void Start()
         {
-           /* LoadGameLogoMusic();
+
+         /*   LoadGameLogoMusic();
             Menu.StartLogo();
             LoadMenuMusic();
             Menu.StartMenu();*/
@@ -41,7 +43,7 @@ namespace TeamWork.Field
             //// Starting effects music thread
             EffectsThread = new Thread(SoundEffects);
             EffectsThread.Start();
-            //Menu.EntryStoryLine(); // Draw the short story
+           // Menu.EntryStoryLine(); // Draw the short story
             Printing.EnterName(); // Draw enter name asset
             TakeName(); // Get the players name
             MusicThread = new Thread(LoadMusic);
@@ -95,6 +97,7 @@ namespace TeamWork.Field
                     boss = new Boss(0);
                 }
             }
+
             ProjectileMoveAndPrint(); // Move and print projectiles(meteorits, enemy bullets)
             ProjectileCollisionCheck(); // Check for any collisions
             if (BossActive) // If the boss is active, call its AI method
@@ -123,7 +126,7 @@ namespace TeamWork.Field
         {
             Player.Level = 1;
             Player.Score = 0;
-            Player.Lifes = 3;
+            Player.Lifes = 10;
             Player.Point = Player.PlayerPoint;
             BossActive = false;
             boss = new Boss(0);
@@ -171,32 +174,26 @@ namespace TeamWork.Field
             List<GameObject> newBullets = new List<GameObject>(); //Stores the new coordinates of the bullets
             for (int i = 0; i < _objectProjectiles.Count; i++) // Cycle through all projectiles
             {
-                // Check if the projectile is out of the screen before it clears it
-                if (_objectProjectiles[i].Point.X >= 0)
+                if (_objectProjectiles[i].Point.X >= 0 || _objectProjectiles[i].Point.Y >= 29)
                 {
                     _objectProjectiles[i].ClearObject();
                 }
-
-                if (_objectProjectiles[i].Point.X - _objectProjectiles[i].Speed - 2 <= 0)
+                if (_objectProjectiles[i].Point.Y - _objectProjectiles[i].Speed - 2 <= 0)
                 {
                     // If the Projectile exceeds sceen size, dont add it to new Projectiles list
                 }
                 else
-                {
-                    _objectProjectiles[i].Point.X -= _objectProjectiles[i].Speed + 2; // Move the projectile # tiles to the left
-                    _objectProjectiles[i].PrintObject(); // Print the projectile
-                    newProjectiles.Add((_objectProjectiles[i])); // Add it to the new list
-                }
+                { 
+                _objectProjectiles[i].Point.Y += _objectProjectiles[i].Speed + 2; // Move the projectile # tiles to the left
+                _objectProjectiles[i].PrintObject(); // Print the projectile
+                newProjectiles.Add((_objectProjectiles[i])); // Add it to the new list
+            }
             }
             _objectProjectiles = newProjectiles; // Overwrite old projectiles positions with the new ones
 
 
             for (int i = 0; i < _bullets.Count; i++) // Cycle through all bullets
             {
-                if (_bullets[i].Point.Y >= WindowWidth) // Check if the bullet is outside the screen before it clears it
-                {
-                    _bullets[i].ClearObject();
-                }
                 if (_bullets[i].Point.X >= 1) // Check if the bullet is outside the screen before it clears it
                 {
                     _bullets[i].ClearObject();
@@ -230,8 +227,18 @@ namespace TeamWork.Field
         {
             if (_counter % Chance == 0)
             {
-                // When its time to spawn a meteorit , random its type
-                _meteorits.Add(new GameObject(Rnd.Next(1, 7)));
+                // When its time to spawn an enemy , random its type
+                _meteorits.Add(new GameObject(Rnd.Next(1, 8)));
+                _counter++;
+            }
+            else
+            {
+                _counter++;
+            }
+            if (_counter % Chance == 0)
+            {
+                // When its time to spawn a meteor , random its type
+                _meteorits.Add(new GameObject(Rnd.Next(5, 7)));
                 _counter++;
             }
             else
@@ -252,10 +259,12 @@ namespace TeamWork.Field
                 for (int i = 0; i < _meteorits.Count; i++) // Cycle through all meteorits
                 {
                     _meteorits[i].ClearObject(); // Clear the meteorit
-                    if (_meteorits[i].Point.X - _meteorits[i].Speed <= 1)
+
+                    if (_meteorits[i].Point.Y - _meteorits[i].Speed >= 28 || _meteorits[i].Point.X - _meteorits[i].Speed <= 1  )
                     {
                         // If the meteorit exceeds sceen size, dont add it to new meteorit list
                     }
+
                     else
                     {
                         // Collision handling
@@ -274,7 +283,7 @@ namespace TeamWork.Field
                         }
                         else // If theres no collisions
                         {
-                            _meteorits[i].MoveObject(); // Move the meteorit
+                            _meteorits[i].MoveObject(_meteorits[i].Down); // Move the meteorit
                             if (!_meteorits[i].toBeDeleted) // Check if the meteorit shouldn't be deleted
                             {
                                 _meteorits[i].PrintObject(); // Print it at its new position

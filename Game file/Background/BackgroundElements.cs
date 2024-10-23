@@ -21,18 +21,15 @@ namespace TeamWork.Background
 
         public void Ve()
         {
-            
-
-
             if (y < Engine.WindowHeight - 2)
             {
                 Console.SetCursorPosition(x, y);
-                Console.Write('*');
+                Console.Write('█');
             }
             else
             {
 
-                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.ForegroundColor = ConsoleColor.Magenta;
                 DiChuyen();
                 x = random.Next(Engine.WindowWidth);
                 y = 2;
