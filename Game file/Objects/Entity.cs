@@ -1,4 +1,6 @@
-﻿using TeamWork.Field;
+﻿using System.Drawing;
+using System.Windows;
+using TeamWork.Field;
 
 namespace TeamWork.Objects
 {
@@ -37,4 +39,16 @@ namespace TeamWork.Objects
             set { this.down = value; }
         }
     }
+   /* public class Bullet
+    {
+        public Point2D Position { get; set; }
+    }
+
+
+    public class Laser
+    {
+        public Point2D Position { get; set; }
+        public int LifeOnScreen { get; set; } // To manage the charge-up effect
+    }
+*/
 }

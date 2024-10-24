@@ -55,6 +55,8 @@ namespace TeamWork.Objects
         public GameObject()
         {
             base.Speed = 1;
+          /*  lastFireTime = DateTime.Now; // Initialize the last fire time
+            IsCharging = false; // Initialize as not charging*/
         }
 
 
@@ -93,8 +95,6 @@ namespace TeamWork.Objects
         {
             base.Speed = 1;
             objectType = (ObjectType)type;
-            int screenWidth = Engine.WindowWidth;
-            int screenHeight = Engine.WindowHeight;
 
             switch (objectType)
             {
@@ -124,7 +124,7 @@ namespace TeamWork.Objects
                     life = 5;
                     if (Engine.Rnd.Next(2) == 0)
                     {
-                        base.Point = new Point2D(Engine.Rnd.Next(screenWidth - 4), 5);
+                        base.Point = new Point2D(Engine.Rnd.Next(Engine.WindowWidth - 4), 5);
                         this.Down = true;
                     }
                     else
@@ -165,8 +165,16 @@ namespace TeamWork.Objects
             switch (objectType)
             {
                 case ObjectType.Bullet:
-                    Printing.DrawAt(this.Point, '█', ConsoleColor.Yellow); // Standart print for bullets
-                    break;
+                    if (this.Point.Y > Engine.WindowHeight - 2)
+                    {
+                        return;
+                    }
+                    else
+                    {
+
+                        Printing.DrawAt(this.Point, '█', ConsoleColor.Yellow); // Standart print for bullets
+                        break;
+                    }
                 case ObjectType.Silver:
                     if (!this.GotHit)
                     {
@@ -787,10 +795,10 @@ namespace TeamWork.Objects
                     }
                     else
                     {
-                        upRight = new Point2D(this.Point.X + Frames + 1, this.Point.Y);
-                        upLeft = new Point2D(this.Point.X - Frames, this.Point.Y);
-                        downRight = new Point2D(this.Point.X, this.Point.Y + Frames);
-                        downLeft = new Point2D(this.Point.X, this.Point.Y - Frames);
+                        upLeft = this.Point - diagonalInc * Frames;
+                        upRight = this.Point - diagonalDec * Frames;
+                        downRight = this.Point + diagonalInc * Frames;
+                        downLeft = this.Point + diagonalDec * Frames;
                         Moveable = false;
                         PrintAndClearExplosion(true);
                         if (Frames == 5)
@@ -815,10 +823,10 @@ namespace TeamWork.Objects
                     }
                     else
                     {
-                        upRight = new Point2D(this.Point.X + Frames + 1, this.Point.Y);
-                        upLeft = new Point2D(this.Point.X - Frames, this.Point.Y);
-                        downRight = new Point2D(this.Point.X, this.Point.Y + Frames);
-                        downLeft = new Point2D(this.Point.X, this.Point.Y - Frames);
+                        upLeft = this.Point - diagonalInc * Frames;
+                        upRight = this.Point - diagonalDec * Frames;
+                        downRight = this.Point + diagonalInc * Frames;
+                        downLeft = this.Point + diagonalDec * Frames;
                         Moveable = false;
                         PrintAndClearExplosion(true);
                         if (Frames == 5)
@@ -843,10 +851,10 @@ namespace TeamWork.Objects
                     }
                     else
                     {
-                        upRight = new Point2D(this.Point.X + Frames + 1, this.Point.Y);
-                        upLeft = new Point2D(this.Point.X - Frames, this.Point.Y);
-                        downRight = new Point2D(this.Point.X, this.Point.Y + Frames);
-                        downLeft = new Point2D(this.Point.X, this.Point.Y - Frames);
+                        upLeft = this.Point - diagonalInc * Frames;
+                        upRight = this.Point - diagonalDec * Frames;
+                        downRight = this.Point + diagonalInc * Frames;
+                        downLeft = this.Point + diagonalDec * Frames;
                         Moveable = false;
                         PrintAndClearExplosion(true);
                         if (Frames == 5)
@@ -1076,6 +1084,88 @@ namespace TeamWork.Objects
                 count++;
             }
         }
+    /*    public Point2D Point { get; set; }
+        private List<Laser> lasers = new List<Laser>();
+        private const int MoveSpeed = 2; // Speed of the object's 
+        private const int FireDelay = 1000; // 1 second delay
+        private DateTime lastFireTime;
+        public int chargingDelayTime = 1000; // Thời gian ngưng trước khi charge (2 giây)
+        private bool isDelayBeforeCharge = false; // Cờ để kiểm tra xem đã dừng trước khi charge chưa
+        private DateTime delayStartTime; // Để lưu thời gian bắt đầu dừng
+        public bool IsCharging { get; private set; } // New property to track charging state
+        private int direction = 1; // 1 for right, -1 for left
+
+
+        public void ChargeAndShoot()
+        {
+            if (!IsCharging && !isDelayBeforeCharge && random.Next(0, 100) < 10)
+            {
+                isDelayBeforeCharge = true;
+                delayStartTime = DateTime.Now;
+            }
+
+            if (isDelayBeforeCharge)
+            {
+                if ((DateTime.Now - delayStartTime).TotalMilliseconds >= chargingDelayTime)
+                {
+                    Laser newLaser = new Laser { Position = new Point2D( this.Point.X + 3,this.Point.Y), LifeOnScreen = 10 }; // Start below character
+                    lasers.Add(newLaser);
+                    lastFireTime = DateTime.Now;
+                    IsCharging = true;
+                    isDelayBeforeCharge = false;
+                }
+            }
+        }
+
+        public void UpdateLasers()
+        {
+            for (int i = lasers.Count - 1; i >= 0; i--)
+            {
+                Laser laser = lasers[i];
+
+                if (laser.LifeOnScreen > 8) // Charge-up effect
+                {
+                    // Vẽ chỉ số charge-up ngay dưới giữa nhân vật
+
+                    Printing.DrawAtBG(this.Point.X + 2, this.Point.Y + 2, "|", ConsoleColor.DarkGray);
+                    Printing.DrawAtBG(this.Point.X + 3, this.Point.Y + 2, "|", ConsoleColor.Gray);
+                    Printing.DrawAtBG(this.Point.X + 4, this.Point.Y + 2, "|", ConsoleColor.DarkGray);
+                }
+                else
+                {
+                    // Draw laser beam
+                    for (int j = 0; j <= 50; j++)
+                    {
+                        if (this.Point.Y + j + 2 < Engine.WindowHeight && (this.Point.Y + 1 + j) > laser.Position.Y) // Ensure it's below the character
+                        {
+                            Printing.DrawAtBG(this.Point.X + 2, this.Point.Y + j + 2, "|", ConsoleColor.DarkGray);
+                            Printing.DrawAtBG(this.Point.X + 3, this.Point.Y + j + 2, "|", ConsoleColor.Gray);
+                            Printing.DrawAtBG(this.Point.X + 4, this.Point.Y + j + 2, "|", ConsoleColor.DarkGray);
+                        }
+                    }
+                    lasers.RemoveAt(i);
+                    IsCharging = false;
+                }
+
+                laser.LifeOnScreen--;
+            }
+        }
+        public void ClearLasers()
+        {
+            foreach (var laser in lasers)
+            {
+                for (int i = -50; i <= 50; i++)
+                {
+                    if (laser.Position.Y + i > 0 && laser.Position.Y + i < Engine.WindowHeight) // Ensure it's within screen bounds
+                    {
+                        // Clear left, middle, and right columns of the vertical beam
+                        Printing.DrawAt(laser.Position.X - 1, laser.Position.Y + i, "");
+                        Printing.DrawAt(laser.Position.X, laser.Position.Y + i, "");
+                        Printing.DrawAt(laser.Position.X + 1, laser.Position.Y + i, "");
+                    }
+                }
+            }
+        }*/
     }
 }
 

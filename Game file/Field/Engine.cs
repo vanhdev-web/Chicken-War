@@ -13,7 +13,7 @@ namespace TeamWork.Field
         public static Random Rnd = new Random();
         public static Player Player = new Player();
         public bool DrawMenu = false;
-        public const int StartingDifficulty = 40;
+        public const int StartingDifficulty = 80;
         public Thread MusicThread; // Background music thread
         public Thread EffectsThread; // Effects music thread
 
@@ -35,10 +35,10 @@ namespace TeamWork.Field
         public void Start()
         {
 
-         /*   LoadGameLogoMusic();
+            LoadGameLogoMusic();
             Menu.StartLogo();
             LoadMenuMusic();
-            Menu.StartMenu();*/
+            Menu.StartMenu();
             /// Starting main's music 
             //// Starting effects music thread
             EffectsThread = new Thread(SoundEffects);
@@ -47,7 +47,7 @@ namespace TeamWork.Field
             Printing.EnterName(); // Draw enter name asset
             TakeName(); // Get the players name
             MusicThread = new Thread(LoadMusic);
-            MusicThread.Start();
+            //MusicThread.Start();
             Thread.Sleep(1000); // Dramatic pause
             while (true) //Main game loop
             {
@@ -126,7 +126,7 @@ namespace TeamWork.Field
         {
             Player.Level = 1;
             Player.Score = 0;
-            Player.Lifes = 10;
+            Player.Lifes = 5;
             Player.Point = Player.PlayerPoint;
             BossActive = false;
             boss = new Boss(0);
@@ -326,12 +326,12 @@ namespace TeamWork.Field
         private static bool ShipCollision(GameObject obj)
         {
             Point2D point = Player.Point;
-            if (obj.Collided(point.X + 21, point.Y) || obj.Collided(point.X + 21, point.Y + 1) || // Front collision
-                obj.Collided(point.X + 18, point.Y) || obj.Collided(point.X + 15, point.Y) || // Top collision
-                obj.Collided(point.X + 11, point.Y) || obj.Collided(point.X + 6, point.Y) ||  // Top collision
-                obj.Collided(point.X + 18, point.Y + 1) || obj.Collided(point.X + 15, point.Y + 1) ||// Bottom collision
-                obj.Collided(point.X + 11, point.Y + 1) || obj.Collided(point.X + 6, point.Y + 1) || // Bottom collision
-                obj.Collided(point.X + 3, point.Y - 1) || obj.Collided(point.X + 3, point.Y + 1)) // Tail collision
+            if (obj.Collided(point.X + 4, point.Y) || obj.Collided(point.X + 4, point.Y + 1) || // Front collision
+                obj.Collided(point.X + 4, point.Y) || obj.Collided(point.X + 4, point.Y) || // Top collision
+                obj.Collided(point.X + 4, point.Y) || obj.Collided(point.X + 4, point.Y) ||  // Top collision
+                obj.Collided(point.X + 4, point.Y + 1) || obj.Collided(point.X + 4, point.Y + 1) ||// Bottom collision
+                obj.Collided(point.X + 4, point.Y + 1) || obj.Collided(point.X + 4, point.Y + 1) || // Bottom collision
+                obj.Collided(point.X + 4, point.Y - 1) || obj.Collided(point.X + 4, point.Y + 1)) // Tail collision
             {
                 Player.DecreaseLifes();
 

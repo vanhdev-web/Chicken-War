@@ -7,7 +7,7 @@ namespace TeamWork
 {
     public class Player : Entity, IPlayer
     {
-        private int lives = 10;
+        private int lives = 5;
         private int score = 0;
         private int level = 1;
         private int speed = 2;
