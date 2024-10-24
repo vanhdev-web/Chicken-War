@@ -35,16 +35,16 @@ namespace TeamWork.Field
         public void Start()
         {
 
-            LoadGameLogoMusic();
+           /* LoadGameLogoMusic();
             Menu.StartLogo();
             LoadMenuMusic();
-            Menu.StartMenu();
+            Menu.StartMenu();*/
             /// Starting main's music 
             //// Starting effects music thread
             EffectsThread = new Thread(SoundEffects);
             EffectsThread.Start();
            // Menu.EntryStoryLine(); // Draw the short story
-            Printing.EnterName(); // Draw enter name asset
+            //Printing.EnterName(); // Draw enter name asset
             TakeName(); // Get the players name
             MusicThread = new Thread(LoadMusic);
             //MusicThread.Start();
@@ -144,15 +144,19 @@ namespace TeamWork.Field
             switch (keyPressed.Key)
             {
                 case ConsoleKey.W:
+                case ConsoleKey.UpArrow:
                     Player.MoveUp();
                     break;
                 case ConsoleKey.S:
+                case ConsoleKey.DownArrow:
                     Player.MoveDown();
                     break;
                 case ConsoleKey.A:
+                case ConsoleKey.LeftArrow:
                     Player.MoveLeft();
                     break;
                 case ConsoleKey.D:
+                case ConsoleKey.RightArrow:
                     Player.MoveRight();
                     break;
                 // Create a new bullet object
@@ -174,17 +178,18 @@ namespace TeamWork.Field
             List<GameObject> newBullets = new List<GameObject>(); //Stores the new coordinates of the bullets
             for (int i = 0; i < _objectProjectiles.Count; i++) // Cycle through all projectiles
             {
-                if (_objectProjectiles[i].Point.X >= 0 || _objectProjectiles[i].Point.Y >= 29)
+                if ( _objectProjectiles[i].Point.Y <= 30)
                 {
                     _objectProjectiles[i].ClearObject();
                 }
-                if (_objectProjectiles[i].Point.Y - _objectProjectiles[i].Speed - 2 <= 0)
+                if (_objectProjectiles[i].Point.Y - _objectProjectiles[i].Speed  - 2 >= 24)
                 {
                     // If the Projectile exceeds sceen size, dont add it to new Projectiles list
                 }
                 else
                 { 
-                _objectProjectiles[i].Point.Y += _objectProjectiles[i].Speed + 2; // Move the projectile # tiles to the left
+
+                _objectProjectiles[i].Point.Y += _objectProjectiles[i].Speed + 2; // Đạn đi xuống
                 _objectProjectiles[i].PrintObject(); // Print the projectile
                 newProjectiles.Add((_objectProjectiles[i])); // Add it to the new list
             }
@@ -194,7 +199,7 @@ namespace TeamWork.Field
 
             for (int i = 0; i < _bullets.Count; i++) // Cycle through all bullets
             {
-                if (_bullets[i].Point.X >= 1) // Check if the bullet is outside the screen before it clears it
+                if (_bullets[i].Point.Y > 0) // Check if the bullet is outside the screen before it clears it
                 {
                     _bullets[i].ClearObject();
                 }
@@ -228,7 +233,7 @@ namespace TeamWork.Field
             if (_counter % Chance == 0)
             {
                 // When its time to spawn an enemy , random its type
-                _meteorits.Add(new GameObject(Rnd.Next(1, 8)));
+                _meteorits.Add(new GameObject(Rnd.Next(1,4)));
                 _counter++;
             }
             else
@@ -238,7 +243,7 @@ namespace TeamWork.Field
             if (_counter % Chance == 0)
             {
                 // When its time to spawn a meteor , random its type
-                _meteorits.Add(new GameObject(Rnd.Next(5, 7)));
+                _meteorits.Add(new GameObject(Rnd.Next(5, 8)));
                 _counter++;
             }
             else
@@ -326,12 +331,10 @@ namespace TeamWork.Field
         private static bool ShipCollision(GameObject obj)
         {
             Point2D point = Player.Point;
-            if (obj.Collided(point.X + 4, point.Y) || obj.Collided(point.X + 4, point.Y + 1) || // Front collision
-                obj.Collided(point.X + 4, point.Y) || obj.Collided(point.X + 4, point.Y) || // Top collision
-                obj.Collided(point.X + 4, point.Y) || obj.Collided(point.X + 4, point.Y) ||  // Top collision
-                obj.Collided(point.X + 4, point.Y + 1) || obj.Collided(point.X + 4, point.Y + 1) ||// Bottom collision
-                obj.Collided(point.X + 4, point.Y + 1) || obj.Collided(point.X + 4, point.Y + 1) || // Bottom collision
-                obj.Collided(point.X + 4, point.Y - 1) || obj.Collided(point.X + 4, point.Y + 1)) // Tail collision
+            if (obj.Collided(point.X + 5, point.Y) || obj.Collided(point.X + 4, point.Y - 1) ||
+                obj.Collided(point.X + 6, point.Y + 1) || obj.Collided(point.X + 7, point.Y + 2) ||
+                obj.Collided(point.X + 3, point.Y) || obj.Collided(point.X + 2, point.Y + 1) ||
+                obj.Collided(point.X, point.Y + 2) || obj.Collided(point.X + 4, point.Y + 2))
             {
                 Player.DecreaseLifes();
 

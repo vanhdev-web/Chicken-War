@@ -18,23 +18,23 @@ namespace TeamWork.Objects
             /* Used for bullets only             
                     -
              */
-            Silver,
-            /* Silver Meteorid with 4 life, gives 5 points, no additional functions
+            Enemy1,
+            /* Enemy1 Meteorid with 4 life, gives 5 points, no additional functions
                     \ /
                      x
                     / \
              */
-            Gold,
-            /* Gold Meteorid with 3 life, gives 4 points, no additional functions
+            Enemy2,
+            /* Enemy2 Meteorid with 3 life, gives 4 points, no additional functions
                      ^
                     <x>
                      v
              */
-            Lenghty,
-            /* Lenghty Meteorid with 3 life, gives 3 points, no additional functions
+            Enemy3,
+            /* Enemy3 Meteorid with 3 life, gives 3 points, no additional functions
                     {==>
              */
-            Quadcopter,
+            Enemy4,
             /* Only agressive enemy type, shoots back, has 7 life, gives 10 points
                    __       __
                   _\_\_____/_|
@@ -98,22 +98,22 @@ namespace TeamWork.Objects
 
             switch (objectType)
             {
-                case ObjectType.Silver:
+                case ObjectType.Enemy1:
                     life = 7;
                     base.Point = new Point2D(Engine.Rnd.Next(Engine.WindowWidth - 4), 5);
                     this.Down = true;
                     break;
-                case ObjectType.Gold:
+                case ObjectType.Enemy2:
                     life = 7;
                     base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight / 2 - 4));
                     this.Down = false;
                     break;
-                case ObjectType.Lenghty:
+                case ObjectType.Enemy3:
                     life = 7;
                     base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight / 2 - 4));
                     this.Down = false;
                     break;
-                case ObjectType.Quadcopter:
+                case ObjectType.Enemy4:
                     life = 7;
                     base.Point = new Point2D(Engine.WindowWidth - 2, Engine.Rnd.Next(6, Engine.WindowHeight / 2 - 4));
                     this.Down = false;
@@ -153,8 +153,8 @@ namespace TeamWork.Objects
         private Point2D downLeft; // down Left Diagonal point storage for explosion effect
         private Point2D downRight; // down Right Diagonal point storage for explosion effect
 
-        private int projectileCounter = 1; // Counter to check with if the Quadcopter should fire 
-        private int projectileChance = Engine.Rnd.Next(20, 50); // Random chance that quadcopters will fire a bullet
+        private int projectileCounter = 1; // Counter to check with if the enemy should fire 
+        private int projectileChance = Engine.Rnd.Next(20, 50); // Random chance that enemy will fire a bullet
 
         public bool GotHit = false; //Toggle that helps with the explosion animation
         /// <summary>
@@ -175,10 +175,10 @@ namespace TeamWork.Objects
                         Printing.DrawAt(this.Point, '█', ConsoleColor.Yellow); // Standart print for bullets
                         break;
                     }
-                case ObjectType.Silver:
+                case ObjectType.Enemy1:
                     if (!this.GotHit)
                     {
-                        if (projectileCounter % projectileChance == 0) // Check if Quadcopter has to shoot
+                        if (projectileCounter % projectileChance == 0) // Check if enemy has to shoot
                         {
                             // If true, create a projectile in the main list of projectiles
                             Engine._objectProjectiles.Add(new GameObject(new Point2D(this.Point.X, this.Point.Y - 1), 0));
@@ -222,10 +222,10 @@ namespace TeamWork.Objects
                         PrintAndClearExplosion(false);
                     }
                     break;
-                case ObjectType.Gold:
+                case ObjectType.Enemy2:
                     if (!this.GotHit)
                     {
-                        if (projectileCounter % projectileChance == 0) // Check if Quadcopter has to shoot
+                        if (projectileCounter % projectileChance == 0) // Check if enemy has to shoot
                         {
                             // If true, create a projectile in the main list of projectiles
                             Engine._objectProjectiles.Add(new GameObject(new Point2D(this.Point.X - 1, this.Point.Y), 0));
@@ -286,10 +286,10 @@ namespace TeamWork.Objects
                         PrintAndClearExplosion(false);
                     }
                     break;
-                case ObjectType.Lenghty:
+                case ObjectType.Enemy3:
                     if (!this.GotHit)
                     {
-                        if (projectileCounter % projectileChance == 0) // Check if Quadcopter has to shoot
+                        if (projectileCounter % projectileChance == 0) // Check if enemy has to shoot
                         {
                             // If true, create a projectile in the main list of projectiles
                             Engine._objectProjectiles.Add(new GameObject(new Point2D(this.Point.X - 1, this.Point.Y), 0));
@@ -301,7 +301,7 @@ namespace TeamWork.Objects
                             projectileCounter++;
                         }
 
-                        #region Quadcopter Entry animation
+                        #region Enemy Entry animation
                         /* Only agressive enemy type, shoots back, has 7 life, gives 10 points
                    __       __
                   _\_\_____/_|
@@ -309,7 +309,7 @@ namespace TeamWork.Objects
                      oo' 
              */
 
-                        // This makes the quadcopter entry smooth, not instant spawn in the center of the screen
+                        // This makes the enemy entry smooth, not instant spawn in the center of the screen
                         if (this.Point.X + 2 >= Engine.WindowWidth)
                         {
                             Printing.DrawAt(this.Point.X, Point.Y + 1, "█ ", ConsoleColor.Red);
@@ -374,12 +374,12 @@ namespace TeamWork.Objects
                         PrintAndClearExplosion(false);
                     }
                     break;
-                case ObjectType.Quadcopter:
+                case ObjectType.Enemy4:
 
 
                     if (!this.GotHit)
                     {
-                        if (projectileCounter % projectileChance == 0) // Check if Quadcopter has to shoot
+                        if (projectileCounter % projectileChance == 0) // Check if enemy has to shoot
                         {
                             // If true, create a projectile in the main list of projectiles
                             Engine._objectProjectiles.Add(new GameObject(new Point2D(this.Point.X - 1, this.Point.Y), 0));
@@ -477,9 +477,9 @@ namespace TeamWork.Objects
                 case ObjectType.Meteor2:
                     if (!this.GotHit)
                     {
-                        Printing.DrawAt(this.Point.X + 1, Point.Y - 1, @"███", ConsoleColor.DarkMagenta);
-                        Printing.DrawAt(this.Point.X, Point.Y, @"████", ConsoleColor.Magenta);
-                        Printing.DrawAt(this.Point.X, Point.Y + 1, @"██", ConsoleColor.DarkMagenta);
+                        Printing.DrawAt(this.Point.X + 1, Point.Y - 2, @"███", ConsoleColor.DarkMagenta);
+                        Printing.DrawAt(this.Point.X, Point.Y - 1 , @"████", ConsoleColor.Magenta);
+                        Printing.DrawAt(this.Point.X, Point.Y, @"██", ConsoleColor.DarkMagenta);
                     }
                     else
                     {
@@ -493,9 +493,9 @@ namespace TeamWork.Objects
                 case ObjectType.Meteor3:
                     if (!this.GotHit)
                     {
-                        Printing.DrawAt(this.Point.X + 1, Point.Y - 1, @"██", ConsoleColor.DarkGray);
-                        Printing.DrawAt(this.Point.X, Point.Y, @"████", ConsoleColor.Gray);
-                        Printing.DrawAt(this.Point.X, Point.Y + 1, @"███", ConsoleColor.DarkGray);
+                        Printing.DrawAt(this.Point.X + 1, Point.Y - 2, @"██", ConsoleColor.DarkGray);
+                        Printing.DrawAt(this.Point.X, Point.Y - 1 , @"████", ConsoleColor.Gray);
+                        Printing.DrawAt(this.Point.X, Point.Y, @"███", ConsoleColor.DarkGray);
                     }
                     else
                     {
@@ -520,8 +520,8 @@ namespace TeamWork.Objects
                 case ObjectType.Bullet:
                     Printing.DrawAt(this.Point.X, this.Point.Y, ' ');
                     break;
-                case ObjectType.Silver:
-                    #region Silver object clearing and breaking effect
+                case ObjectType.Enemy1:
+                    #region Enemy1 object clearing and breaking effect
                     if (!this.GotHit)
                     {
                         if (this.Point.X + 2 >= Engine.WindowWidth)
@@ -567,8 +567,8 @@ namespace TeamWork.Objects
                     }
                     #endregion
                     break;
-                case ObjectType.Gold:
-                    #region Gold object clearing and breaking effect math
+                case ObjectType.Enemy2:
+                    #region Enemy2 object clearing and breaking effect math
                     if (!this.GotHit)
                     {
                         if (this.Point.X + 2 >= Engine.WindowWidth)
@@ -631,8 +631,8 @@ namespace TeamWork.Objects
                     }
                     #endregion
                     break;
-                case ObjectType.Lenghty:
-                    #region Lenghty object clear and breaking effect math
+                case ObjectType.Enemy3:
+                    #region Enemy3 object clear and breaking effect math
                     if (!GotHit)
                     {
 
@@ -709,8 +709,8 @@ namespace TeamWork.Objects
                     }
                     #endregion
                     break;
-                case ObjectType.Quadcopter:
-                    #region Quadcopter object clear and breaking effect
+                case ObjectType.Enemy4:
+                    #region Enemy4 object clear and breaking effect
                     if (!GotHit)
                     {
                         if (this.Point.X + 2 >= Engine.WindowWidth)
@@ -817,9 +817,9 @@ namespace TeamWork.Objects
                     #region Small object clearing and breaking effect
                     if (!this.GotHit)
                     {
-                        Printing.DrawAt(this.Point.X + 1, Point.Y - 1, @"   ");
-                        Printing.DrawAt(this.Point.X, Point.Y, @"    ");
-                        Printing.DrawAt(this.Point.X, Point.Y + 1, @"  ");
+                        Printing.DrawAt(this.Point.X + 1, Point.Y - 2, @"   ");
+                        Printing.DrawAt(this.Point.X, Point.Y - 1, @"    ");
+                        Printing.DrawAt(this.Point.X, Point.Y, @"  ");
                     }
                     else
                     {
@@ -845,9 +845,9 @@ namespace TeamWork.Objects
                     #region Small object clearing and breaking effect
                     if (!this.GotHit)
                     {
-                        Printing.DrawAt(this.Point.X + 1, Point.Y - 1, @"  ");
-                        Printing.DrawAt(this.Point.X, Point.Y, @"    ");
-                        Printing.DrawAt(this.Point.X, Point.Y + 1, @"   ");
+                        Printing.DrawAt(this.Point.X + 1, Point.Y - 2, @"  ");
+                        Printing.DrawAt(this.Point.X, Point.Y - 1, @"    ");
+                        Printing.DrawAt(this.Point.X, Point.Y, @"   ");
                     }
                     else
                     {
@@ -954,7 +954,7 @@ namespace TeamWork.Objects
             }
             switch (objectType)
             {
-                case ObjectType.Silver:
+                case ObjectType.Enemy1:
                     /*  
                      * CFI
                      * ADG
@@ -971,7 +971,7 @@ namespace TeamWork.Objects
 
                         return true;
                     return false;
-                case ObjectType.Gold:
+                case ObjectType.Enemy2:
                     /*  
                      * CF(.)
                      * ADG
@@ -983,7 +983,7 @@ namespace TeamWork.Objects
                   (x >= this.Point.X + 3 && x <= this.Point.X + 5 && y == this.Point.Y - 1))  // Upper right side
                         return true;
                     return false;
-                case ObjectType.Lenghty:
+                case ObjectType.Enemy3:
                     /*
                      * ABCD
                      */
@@ -997,7 +997,7 @@ namespace TeamWork.Objects
               (x == this.Point.X + 4 && y == this.Point.Y + 2))  // Bottom right dot
                         return true;
                     return false;
-                case ObjectType.Quadcopter:
+                case ObjectType.Enemy4:
                     if ((x == this.Point.X + 2 && y == this.Point.Y - 2) ||  // Top dot
         (x >= this.Point.X && x <= this.Point.X + 6 && y == this.Point.Y - 1) ||  // Full row (Point.Y - 1)
         (x >= this.Point.X && x <= this.Point.X + 6 && y == this.Point.Y) ||  // Full row (Point.Y)
@@ -1013,10 +1013,9 @@ namespace TeamWork.Objects
                     // Shape:
                     //  (.)ABC
                     //  ....DEFGH
-                    if ((x == this.Point.X && (y == this.Point.Y || y == this.Point.Y - 1)) ||  // A
-                        (x == this.Point.X + 1 && (y == this.Point.Y || y == this.Point.Y - 1)) ||  // B
-                        (x == this.Point.X + 2 && y == this.Point.Y - 1) ||  // C
-                        (x >= this.Point.X && x <= this.Point.X + 3 && y == this.Point.Y))  // D, E, F, G, H
+                   
+                    if (((x >= this.Point.X && x <= this.Point.X + 4) && (y == this.Point.Y)) ||
+     ((x >= this.Point.X && x <= this.Point.X + 3) && (y == this.Point.Y - 1)))
                     {
                         return true;
                     }
@@ -1027,10 +1026,10 @@ namespace TeamWork.Objects
                     //   ..A
                     //   BCDEF
                     //   .G.
-                    if ((x == this.Point.X + 1 && y == this.Point.Y - 1) ||  // A
-                        (x >= this.Point.X && x <= this.Point.X + 3 && y == this.Point.Y) ||  // B, C, D, E, F
-                        (x == this.Point.X && y == this.Point.Y + 1) ||  // G
-                        (x == this.Point.X + 1 && y == this.Point.Y + 1))  // .
+                 
+                    if (((x >= this.Point.X && x <= this.Point.X + 4) && (y == this.Point.Y)) ||
+         ((x >= this.Point.X + 1 && x <= this.Point.X + 4) && (y == this.Point.Y - 1)) ||
+         ((x >= this.Point.X && x <= this.Point.X + 2) && (y == this.Point.Y + 1)))
                     {
                         return true;
                     }
@@ -1041,9 +1040,10 @@ namespace TeamWork.Objects
                     //  ..A
                     //  BCDEF
                     //  .G.
-                    if ((x == this.Point.X + 1 && y == this.Point.Y - 1) ||  // A
-                        (x >= this.Point.X && x <= this.Point.X + 3 && y == this.Point.Y) ||  // B, C, D, E, F
-                        (x == this.Point.X + 1 && y == this.Point.Y + 1))  // G
+                   
+                    if (((x >= this.Point.X && x <= this.Point.X + 4) && (y == this.Point.Y)) ||
+        ((x >= this.Point.X + 1 && x <= this.Point.X + 3) && (y == this.Point.Y - 1)) ||
+        ((x >= this.Point.X && x <= this.Point.X + 3) && (y == this.Point.Y + 1)))
                     {
                         return true;
                     }
@@ -1060,112 +1060,6 @@ namespace TeamWork.Objects
         {
             return Collided(point.X, point.Y);
         }
-        Random random = new Random();
-        List<BackgroundElements> danhSachBongTuyet = new List<BackgroundElements>();
-        public void BGs()
-        {
-
-            if (random.Next(5) == 0)
-            {
-                danhSachBongTuyet.Add(new BackgroundElements());
-
-
-            }
-            int count = 0;
-            // Vẽ tất cả các bông tuyết
-            foreach (BackgroundElements bongTuyet in danhSachBongTuyet)
-            {
-                if (count == 5)
-                {
-                    break;
-                }
-                bongTuyet.Ve();
-                bongTuyet.DiChuyen();
-                count++;
-            }
-        }
-    /*    public Point2D Point { get; set; }
-        private List<Laser> lasers = new List<Laser>();
-        private const int MoveSpeed = 2; // Speed of the object's 
-        private const int FireDelay = 1000; // 1 second delay
-        private DateTime lastFireTime;
-        public int chargingDelayTime = 1000; // Thời gian ngưng trước khi charge (2 giây)
-        private bool isDelayBeforeCharge = false; // Cờ để kiểm tra xem đã dừng trước khi charge chưa
-        private DateTime delayStartTime; // Để lưu thời gian bắt đầu dừng
-        public bool IsCharging { get; private set; } // New property to track charging state
-        private int direction = 1; // 1 for right, -1 for left
-
-
-        public void ChargeAndShoot()
-        {
-            if (!IsCharging && !isDelayBeforeCharge && random.Next(0, 100) < 10)
-            {
-                isDelayBeforeCharge = true;
-                delayStartTime = DateTime.Now;
-            }
-
-            if (isDelayBeforeCharge)
-            {
-                if ((DateTime.Now - delayStartTime).TotalMilliseconds >= chargingDelayTime)
-                {
-                    Laser newLaser = new Laser { Position = new Point2D( this.Point.X + 3,this.Point.Y), LifeOnScreen = 10 }; // Start below character
-                    lasers.Add(newLaser);
-                    lastFireTime = DateTime.Now;
-                    IsCharging = true;
-                    isDelayBeforeCharge = false;
-                }
-            }
-        }
-
-        public void UpdateLasers()
-        {
-            for (int i = lasers.Count - 1; i >= 0; i--)
-            {
-                Laser laser = lasers[i];
-
-                if (laser.LifeOnScreen > 8) // Charge-up effect
-                {
-                    // Vẽ chỉ số charge-up ngay dưới giữa nhân vật
-
-                    Printing.DrawAtBG(this.Point.X + 2, this.Point.Y + 2, "|", ConsoleColor.DarkGray);
-                    Printing.DrawAtBG(this.Point.X + 3, this.Point.Y + 2, "|", ConsoleColor.Gray);
-                    Printing.DrawAtBG(this.Point.X + 4, this.Point.Y + 2, "|", ConsoleColor.DarkGray);
-                }
-                else
-                {
-                    // Draw laser beam
-                    for (int j = 0; j <= 50; j++)
-                    {
-                        if (this.Point.Y + j + 2 < Engine.WindowHeight && (this.Point.Y + 1 + j) > laser.Position.Y) // Ensure it's below the character
-                        {
-                            Printing.DrawAtBG(this.Point.X + 2, this.Point.Y + j + 2, "|", ConsoleColor.DarkGray);
-                            Printing.DrawAtBG(this.Point.X + 3, this.Point.Y + j + 2, "|", ConsoleColor.Gray);
-                            Printing.DrawAtBG(this.Point.X + 4, this.Point.Y + j + 2, "|", ConsoleColor.DarkGray);
-                        }
-                    }
-                    lasers.RemoveAt(i);
-                    IsCharging = false;
-                }
-
-                laser.LifeOnScreen--;
-            }
-        }
-        public void ClearLasers()
-        {
-            foreach (var laser in lasers)
-            {
-                for (int i = -50; i <= 50; i++)
-                {
-                    if (laser.Position.Y + i > 0 && laser.Position.Y + i < Engine.WindowHeight) // Ensure it's within screen bounds
-                    {
-                        // Clear left, middle, and right columns of the vertical beam
-                        Printing.DrawAt(laser.Position.X - 1, laser.Position.Y + i, "");
-                        Printing.DrawAt(laser.Position.X, laser.Position.Y + i, "");
-                        Printing.DrawAt(laser.Position.X + 1, laser.Position.Y + i, "");
-                    }
-                }
-            }
-        }*/
     }
 }
 

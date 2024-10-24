@@ -441,18 +441,18 @@ namespace TeamWork.Field
             DrawAt(11, 12, "███████", ConsoleColor.Magenta);
             DrawAt(11, 13, " █ █ █", ConsoleColor.DarkMagenta);
 
-            DrawStringCharByChar(29, 3, @"███████╗████████╗███████╗██╗     ██╗      █████╗  ██████╗ ",2, false,  ConsoleColor.DarkRed);
-            DrawStringCharByChar(29, 4, @"██╔════╝╚══██╔══╝██╔════╝██║     ██║     ██╔══██╗ ██╔══██╗", 2, false, ConsoleColor.DarkRed);
-            DrawStringCharByChar(29, 5, @"███████╗   ██║   █████╗  ██║     ██║     ███████║ ██████╔╝", 2, false, ConsoleColor.DarkRed);
-            DrawStringCharByChar(29, 6, @"╚════██║   ██║   ██╔══╝  ██║     ██║     ██╔══██║ ██╔══██╗", 2, false, ConsoleColor.Red);
-            DrawStringCharByChar(29, 7, @"███████║   ██║   ███████╗███████╗███████╗██║  ██║ ██║  ██║", 2, false, ConsoleColor.Red);
-            DrawStringCharByChar(29, 8, @"╚══════╝   ╚═╝   ╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═╝  ╚═╝", 2, false, ConsoleColor.DarkRed);
-            DrawStringCharByChar(45, 10, @"██╗    ██╗ █████╗ ██████╗ ", 2, false, ConsoleColor.DarkRed);
-            DrawStringCharByChar(45, 11, @"██║    ██║██╔══██╗██╔══██╗", 2, false, ConsoleColor.Red);
-            DrawStringCharByChar(45, 12, @"██║ █╗ ██║███████║██████╔ ", 2, false, ConsoleColor.Red);
-            DrawStringCharByChar(45, 13, @"██║███╗██║██╔══██║██╔══██╗", 2, false, ConsoleColor.Red);
-            DrawStringCharByChar(45, 14, @"╚███╔███╔╝██║  ██║██║  ██║", 2, false, ConsoleColor.DarkRed);
-            DrawStringCharByChar(45, 15, @" ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝", 2, false, ConsoleColor.DarkRed);
+            DrawStringCharByChar(29, 3, @"███████╗████████╗███████╗██╗     ██╗      █████╗  ██████╗ ",1, false,  ConsoleColor.DarkRed);
+            DrawStringCharByChar(29, 4, @"██╔════╝╚══██╔══╝██╔════╝██║     ██║     ██╔══██╗ ██╔══██╗", 1, false, ConsoleColor.DarkRed);
+            DrawStringCharByChar(29, 5, @"███████╗   ██║   █████╗  ██║     ██║     ███████║ ██████╔╝", 1, false, ConsoleColor.DarkRed);
+            DrawStringCharByChar(29, 6, @"╚════██║   ██║   ██╔══╝  ██║     ██║     ██╔══██║ ██╔══██╗", 1, false, ConsoleColor.Red);
+            DrawStringCharByChar(29, 7, @"███████║   ██║   ███████╗███████╗███████╗██║  ██║ ██║  ██║", 1, false, ConsoleColor.Red);
+            DrawStringCharByChar(29, 8, @"╚══════╝   ╚═╝   ╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝ ╚═╝  ╚═╝", 1, false, ConsoleColor.DarkRed);
+            DrawStringCharByChar(45, 10, @"██╗    ██╗ █████╗ ██████╗ ", 1, false, ConsoleColor.DarkRed);
+            DrawStringCharByChar(45, 11, @"██║    ██║██╔══██╗██╔══██╗", 1, false, ConsoleColor.Red);
+            DrawStringCharByChar(45, 12, @"██║ █╗ ██║███████║██████╔ ", 1, false, ConsoleColor.Red);
+            DrawStringCharByChar(45, 13, @"██║███╗██║██╔══██║██╔══██╗", 1, false, ConsoleColor.Red);
+            DrawStringCharByChar(45, 14, @"╚███╔███╔╝██║  ██║██║  ██║", 1, false, ConsoleColor.DarkRed);
+            DrawStringCharByChar(45, 15, @" ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═╝", 1, false, ConsoleColor.DarkRed);
             Thread.Sleep(600);
 
             // Adding menu options
@@ -470,10 +470,10 @@ namespace TeamWork.Field
         /// </summary>
         public static void Credits()
         {
-            DrawHLineAt(0, 0, 115, '\u2588', 3, false, ConsoleColor.Red);
-            DrawVLineAt(114, 0, 30, '\u2588', 3, false, ConsoleColor.Red);
-            DrawHLineAt(114, 29, 115, '\u2588', 3, true, ConsoleColor.Red);
-            DrawVLineAt(0, 29, 30, '\u2588', 3, true, ConsoleColor.Red);
+            DrawHLineAt(0, 0, 115, '\u2588', 1, false, ConsoleColor.Red);
+            DrawVLineAt(114, 0, 30, '\u2588', 1, false, ConsoleColor.Red);
+            DrawHLineAt(114, 29, 115, '\u2588', 1, true, ConsoleColor.Red);
+            DrawVLineAt(0, 29, 30, '\u2588', 1, true, ConsoleColor.Red);
             DrawAt(90, 1, "♦             ♦", ConsoleColor.Cyan);
             DrawAt(19, 2, "♦             ♦", ConsoleColor.Cyan);
             DrawAt(43, 2, "♦              ♦", ConsoleColor.Cyan);
@@ -549,10 +549,10 @@ namespace TeamWork.Field
         /// </summary>
         public static void GameOver()
         {
-            DrawHLineAt(0, 0, 115, '\u2588', 3, false, ConsoleColor.Red);
-            DrawVLineAt(114, 0, 30, '\u2588', 3, false, ConsoleColor.Red);
-            DrawHLineAt(114, 29, 115, '\u2588', 3, true, ConsoleColor.Red);
-            DrawVLineAt(0, 29, 30, '\u2588', 3, true, ConsoleColor.Red);
+            DrawHLineAt(0, 0, 115, '\u2588', 1, false, ConsoleColor.Red);
+            DrawVLineAt(114, 0, 30, '\u2588', 1, false, ConsoleColor.Red);
+            DrawHLineAt(114, 29, 115, '\u2588', 1, true, ConsoleColor.Red);
+            DrawVLineAt(0, 29, 30, '\u2588', 1, true, ConsoleColor.Red);
             DrawAt(3, 1, "   ♦      ♦                   ♦       ♦               ♦       ♦                   ♦       ♦                    ", ConsoleColor.Cyan);
             DrawAt(1, 2, "                  ♦                                  █████                            ♦                         ", ConsoleColor.Cyan);
             DrawAt(1, 3, "                                                  ███████████            ♦      ♦                               ", ConsoleColor.Cyan);
