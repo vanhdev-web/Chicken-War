@@ -13,7 +13,6 @@ namespace TeamWork.Objects
             Bullet,
             Laser,
             Mine,
-            SoundWave // Unused 
         }
 
         private ObjectType objectType;
@@ -29,7 +28,7 @@ namespace TeamWork.Objects
         {
             base.Speed = 1;
             base.Point = point;
-            objectType = (ObjectType) type;
+            objectType = (ObjectType)type;
             // Based on the created type , set different lifeOnScreen values
             switch (objectType)
             {
@@ -40,13 +39,10 @@ namespace TeamWork.Objects
                     _lifeOnScreen = 60;
                     break;
                 case ObjectType.Laser:
-                    _lifeOnScreen = 20;
+                    _lifeOnScreen = 30;
                     break;
                 case ObjectType.Mine:
                     _lifeOnScreen = 30;
-                    break;
-                case ObjectType.SoundWave:
-                    _lifeOnScreen = 15;
                     break;
             }
         }
@@ -98,42 +94,49 @@ namespace TeamWork.Objects
                     // Rocket movement based on the random number
                     if (direction == 1)
                     {
-                        this.Point.X--;
-                        this.Point.Y--;
+                        this.Point.X -= 3;
+                        this.Point.Y++;
                         _lifeOnScreen--;
                     }
                     if (direction == 2)
                     {
-                        this.Point.X--;
+                        this.Point.Y++;
                         _lifeOnScreen--;
                     }
                     if (direction == 3)
                     {
-                        this.Point.X--;
+                        this.Point.X += 3;
                         this.Point.Y++;
                         _lifeOnScreen--;
                     }
-                    break;
 
-                    #endregion
+                    if (direction == 4)
+                    {
+                        this.Point.X += 5;
+                        this.Point.Y++;
+                        _lifeOnScreen--;
+
+                    }
+                    break;
+                #endregion
 
                 case ObjectType.Bullet:
 
                     #region Bullet Movement
                     // Standard bullet movement
-                    this.Point.X -= 2;
-                    _lifeOnScreen -= 2;
+                    this.Point.Y += 1;
+                    _lifeOnScreen -= 1;
                     break;
 
-                    #endregion
+                #endregion
 
                 case ObjectType.Laser:
 
                     #region Laser Movement
-                    
+
                     if (_lifeOnScreen > 8) // Laser chargeup "effect"
                     {
-                        if (_lifeOnScreen%2 == 0)
+                        if (_lifeOnScreen % 2 == 0)
                         {
                             this.Point.Y--;
                         }
@@ -145,7 +148,7 @@ namespace TeamWork.Objects
                     this._lifeOnScreen--;
                     break;
 
-                    #endregion
+                #endregion
 
                 case ObjectType.Mine:
 
@@ -195,7 +198,7 @@ namespace TeamWork.Objects
                     else if (_lifeOnScreen >= 10)
                     {
 
-                        if (_lifeOnScreen%2 == 0)
+                        if (_lifeOnScreen % 2 == 0)
                         {
                             if (direction == 1)
                             {
@@ -219,20 +222,10 @@ namespace TeamWork.Objects
                     _lifeOnScreen--;
                     break;
 
-                    #endregion
-
-                case ObjectType.SoundWave: // Unimplemented type
-
-                    #region Soundwave Movement
-
-                    this.Point.X--;
-                    _lifeOnScreen--;
-                    break;
-
-                    #endregion
+                #endregion
             }
         }
-        
+
         private int Frames = 1; // "Frames passed used for the explosion effect calculation"
 
         private bool mineHit, mineHit2, mineHit3, mineHit4; // Triggers for mine explosion particles
@@ -253,18 +246,21 @@ namespace TeamWork.Objects
                     Printing.DrawAt(this.Point, "<>");
                     break;
 
-                    #endregion
+                #endregion
 
                 case ObjectType.Bullet:
 
                     #region Bullet Print
 
-                    Printing.DrawAt(this.Point, '-', ConsoleColor.DarkCyan);
-                    Printing.DrawAt(this.Point.X, this.Point.Y + 1, '-', ConsoleColor.DarkCyan);
-                    Printing.DrawAt(this.Point.X, this.Point.Y - 1, '-', ConsoleColor.DarkCyan);
+
+                    Printing.DrawAt(this.Point, '*', ConsoleColor.DarkCyan);
+                    Printing.DrawAt(this.Point.X - 7, this.Point.Y, '*', ConsoleColor.DarkCyan);
+                    Printing.DrawAt(this.Point.X + 7, this.Point.Y, '*', ConsoleColor.DarkCyan);
+                    Printing.DrawAt(this.Point.X - 5, this.Point.Y, '*', ConsoleColor.DarkCyan);
+                    Printing.DrawAt(this.Point.X + 5, this.Point.Y, '*', ConsoleColor.DarkCyan);
                     break;
 
-                    #endregion
+                #endregion
 
                 case ObjectType.Laser:
 
@@ -273,25 +269,26 @@ namespace TeamWork.Objects
                     if (this._lifeOnScreen > 8) // Print chargeup effect
                     {
                         Engine.boss.Movealbe = false; // Make the boss imovable while printing the chargeup effect
-                        Printing.DrawAtBG(this.Point.X + 5, this.Point.Y - 1, @"<----.     __ / __   \",
+                        Printing.DrawAtBG(this.Point.X + 5, this.Point.Y + 8, @"<----.     __ / __   \",
                             ConsoleColor.DarkGray);
-                        Printing.DrawAtBG(this.Point.X + 5, this.Point.Y, @"<----|====O)))==) \) /", ConsoleColor.Gray);
-                        Printing.DrawAtBG(this.Point.X + 5, this.Point.Y + 1, "<----'    `--' `.__,'",
+                        Printing.DrawAtBG(this.Point.X + 5, this.Point.Y + 9, @"<----|====O)))==) \) /", ConsoleColor.Gray);
+                        Printing.DrawAtBG(this.Point.X + 5, this.Point.Y + 10, "<----'    `--' `.__,'",
                             ConsoleColor.DarkGray);
                         Console.ResetColor();
                     }
                     else // Print whole laser
                     {
-                        Printing.DrawAtBG(this.Point.X - 50, this.Point.Y - 1,
+                        Printing.DrawAtBG(this.Point.X - 50, this.Point.Y + 8,
                             "-------------------------------------------------------<----.", ConsoleColor.DarkGray);
-                        Printing.DrawAtBG(this.Point.X - 50, this.Point.Y,
+                        Printing.DrawAtBG(this.Point.X - 50, this.Point.Y + 9,
                             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<----|", ConsoleColor.Gray);
-                        Printing.DrawAtBG(this.Point.X - 50, this.Point.Y + 1,
+                        Printing.DrawAtBG(this.Point.X - 50, this.Point.Y + 10,
                             "-------------------------------------------------------<----'", ConsoleColor.DarkGray);
                         Console.ResetColor();
-                        for (int i = 0; i < 53; i++) 
+
+                        for (int i = 0; i < 53; i++)
                         {
-                            if (Engine.Player.ShipCollided(Point.X - 50 + i, Point.Y)) // Check if theres a colision with the player in the middle of the laser
+                            if (Engine.Player.ShipCollided(Point.X - 50 + i, Point.Y + 9)) // Check if theres a colision with the player in the middle of the laser
                             {
                                 break;
                             }
@@ -303,7 +300,7 @@ namespace TeamWork.Objects
                     }
                     break;
 
-                    #endregion
+                #endregion
 
                 case ObjectType.Mine:
 
@@ -317,17 +314,17 @@ namespace TeamWork.Objects
                     }
                     else // Print explosion effect
                     {
-                        Point2D upRight = this.Point - diagonalDec*Frames;
+                        Point2D upRight = this.Point - diagonalDec * Frames;
                         // If the particle hits the player, move it 1000 times to the right so its not printed
                         if (mineHit) upRight.X += 1000;
 
-                        Point2D upLeft = this.Point + diagonalDec*Frames;
+                        Point2D upLeft = this.Point + diagonalDec * Frames;
                         if (mineHit2) upLeft.X += 1000;
 
-                        Point2D downLeft = this.Point - diagonalInc*Frames;
+                        Point2D downLeft = this.Point - diagonalInc * Frames;
                         if (mineHit3) downLeft.X += 1000;
 
-                        Point2D downRight = this.Point + diagonalInc*Frames;
+                        Point2D downRight = this.Point + diagonalInc * Frames;
                         if (mineHit4) downRight.X += 1000;
 
                         // If the particle is in the screen boundries , print it
@@ -350,24 +347,9 @@ namespace TeamWork.Objects
                     }
                     break;
 
-                    #endregion
+                #endregion
 
-                case ObjectType.SoundWave: // Unimplemented
-
-                    #region SoundWave Print
-
-                    for (int i = 0 - Frames; i < Frames; i++)
-                    {
-                        if ((this.Point.Y - i > 4 && this.Point.Y + i < Engine.WindowHeight - 4))
-                        {
-                            Printing.DrawAt(this.Point.X, this.Point.Y - i, "/", ConsoleColor.Gray);
-                            Printing.DrawAt(this.Point.X, this.Point.Y + i, "\\", ConsoleColor.Gray);
-                        }
-                    }
-                    Frames++;
-                    break;
-
-                    #endregion
+            
             }
         }
 
@@ -383,19 +365,21 @@ namespace TeamWork.Objects
                     #region Bullet Clear
                     // Clear the object 
                     Printing.DrawAt(this.Point.X, this.Point.Y, ' ');
-                    Printing.DrawAt(this.Point.X, this.Point.Y + 1, ' ');
-                    Printing.DrawAt(this.Point.X, this.Point.Y - 1, ' ');
+                    Printing.DrawAt(this.Point.X + 7, this.Point.Y, ' ');
+                    Printing.DrawAt(this.Point.X - 7, this.Point.Y, ' ');
+                    Printing.DrawAt(this.Point.X + 5, this.Point.Y, ' ');
+                    Printing.DrawAt(this.Point.X - 5, this.Point.Y, ' ');
                     // Check for collision
                     if (Engine.Player.ShipCollided(this.Point) ||
-                        Engine.Player.ShipCollided(Point.X, Point.Y + 1) ||
-                        Engine.Player.ShipCollided(Point.X, Point.Y - 1))
+                        Engine.Player.ShipCollided(Point.X + 1, Point.Y) ||
+                        Engine.Player.ShipCollided(Point.X + 2, Point.Y))
                     {
                         // If theres a collision, set this object lifeonscreen to zero
                         this._lifeOnScreen = 0;
                     }
                     break;
 
-                    #endregion
+                #endregion
 
                 case ObjectType.Rocket:
 
@@ -408,7 +392,7 @@ namespace TeamWork.Objects
                     }
                     break;
 
-                    #endregion
+                #endregion
 
                 case ObjectType.Laser:
 
@@ -416,23 +400,26 @@ namespace TeamWork.Objects
 
                     if (this._lifeOnScreen > 5)
                     {
-                        Printing.DrawAt(this.Point.X, this.Point.Y - 2, "                      ");
-                        Printing.DrawAt(this.Point.X, this.Point.Y - 1, "                      ");
-                        Printing.DrawAt(this.Point.X, this.Point.Y, "             ");
-                        Printing.DrawAt(this.Point.X, this.Point.Y + 1, "              ");
+                        Printing.DrawAt(this.Point.X + 5, this.Point.Y + 7, "                      ");
+                        Printing.DrawAt(this.Point.X + 5, this.Point.Y + 8, "                      ");
+                        Printing.DrawAt(this.Point.X + 5, this.Point.Y + 9, "                     ");
+                        Printing.DrawAt(this.Point.X + 5, this.Point.Y + 10, "                      ");
+
+
+
                     }
                     else
                     {
-                        Printing.DrawAt(this.Point.X - 50, this.Point.Y - 1,
-                            "                                                         ");
-                        Printing.DrawAt(this.Point.X - 50, this.Point.Y,
-                            "                                                         ");
-                        Printing.DrawAt(this.Point.X - 50, this.Point.Y + 1,
-                            "                                                         ");
+                        Printing.DrawAt(this.Point.X - 50, this.Point.Y + 8,
+                            "                                                                     ");
+                        Printing.DrawAt(this.Point.X - 50, this.Point.Y + 9,
+                            "                                                                     ");
+                        Printing.DrawAt(this.Point.X - 50, this.Point.Y + 10,
+                            "                                                                     ");
                     }
                     break;
 
-                    #endregion
+                #endregion
 
                 case ObjectType.Mine:
 
@@ -446,19 +433,19 @@ namespace TeamWork.Objects
                     }
                     else
                     {
-                        Point2D upRight = this.Point - diagonalDec*Frames;
+                        Point2D upRight = this.Point - diagonalDec * Frames;
                         if (mineHit) upRight.X += 1000;
                         if (Engine.Player.ShipCollided(upRight)) mineHit = true;
 
-                        Point2D upLeft = this.Point + diagonalDec*Frames;
+                        Point2D upLeft = this.Point + diagonalDec * Frames;
                         if (mineHit2) upLeft.X += 1000;
                         if (Engine.Player.ShipCollided(upLeft)) mineHit2 = true;
 
-                        Point2D downLeft = this.Point - diagonalInc*Frames;
+                        Point2D downLeft = this.Point - diagonalInc * Frames;
                         if (mineHit3) downLeft.X += 1000;
                         if (Engine.Player.ShipCollided(downLeft)) mineHit3 = true;
 
-                        Point2D downRight = this.Point + diagonalInc*Frames;
+                        Point2D downRight = this.Point + diagonalInc * Frames;
                         if (mineHit4) downRight.X += 1000;
                         if (Engine.Player.ShipCollided(downRight)) mineHit4 = true;
 
@@ -482,24 +469,7 @@ namespace TeamWork.Objects
                     }
                     break;
 
-                    #endregion
-
-                case ObjectType.SoundWave: // Unimplemented
-
-                    #region SoundWave Clear
-
-                    for (int i = 0; i < Frames; i++)
-                    {
-                        if ((this.Point.Y - i > 4 && this.Point.Y + i < Engine.WindowHeight - 4))
-                        {
-                            Printing.DrawAt(this.Point.X, this.Point.Y - i, "  ", ConsoleColor.Gray);
-                            Printing.DrawAt(this.Point.X, this.Point.Y + i, "  ", ConsoleColor.Gray);
-                        }
-
-                    }
-                    break;
-
-                    #endregion
+                #endregion
             }
         }
     }

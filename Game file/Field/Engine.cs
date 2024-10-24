@@ -13,7 +13,7 @@ namespace TeamWork.Field
         public static Random Rnd = new Random();
         public static Player Player = new Player();
         public bool DrawMenu = false;
-        public const int StartingDifficulty = 80;
+        public const int StartingDifficulty = 40;
         public Thread MusicThread; // Background music thread
         public Thread EffectsThread; // Effects music thread
 
@@ -233,20 +233,10 @@ namespace TeamWork.Field
             if (_counter % Chance == 0)
             {
                 // When its time to spawn an enemy , random its type
-                _meteorits.Add(new GameObject(Rnd.Next(1,4)));
+                _meteorits.Add(new GameObject(Rnd.Next(1,8)));
                 _counter++;
             }
-            else
-            {
-                _counter++;
-            }
-            if (_counter % Chance == 0)
-            {
-                // When its time to spawn a meteor , random its type
-                _meteorits.Add(new GameObject(Rnd.Next(5, 8)));
-                _counter++;
-            }
-            else
+            else 
             {
                 _counter++;
             }
